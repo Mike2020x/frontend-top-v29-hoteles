@@ -1,0 +1,17 @@
+.contenedor__listaOfertas {
+    margin: 30px 0;
+    text-align: center;
+  
+    h1 {
+      margin: 0 0 30px 0;
+    }
+    
+  }
+  
+  .contenedor__ofertas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
