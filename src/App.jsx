@@ -4,7 +4,7 @@ import NavBar from './components/navbar/NavBar'
 import Home from "./pages/Home"
 
 import Footer from './components/footer/Footer'
-import './App.css'
+import './App.scss'
 
 function App() {
 
