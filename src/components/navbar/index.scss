@@ -1,21 +1,24 @@
-.nav-bar {
-  height: 50px;
-  width: 100%;
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  .nav-bar--logo{
-    width: 50%;
-  }
-  .nav-bar--buttons{
-    width: 50%;
+@media (min-width: 375px) {
+  .nav-bar {
+    height: 50px;
+    width: 100%;
+    background-color: #fff;
     display: flex;
-    justify-content: space-around;
-    .nav-bar__buttons--item{
-      font-size: 20px;
+    align-items: center;
 
+    .nav-bar--logo {
+      width: 50%;
+    }
+
+    .nav-bar--buttons {
+      width: 50%;
+      display: flex;
+      justify-content: space-around;
+
+      .nav-bar__buttons--item {
+        font-size: 20px;
+
+      }
     }
   }
 }
-
-
