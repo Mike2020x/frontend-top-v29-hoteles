@@ -9,6 +9,7 @@
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "local-api": "json-server --watch db.json --port 8080 --routes routes.json",
+    "all": "npm-run-all --parallel dev local-api"
     "all":"npm-run-all --parallel dev local-api"
   },
   "dependencies": {
@@ -37,5 +38,8 @@
     "json-server": "^0.17.3",
     "npm-run-all": "^4.1.5",
     "vite": "^4.3.2"
+  },
+  "volta": {
+    "node": "18.16.0"
   }
 }
