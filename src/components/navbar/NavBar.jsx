@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+// import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faUser, faGear } from '@fortawesome/free-solid-svg-icons'
 import "./index.scss"
@@ -9,24 +9,20 @@ export default function NavBar() {
       <div className="navigation__bar--logo">
         <img src="https://picsum.photos/100/50" alt="logo" width="200px" height="100px" />
       </div>
-      <div className="navigation__bar--items">
-
-
+      <div>
         <FontAwesomeIcon icon={faGear} className='nav-bar__buttons--item' />
       </div>
       <ul className="navigation__bar--items">
         <li>
-          <NavLink to="/" className="pestana">Home</NavLink>
+          <a href="/" className="pestana">Home</a>
         </li>
         <li>
-          <NavLink to="/pricing" className="pestana">
-            Pricing
-          </NavLink>
+          <a href="/pages" className="pestana">Pages</a>
         </li>
         <li>
-          <NavLink to="/about" className="pestana">
+          <a href="/about" className="pestana">
             <FontAwesomeIcon icon={faUser} className='nav-bar__buttons--item' />
-          </NavLink>
+          </a>
         </li>
         <button>
           <FontAwesomeIcon icon={faBars} className='nav-bar__buttons--item' width="40px" height="40px"/>
