@@ -13,11 +13,11 @@ function Titulos() {
                     </div>
                     <div>
                         <h4>CHECK IN</h4>
-                        <h3>18 April</h3>
+                        <input type="date" id="checkOut" className="search-for--input" />
                     </div>
                     <div>
                         <h4>CHECK OUT</h4>
-                        <h3>20 April</h3>
+                        <input type="date" id="checkIn" className="search-for--input" />
                     </div>
                     <div>
                         <h4>GUESTS</h4>
@@ -35,5 +35,6 @@ function Titulos() {
         </>
     )
 }
+
 
 export default Titulos
