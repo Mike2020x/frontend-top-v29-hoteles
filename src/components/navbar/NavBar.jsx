@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faUser, faGear } from '@fortawesome/free-solid-svg-icons'
 import "./index.scss"
 
-
 export default function NavBar() {
   return (
     <nav className="nav-bar">
@@ -18,3 +17,4 @@ export default function NavBar() {
 
   )
 }
+
