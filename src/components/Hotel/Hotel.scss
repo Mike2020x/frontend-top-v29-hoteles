@@ -1,0 +1,56 @@
+.contenedor__cardhotel {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+}
+
+.contenedor__espacio {
+    padding: 0 0 0 16px;
+
+    p {
+        margin: 0;
+        font-size: 14px;
+    }
+}
+
+.priceService {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 40px;
+    gap: 10px;
+
+    h2 {
+        margin: 0;
+    }
+
+    button {
+        padding: 5px 10px;
+        font-size: 12px;
+        border: 1px solid;
+        border-color: grey;
+        border-radius: 7px;
+        background-color: white;
+    }
+}
+
+.contenedor__locacion {
+    display: flex;
+
+    align-items: center;
+
+    h1 {
+        margin: 0;
+        font-size: 22px;
+    }
+
+    .logo__location {
+        margin: 0 5px 0 10px;
+    }
+
+    h4 {
+        margin: 10px 0;
+        font-size: 15px;
+    }
+}
+

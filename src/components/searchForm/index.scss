@@ -1,0 +1,33 @@
+.search-form-container{
+  width: 100%;
+  padding: 20px 10px;
+  display: block;
+  background: #16BFFD;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #CB3066, #16BFFD);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #CB3066, #16BFFD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.search-form__title{
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  font-weight: normal;
+  font-family: sans-serif;
+}
+.search-form{
+  background-color: #fff;
+  width: 95%;
+  display: flex;
+  margin: 0 auto;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  .search-form__item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+}
