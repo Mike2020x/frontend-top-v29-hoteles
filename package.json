@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "local-api": "json-server --watch db.json --port 8080 --routes routes.json",
     "all": "npm-run-all --parallel dev local-api"
+    "all":"npm-run-all --parallel dev local-api"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
