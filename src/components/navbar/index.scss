@@ -3,56 +3,94 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  background-color: #212627;
+  background-color: white;
   border-radius: 0.25rem;
 
   &--logo {
-      display: flex;
-      align-items: center;
-      gap: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
 
-      img {
-          border-radius: 0.25rem;
-      }
+    img {
+      border-radius: 0.25rem;
+    }
 
-      h1 {
-          color: white;
-          font-size: 27px;
-      }
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+  }
+
+  &--content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   &--menu {
-      margin: 0;
-      padding: 0;
-      display: none;
-      border: none;
-      border-radius: 0.25rem;
-      background-color: white;
+    margin: 0;
+    padding: 0;
+    display: none;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: white;
   }
 
   &--items {
-      font-size: 20px;
-      font-weight: bold;
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+    margin: 10px;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+
+    a {
+      font-size: 16px;
+      color: black;
+      text-decoration: none;
+    }
   }
 
-  @media screen and (max-width: 650px) {
-      &--items {
-          display: none;
-          flex-direction: column;
-      }
+}
 
-      &--menu {
-          display: block;
-      }
+.configuration {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  button {
+    width: 30px;
+  }
+
+  #faGear {
+    padding: 7px 0 0 8px;
+  }
+
+  select,
+  button {
+    height: 27px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    background-color: gainsboro;
+    border: 0;
+    border-radius: 5px;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .nav-bar__buttons--item {
+    display: none;
   }
 }
 
 @media screen and (max-width: 650px) {
-  .navigation__bar {
-      justify-content: space-between;
+  .nav-bar__buttons--item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navigation__bar--items {
+    display: none;
   }
 }
