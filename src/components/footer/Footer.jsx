@@ -43,12 +43,12 @@ export default function Footer() {
       <h3>Top Places</h3>
       <div className="footer__top-places">
 
-        <img src="https://picsum.photos/200/200" alt="logo" />
-        <img src="https://picsum.photos/200/200" alt="logo" />
-        <img src="https://picsum.photos/200/200" alt="logo" />
-        <img src="https://picsum.photos/200/200" alt="logo" />
-        <img src="https://picsum.photos/200/200" alt="logo" />
-        <img src="https://picsum.photos/200/200" alt="logo" />
+        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
+        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
+        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
+        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
+        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item"/>
+        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item"/>
       </div>
       <div className="footer__new-topics">
         <div className="new-topics--title"><h3>New Topics</h3></div>
