@@ -8,7 +8,6 @@ export default function Home() {
       <Titulos />
       <ListaOfertas />
       <ListaLocalizaciones />
-
     </div>
   )
 }
