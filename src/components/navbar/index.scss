@@ -139,6 +139,11 @@
 }
 
 @media screen and (max-width: 650px) {
+
+  h1 {
+    font-size: 20px;
+  }
+
   .nav-bar__buttons--item {
     height: 27px;
     width: 30px;
