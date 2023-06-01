@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEnvelope, faLocationPin, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faEnvelope, faLocationPin, faPhone } from '@fortawesome/free-solid-svg-icons'
 import {
   faFacebook, faInstagram, faTwitter, faGoogle
 } from '@fortawesome/free-brands-svg-icons'
@@ -7,17 +7,21 @@ import "./index.scss"
 
 export default function Footer() {
   return (
+  <>
     <footer className="footer">
-      <h3>Contact Us</h3>
-      <img src="https://picsum.photos/100/50" alt="logo" />
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores sint sunt repellendus hic vitae laudantium quod, alias, quidem voluptas dolorum omnis sequi. Officiis necessitatibus expedita quos in fuga quo eaque.</p>
+      <h4>Contact Us</h4>
+      <div className="footer__logo">
+        <FontAwesomeIcon icon={faCircleCheck} size="2xl" />
+        <h3>RICA</h3>
+      </div>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores sint sunt repellendus hic vitae laudantium quod...</p>
       <div className="footer__icons">
-        <div className="footer__icons--item"><FontAwesomeIcon icon={faLocationPin} color="#4d4d4e" /> <span>A-32,Albany,Newyork</span></div>
-        <div className="footer__icons--item"><FontAwesomeIcon icon={faPhone} color="#4d4d4e" /> <span>518-457-5181</span></div>
-        <div className="footer__icons--item"><FontAwesomeIcon icon={faEnvelope} color="#4d4d4e" /> <span>contact@gmail.com</span> </div>
+        <div><FontAwesomeIcon className="footer__icons--item" icon={faLocationPin} color="#4d4d4e" /> <span>A-32,Albany,Newyork</span></div>
+        <div><FontAwesomeIcon className="footer__icons--item" icon={faPhone} color="#4d4d4e" /> <span>518-457-5181</span></div>
+        <div><FontAwesomeIcon className="footer__icons--item" icon={faEnvelope} color="#4d4d4e" /> <span>contact@gmail.com</span> </div>
       </div>
       <div className="footer__usefull-links">
-        <h3>Useful Links</h3>
+        <h4>Useful Links</h4>
         <ul>
           <li>Home</li>
           <li>Our Vehical</li>
@@ -29,7 +33,7 @@ export default function Footer() {
         </ul>
       </div>
       <div className="footer__about-links">
-        <h3>Useful Links</h3>
+        <h4>About</h4>
         <ul>
           <li>About Us</li>
           <li>FAQ</li>
@@ -40,27 +44,30 @@ export default function Footer() {
           <li>Mobile App</li>
         </ul>
       </div>
-      <h3>Top Places</h3>
+      <h4>Top Places</h4>
       <div className="footer__top-places">
-
         <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
         <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
         <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
         <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
-        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item"/>
-        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item"/>
+        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
+        <img src="https://picsum.photos/200/200" alt="logo" className="footer__top-places--item" />
       </div>
+      <h4>New Topics</h4>
       <div className="footer__new-topics">
-        <div className="new-topics--title"><h3>New Topics</h3></div>
         <div className="footer__new-topics--item">
           <img src="https://picsum.photos/200/200" alt="topics" />
-          <h4>Recent News</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores fugit nesciunt eveniet, vitae hic consequuntur veniam deserunt ut. Veniam officiis recusandae molestiae voluptatum suscipit optio numquam repellendus, ullam rerum sint.</p>
+          <div className="footer__new-topics--text">
+            <h4>Recent News</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores fugit nesciunt...</p>
+          </div>
         </div>
         <div className="footer__new-topics--item">
           <img src="https://picsum.photos/200/200" alt="topics" />
-          <h4>Recent News</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores fugit nesciunt eveniet, vitae hic consequuntur veniam deserunt ut. Veniam officiis recusandae molestiae voluptatum suscipit optio numquam repellendus, ullam rerum sint.</p>
+          <div className="footer__new-topics--text">
+            <h4>Recent News</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores fugit nesciunt...</p>
+          </div>
         </div>
       </div>
       <div className="footer__social">
@@ -79,5 +86,6 @@ export default function Footer() {
       </div>
       <span className="copyright">Copyright 2023 make it real camp 💖</span>
     </footer >
+    </>
   )
 }

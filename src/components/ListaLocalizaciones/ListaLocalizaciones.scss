@@ -1,7 +1,26 @@
   .lista__localizaciones {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 40px;
-      gap: 15px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 40px;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 375px) {
+    .lista__localizaciones {
+      margin: 0;
+
+      .hide {
+        display: none;
+      }
+    }
+
+    h2 {
+      font-size: 15px;
+    }
+
+    p {
+      font-size: 13px;
+      color: grey;
+    }
   }

@@ -1,23 +1,19 @@
 .localizacion {
-    text-align: center;
-    width: 150px;
+  text-align: center;
+  width: 150px;
+  font-weight: bold;
 
-    img {
-        border-radius: 10px;
-        height: 200px;
-    }
+  img {
+    border-radius: 10px;
+    height: 200px;
+  }
 
-    &--text {
+  h2 {
+    font-size: 16px;
+  }
 
-        font-weight: bold;
-
-        h2 {
-            font-size: 16px;
-        }
-
-        p {
-            font-size: 14px;
-            color: grey;
-        }
-    }
+  p {
+    font-size: 14px;
+    color: grey;
+  }
 }
