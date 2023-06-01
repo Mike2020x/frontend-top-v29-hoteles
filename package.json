@@ -8,8 +8,11 @@
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "coverage": "vitest run --coverage",
     "local-api": "json-server --watch db.json --port 8080 --routes routes.json",
-    "all": "npm-run-all --parallel dev local-api"
+    "all": "npm-run-all --parallel dev local-api",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
@@ -24,9 +27,15 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
+    "@testing-library/dom": "^9.3.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react-swc": "^3.0.0",
+    "@vitest/coverage-c8": "^0.31.3",
+    "@vitest/ui": "^0.31.3",
     "eslint": "^8.40.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.27.5",
@@ -35,9 +44,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "husky": "^8.0.3",
+    "jsdom": "^22.1.0",
     "json-server": "^0.17.3",
     "npm-run-all": "^4.1.5",
-    "vite": "^4.3.2"
+    "vite": "^4.3.2",
+    "vitest": "^0.31.3"
   },
   "volta": {
     "node": "18.16.0"
