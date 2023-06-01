@@ -11,7 +11,7 @@ function Titulos() {
             <div className='contenedor__titulos--mobileBox'>
               <div className='contenedor__titulos--border'>
                 <h4>HOTEL</h4>
-                <h2>Dubay</h2>
+                <h2>Dubai</h2>
               </div>
               <div className='contenedor__titulos--border'>
                 <h4>CHECK IN</h4>
@@ -32,7 +32,7 @@ function Titulos() {
                 </select>
               </div>
             </div>
-            <div className='contenedor__titulos--box'>
+            <div className='contenedor__titulos--box search'>
               <button>SEARCH</button>
             </div>
           </div>
