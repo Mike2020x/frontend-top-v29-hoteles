@@ -4,7 +4,7 @@ import { faBars, faUser, faGear, faCircleCheck, faAngleLeft } from '@fortawesome
 import "./index.scss";
 
 export default function NavBar() {
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);

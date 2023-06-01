@@ -84,7 +84,7 @@
     .back {
       display: flex;
       justify-content: center;
-      margin-left: auto;  // Mueve el botón "BACK" al extremo opuesto
+      margin-left: auto; // Mueve el botón "BACK" al extremo opuesto
       border-bottom: 2px solid gainsboro;
     }
 
@@ -139,6 +139,11 @@
 }
 
 @media screen and (max-width: 650px) {
+
+  h1 {
+    font-size: 20px;
+  }
+
   .nav-bar__buttons--item {
     height: 27px;
     width: 30px;
@@ -150,5 +155,14 @@
 
   .navigation__bar--items {
     display: none;
+  }
+}
+
+@media screen and (max-width: 432px) {
+  .navigation__bar {
+
+    &--logo {
+      gap: 10px;
+    }
   }
 }
