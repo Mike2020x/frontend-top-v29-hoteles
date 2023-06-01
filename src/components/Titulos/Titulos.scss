@@ -22,6 +22,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     align-items: center;
+<<<<<<< HEAD
     background-color: white;
     border-radius: 10px;
     width: 65vw;
@@ -77,6 +78,13 @@
 
 @media screen and (max-width: 1115px) {
   .contenedor__titulos {
+=======
+    text-align: center;
+    background-image: url('/fondoTitulos.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 40vh;
+>>>>>>> 5e8109d3b0682ef26f3d80109cba2c0d4d44018c
 
     h1 {
       font-size: 20px;
@@ -88,6 +96,7 @@
       margin: 10px 0;
       padding: 10px 40px;
     }
+<<<<<<< HEAD
 
     &--box {
       display: flex;
@@ -237,4 +246,6 @@
   .contenedor__titulos {
     height: 200px;
   }
+=======
+>>>>>>> 5e8109d3b0682ef26f3d80109cba2c0d4d44018c
 }
