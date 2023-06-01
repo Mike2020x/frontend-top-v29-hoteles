@@ -39,7 +39,9 @@ function ListaLocalizaciones() {
     <>
       <div className='lista__localizaciones'>
         {localizaciones.map((localizacion, index) => (
-          <Localizacion key={index} {...localizacion} />
+          <div className={`lista__localizaciones--item ${index > 1 ? 'hide' : ''}`} key={index}>
+            <Localizacion {...localizacion} />
+          </div>
         ))}
       </div>
     </>
