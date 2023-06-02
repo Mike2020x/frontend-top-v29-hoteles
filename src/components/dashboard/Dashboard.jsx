@@ -43,16 +43,15 @@ export default function Dashboard() {
       <div className="dashboard__profile__login-details">
         <div className="dashboard__profile__login-details__title"><h3>Login Details</h3></div>
         <div className="dashboard__profile__login-details--item">
-          <h4>Email Adress</h4> <span>mark.enderess@mail.com</span>
+          <h4>Email Adress</h4> <span>mark.enderess@mail.com</span> <a href="#">Edit</a>
         </div>
         <div className="dashboard__profile__login-details--item">
-          <h4>Phone No</h4> <span>+91123-456-7890</span>
+          <h4>Phone No</h4> <span>+91123-456-7890</span> <a href="#">Edit</a>
         </div>
         <div className="dashboard__profile__login-details--item">
-          <h4>Password</h4> <span>******</span>
+          <h4>Password</h4> <span>******</span> <a href="#">Edit</a>
         </div>
       </div>
-
     </div>
   )
 }
