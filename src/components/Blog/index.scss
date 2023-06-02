@@ -1,0 +1,64 @@
+.blog {
+  &__description {
+    padding: 10px;
+    text-align: center;
+    background-color: aquamarine;
+  }
+
+  &__attribute {
+    background-color: white;
+    border-radius: 15px;
+  }
+
+  &__published {
+    padding: 10px;
+
+    h4 {
+      color: red;
+    }
+
+    button {
+      color: white;
+      font-weight: bold;
+      border: 0;
+      background-color: red;
+    }
+  }
+
+  &__newsletter,
+  &__subscribe {
+    padding: 15px;
+  }
+
+  &__newsletter p {
+    color: gray;
+  }
+
+  &__newsletter button {
+    padding: 10px;
+    border-radius: 7px;
+  }
+
+  &__subscribe {
+    text-align: center;
+
+    p, h4 {
+      color: grey;
+    }
+  }
+
+  &__email {
+    display: flex;
+    justify-content: space-between;
+
+    h4 {
+      margin: 10px 0;
+    }
+
+    button {
+      border-radius: 30px;
+      width: 100px;
+    }
+  }
+
+}
