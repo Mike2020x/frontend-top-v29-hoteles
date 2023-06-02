@@ -1,0 +1,35 @@
+.summery {
+  background-color: rosybrown;
+  margin: 0 auto;
+
+  &__hotel-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+  }
+
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
+  &__check {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__payment-detail {
+    display: flex;
+    flex-direction: column;
+
+    &--container,
+    &--amount {
+      display: flex;
+      justify-content: space-between;
+    }
+
+  }
+}

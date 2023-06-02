@@ -1,7 +1,7 @@
 import Titulos from "../components/Titulos/Titulos";
 import ListaOfertas from "../components/ListaOfertas/ListaOfertas";
 import ListaLocalizaciones from "../components/ListaLocalizaciones/ListaLocalizaciones";
-import BookingSuccess from "./BookingSuccess";
+import BookingSummary from "../components/bookingSummary/BookingSummery";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       {/* <Titulos />
       <ListaOfertas />
       <ListaLocalizaciones /> */}
-      <BookingSuccess />
+      <BookingSummary />
     </div>
   )
 }
