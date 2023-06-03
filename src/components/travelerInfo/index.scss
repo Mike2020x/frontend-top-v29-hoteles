@@ -1,0 +1,78 @@
+.info {
+  margin: 10px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+
+  &__full-name {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    &--item {
+      display: flex;
+      width: 50%;
+      flex-direction: column;
+    }
+  }
+
+  &__email {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+
+    span {
+      font-size: 13px;
+      color: gray;
+    }
+  }
+
+  &__contact {
+    margin-top: 20px;
+
+  }
+
+  &__request {
+    display: flex;
+    flex-direction: column;
+
+    &__contact-info {
+      margin-top: 20px;
+
+    }
+  }
+
+  &__coupon {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+
+    &--btn {
+      height: 25px;
+      background-color: lightgray;
+      border: none;
+      background-repeat: 15px;
+    }
+  }
+
+  &__pay-btn {
+    width: 100%;
+    height: 30px;
+    background-color: #ef3f3f;
+    border: none;
+    color: #fff;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+}
+
+input[type="email"],
+input[type="text"] {
+  height: 25px;
+}
+
+#code {
+  width: 90%;
+}
