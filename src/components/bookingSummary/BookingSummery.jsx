@@ -1,4 +1,5 @@
 import "./index.scss"
+
 export default function BookingSummery() {
   return (<div className="summery">
     <h2>Booking Summery</h2>

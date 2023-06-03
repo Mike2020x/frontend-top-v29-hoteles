@@ -5,7 +5,7 @@ import ".//BookingSummaryPage.scss"
 
 export default function BookingSummaryPage() {
   return (
-    <div className="summery">
+    <div className="summary-page">
       <BookingSummery />
       <TravelerInfo />
     </div>
