@@ -1,240 +1,132 @@
 .contenedor__titulos {
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
   text-align: center;
   background-image: url('/fondoTitulos.jpg');
   background-repeat: no-repeat;
-  background-size: 100%;
-  height: 40vh;
+  background-size: cover;
+  height: 55vh;
 
   h1 {
-    margin: 0;
     color: white;
     //-webkit-text-stroke: 1.5px black; Delinear letras
   }
 
-  &--busqueda {
-    margin: 20px;
+  &--mobileBox {
     padding: 20px 0;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &--busqueda {
+    height: 230px;
     background-color: white;
     border-radius: 10px;
-    width: 65vw;
 
     h4 {
+      margin: 0 10px 10px;
       font-size: 12px;
-      margin: 0;
       color: gray;
     }
 
     h3 {
       font-size: 14px;
-      margin: 10px 0 0 0;
-    }
-
-    h2 {
-      margin: 0;
     }
 
     .cantidad {
-      margin: 10px 0 0 0;
-      padding: 0 20px;
       font-weight: bold;
-      border: 0;
     }
 
     button {
+      margin: 20px;
       padding: 10px 15px;
+      height: 35px;
       color: white;
       border: 0;
       background-color: red;
     }
   }
 
-  &--box {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-
-  &--mobileBox {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 40px;
-  }
-
   &--border {
-    padding-right: 40px;
+    width: 120px;
+
+    .location {
+      width: 110px;
+    }
+  }
+
+  .border__right1 {
     border-right: 2px solid gainsboro;
   }
+
+  .border__right2 {
+    display: none;
+  }
 }
 
-@media screen and (max-width: 1115px) {
+@media Screen and (max-width: 682px) {
   .contenedor__titulos {
-
-    h1 {
-      font-size: 20px;
+    &--busqueda {
+      width: 90vw;
+      margin: 0 auto;
     }
+  }
+}
+
+@media Screen and (min-width: 682px) {
+  .contenedor__titulos {
+    height: 60vh;
 
     &--busqueda {
+      display: flex;
       justify-content: space-around;
-      width: 44vw;
-      margin: 10px 0;
-      padding: 10px 40px;
-    }
-
-    &--box {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-
-      button {
-        height: 40px;
-      }
-    }
-
-    &--mobileBox {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-}
-
-@media screen and (max-width: 1095px) {
-  .contenedor__titulos {
-    display: flex;
-    justify-content: center;
-
-    h1 {
-      font-size: 20px;
-    }
-
-    &--mobileBox {
-      gap: 20px;
-    }
-
-    &--box {
-      gap: 20px;
-    }
-
-    &--busqueda {
-      width: 37vw;
-      padding: 10px 20px;
+      padding: 0;
+      width: 80vw;
     }
 
     &--border {
-      padding-right: 20px;
+      padding: 0 20px;
     }
-  }
-}
-
-
-@media screen and (max-width: 970px) {
-  .contenedor__titulos {
 
     &--box {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
+      justify-content: center;
+      align-items: center;
     }
 
-    &--mobileBox {
-      gap: 10px;
-    }
-
-    &--border {
-      padding-right: 10px;
+    .border__right2 {
+      display: flex;
+      border-right: 2px solid gainsboro;
     }
   }
 }
 
-@media screen and (max-width: 870px) {
+@media Screen and (min-width: 810px) {
   .contenedor__titulos {
-    h1 {
-      font-size: 16px;
-    }
-
+    height: 300px;
     &--busqueda {
-      padding: 10px 10px;
-      width: 45vw;
-
-      h4 {
-        font-size: 8px;
-      }
-
-      h3 {
-        font-size: 10px;
-        margin: 10px 0 0 0;
-      }
-
-      h2 {
-        font-size: 14px;
-      }
-
-      button {
-        padding: 0 10px;
-        font-size: 10px;
-      }
+      height: 180px;
     }
-
   }
 }
 
-@media screen and (max-width: 752px) {
+@media Screen and (min-width: 1115px) {
   .contenedor__titulos {
-    height: 30vh;
-
+    height: 250px;
     &--busqueda {
-      margin: 0;
-      padding: 10px 10px;
-      width: 45vw;
-
-      button {
-        height: 20px;
-        font-size: 10px;
-      }
+      height: 100px;
+      width: 70vw;
     }
-
   }
 }
 
-@media screen and (max-width: 645px) {
+@media Screen and (min-width: 1300px) {
   .contenedor__titulos {
-    height: 25vh;
-
     &--busqueda {
-      width: 63vw;
-
-      button {
-        height: 20px;
-        font-size: 10px;
-      }
+      width: 60vw;
     }
-
-  }
-}
-
-@media screen and (max-width: 540px) {
-  .contenedor__titulos {
-    height: 200px;
-    background-size: 700px;
-    background-position: center;
-
-    &--busqueda {
-      width: 85vw;
-    }
-  }
-}
-
-@media screen and (max-width: 432px) {
-  .contenedor__titulos {
-    height: 200px;
   }
 }
