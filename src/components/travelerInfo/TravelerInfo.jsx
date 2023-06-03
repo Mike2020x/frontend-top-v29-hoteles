@@ -1,3 +1,4 @@
+import PhoneNumberInput from "../phoneInput/PhoneNumberInput"
 import "./index.scss"
 
 export default function TravelerInfo() {
@@ -21,8 +22,20 @@ export default function TravelerInfo() {
           <span>Booking information will be sent to this email</span>
         </div>
         <div className="info__contact">
-
+          <label htmlFor="number">Contact Info</label>
+          <PhoneNumberInput />
         </div>
+        <div className="info__request">
+          <label htmlFor="req">Especial Request</label>
+          <textarea name="request" id="req" cols="30" rows="10" placeholder="e.g.. early check-in,airport transfer" />
+        </div>
+        <div className="info__coupon">
+          <label htmlFor="code">Have a Coupon Code?</label>
+          <div className="info__coupon--item"><input type="text" id="code" placeholder="PROMO CODE" />
+            <button className="info__coupon--btn">APPLY</button>
+          </div>
+        </div>
+        <input className="info__pay-btn" type="submit" value="PAY NOW" />
       </form>
     </div>
   )
