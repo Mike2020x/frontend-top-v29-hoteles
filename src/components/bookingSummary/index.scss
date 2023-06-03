@@ -1,18 +1,28 @@
 .summery {
   background-color: rosybrown;
-  margin: 0 auto;
+  margin: 10px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
 
   &__hotel-info {
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 100%;
 
+    &--text {
+      width: 100%;
+      font-size: 20px;
+
+    }
   }
 
   &__details {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top: 0.1px solid lightgray;
 
   }
 
@@ -24,6 +34,8 @@
   &__payment-detail {
     display: flex;
     flex-direction: column;
+    border-top: 0.1px solid lightgray;
+
 
     &--container,
     &--amount {
