@@ -1,4 +1,5 @@
 .content__hotelList {
+
   &--selection {
     display: flex;
     justify-content: space-between;
@@ -41,5 +42,44 @@
   .red {
     background-color: red;
     color: white;
+  }
+}
+
+@media Screen and (max-width: 540px) {
+  .filter__hide {
+    display: none;
+  }
+
+  .filter__menu {
+    width: 60px;
+    font-weight: bold;
+  }
+
+  .filter__icon {
+    margin: 0 20px;
+  }
+
+  .content__hotelList {
+    &--selection {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    &--filter {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media Screen and (min-width: 540px) {
+  .filter__hide {
+    display: flex;
+  }
+
+  .filter__menu {
+    display: none;
   }
 }

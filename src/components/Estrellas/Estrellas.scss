@@ -1,24 +1,18 @@
 .contenedor__stars {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    gap: 24px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 24px;
 }
 
 .contenedor__estrellas {
-    display: flex;
-    gap: 5px;
+  display: flex;
+  gap: 5px;
 
-    &--star {
-        margin: 0;
-        padding: 0;
-        height: 16px;
-        cursor: pointer
-    }
-}
-
-.revisiones {
-    h4 {
-        margin: 10px;
-    }
+  &--star {
+    margin: 0;
+    padding: 0;
+    height: 16px;
+    cursor: pointer
+  }
 }
