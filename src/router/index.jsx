@@ -8,11 +8,12 @@ import SignUp from "../pages/SignUp"
 import BookingSuccess from "../pages/BookingSuccess"
 import UserDashboard from "../pages/UserDashboard"
 import BookingSummary from "../pages/bookinSummaryPage/BookingSummaryPage";
+import NotFound from "../pages/NotFound/NotFound"
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: "Not Found",
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
