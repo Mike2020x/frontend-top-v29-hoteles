@@ -1,4 +1,4 @@
-.contenedor__listaOfertas {
+.content__listOffers {
   margin: 30px 0;
   text-align: center;
 
@@ -8,19 +8,19 @@
 
 }
 
-.contenedor__ofertas {
+.content__listOferrs--Offer {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 15px;
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (max-width: 375px) {
   .offer {
     display: none;
   }
 
-  .contenedor__cardoferta {
+  .content__cardoferta {
     width: 320px;
 
     img {

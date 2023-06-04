@@ -1,7 +1,7 @@
 import Oferta from '../Oferta/Oferta'
 import './ListaOfertas.scss'
 
-function ListaOfertas() {
+function ListOffers() {
 
   return (
     <>

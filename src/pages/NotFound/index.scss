@@ -1,53 +1,55 @@
-.titulo {
-  padding-left: 30px;
-}
-
-.contenedor {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-
-  #imagen {
-    margin: 14px;
-    padding: 0;
+.content__notFound {
+  &--title {
+    padding-left: 30px;
   }
 
-  img {
-    margin: 30px;
-    height: 360px;
+  &--description {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+
+    &__image {
+      margin: 14px;
+      padding: 0;
+    }
+
+    img {
+      margin: 30px;
+      height: 360px;
+    }
+
+    &__text {
+      margin-left: 100px;
+      margin-right: 80px;
+      padding: 30px 50px 60px 50px;
+      font-family: 'Space Mono', monospace;
+
+      &-message {
+        width: 320px;
+        font-size: 20px;
+        margin-bottom: 30px;
+        color: #4F4F4F;
+      }
+
+      h1 {
+        font-size: 50px;
+        font-weight: 500;
+        color: #333333;
+      }
+
+      button {
+        color: white;
+        margin: 10px;
+        padding: 30px;
+        margin-bottom: 30px;
+        text-decoration: none;
+        background-color: #333333;
+      }
+    }
   }
 
-  .texto {
-    margin-left: 100px;
-    margin-right: 80px;
-    padding: 30px 50px 60px 50px;
-    font-family: 'Space Mono', monospace;
-
-    .rectangulo {
-      width: 320px;
-      font-size: 20px;
-      margin-bottom: 30px;
-      color: #4F4F4F;
-    }
-
-    h1 {
-      font-size: 50px;
-      font-weight: 500;
-      color: #333333;
-    }
-
-    button {
-      color: white;
-      margin: 10px;
-      padding: 30px;
-      margin-bottom: 30px;
-      text-decoration: none;
-      background-color: #333333;
-    }
-  }
-
-  @media screen and (max-width:800px) {
-    .imagen {
+  @media screen and (max-width: 800px) {
+    &__image {
       margin-top: 50px;
       padding: 7px;
     }
@@ -58,7 +60,7 @@
       height: 240px;
     }
 
-    .contenedor {
+    &--description {
       margin: 0;
       padding: 0;
       display: block;
@@ -66,7 +68,7 @@
       justify-items: center;
     }
 
-    .texto {
+    &__text {
       padding: 10px;
       margin: 0;
       align-items: center;
@@ -79,7 +81,7 @@
         color: #333333;
       }
 
-      .rectangulo {
+      &-message {
         width: 270px;
         font-size: 15px;
       }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import './Estrellas.scss';
-function Estrellas() {
+import './Star.scss';
+
+export default function Star() {
   //const [contar, setContar] = useState(0)
   const [valor, setValor] = useState(Array(5).fill(""));
 
@@ -11,12 +12,12 @@ function Estrellas() {
 
   return (
     <>
-      <div className='contenedor__stars'>
-        <div className='contenedor__estrellas'>
+      <div className='content__star'>
+        <div className='content__star--only'>
           {valor.map((v, index) => (
-            <div key={index} className='contenedor__estrellas--star'>
+            <div key={index} className='content__star--style'>
               <img
-                src={`/estrella${v}.jpg`}
+                src={`/star${v}.jpg`}
                 onClick={() => handleClick(index)}
                 className={`star${index + 1}`}
                 width="16px"
@@ -24,11 +25,8 @@ function Estrellas() {
             </div>
           ))}
         </div>
-
       </div>
     </>
   );
 }
-
-export default Estrellas;
 

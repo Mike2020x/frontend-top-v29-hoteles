@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGooglePlus } from '@fortawesome/free-brands-svg-icons';
-import './Login.scss';
+import './index.scss';
 
 const Login = () => {
   const [isLoginActive, setIsLoginActive] = useState(true);
