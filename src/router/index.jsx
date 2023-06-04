@@ -1,7 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layout/Root";
 import Home from "../pages/Home";
-
+import Checkout from "../pages/checkoutPage/Checkout"
+import HotelList from "../pages/HotelList/HotelList"
+import HotelSingle from "../pages/HotelSingle/HotelSingle"
+import SignUp from "../pages/SignUp"
+import BookingSuccess from "../pages/BookingSuccess"
+import UserDashboard from "../pages/UserDashboard"
+import BookingSummary from "../pages/bookinSummaryPage/BookingSummaryPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,12 +20,42 @@ const router = createBrowserRouter([
         // loader: loaderProducts,
       },
       {
-        path: "pages",
-        // element: <About />,
+        path: "checkout",
+        element: <Checkout />,
       },
       {
-        path: "",
-        // element: <ProductCard />,
+        path: "hotel-list",
+        element: <HotelList />,
+        // loader: loaderProduct,
+      },
+      {
+        path: "hotel-single",
+        element: <HotelSingle />,
+        // loader: loaderProduct,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+        // loader: loaderProduct,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+        // loader: loaderProduct,
+      },
+      {
+        path: "booking-success",
+        element: <BookingSuccess />
+        // loader: loaderProduct,
+      },
+      {
+        path: "user-dashboard",
+        element: <UserDashboard />,
+        // loader: loaderProduct,
+      },
+      {
+        path: "summary",
+        element: <BookingSummary />,
         // loader: loaderProduct,
       },
     ],
