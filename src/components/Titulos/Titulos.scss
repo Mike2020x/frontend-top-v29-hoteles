@@ -7,6 +7,7 @@
   background-image: url('/fondoTitulos.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  height: 55vh;
 
   h1 {
     color: white;
@@ -20,6 +21,7 @@
   }
 
   &--busqueda {
+    height: 230px;
     background-color: white;
     border-radius: 10px;
 
@@ -114,12 +116,21 @@
   }
 }
 
+@media Screen and (min-width: 810px) {
+  .contenedor__titulos {
+    height: 300px;
+    &--busqueda {
+      height: 180px;
+    }
+  }
+}
 
 @media Screen and (min-width: 1115px) {
   .contenedor__titulos {
     height: 250px;
     &--busqueda {
       height: 100px;
+      width: 70vw;
     }
   }
 }
