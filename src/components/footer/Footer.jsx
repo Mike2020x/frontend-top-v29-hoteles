@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck, faEnvelope, faLocationPin, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faInstagram, faTwitter, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import "./index.scss";
 
@@ -16,7 +16,7 @@ export default function Footer() {
             </div>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores sint sunt repellendus hic vitae laudantium quod...</p>
             <div className="footer__icons">
-              <div><FontAwesomeIcon className="footer__icons--item" icon={faLocationPin} color="#4d4d4e" /> <span>A-32,Albany,Newyork</span></div>
+              <div><FontAwesomeIcon className="footer__icons--item" icon={faLocationDot} color="#4d4d4e" /> <span>A-32,Albany,Newyork</span></div>
               <div><FontAwesomeIcon className="footer__icons--item" icon={faPhone} color="#4d4d4e" /> <span>518-457-5181</span></div>
               <div><FontAwesomeIcon className="footer__icons--item" icon={faEnvelope} color="#4d4d4e" /> <span>contact@gmail.com</span> </div>
             </div>

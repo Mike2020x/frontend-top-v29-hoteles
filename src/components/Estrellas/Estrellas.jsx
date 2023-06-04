@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types'
 import './Estrellas.scss';
-
-function Estrellas({ reviews }) {
+function Estrellas() {
   //const [contar, setContar] = useState(0)
   const [valor, setValor] = useState(Array(5).fill(""));
 
@@ -26,15 +24,10 @@ function Estrellas({ reviews }) {
             </div>
           ))}
         </div>
-        <div className='revisiones'>
-          <h4>{reviews} review</h4>
-        </div>
+
       </div>
     </>
   );
-}
-Estrellas.propTypes = {
-  reviews: PropTypes.number,
 }
 
 export default Estrellas;

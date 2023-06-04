@@ -1,56 +1,131 @@
-.contenedor__cardhotel {
+.contenedor {
+  &__cardhotel {
     display: flex;
     flex-direction: column;
-    width: 360px;
-}
+    align-items: center;
+    border: 2px outset rgb(128, 128, 128, 0.2);
+    width: 100%;
+    margin: 0 auto;
+  }
 
-.contenedor__espacio {
-    padding: 0 0 0 16px;
+  &__espacio {
 
     p {
-        margin: 0;
-        font-size: 14px;
+      margin: 0;
+      font-size: 14px;
+      color: gray;
     }
-}
+  }
 
-.priceService {
+  &__location {
     display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 40px;
-    gap: 10px;
-
-    h2 {
-        margin: 0;
-    }
-
-    button {
-        padding: 5px 10px;
-        font-size: 12px;
-        border: 1px solid;
-        border-color: grey;
-        border-radius: 7px;
-        background-color: white;
-    }
-}
-
-.contenedor__locacion {
-    display: flex;
-
-    align-items: center;
 
     h1 {
-        margin: 0;
-        font-size: 22px;
-    }
-
-    .logo__location {
-        margin: 0 5px 0 10px;
+      margin: 0;
+      font-size: 22px;
     }
 
     h4 {
-        margin: 10px 0;
-        font-size: 15px;
+      margin: 10px 0;
+      font-size: 15px;
+      color: gray;
     }
+
+    .logo__location {
+      margin: 0 5px 0 10px;
+    }
+  }
 }
 
+.revisiones {
+  h4 {
+      margin: 10px;
+      color: gray;
+  }
+}
+
+.priceService {
+  display: flex;
+
+  h2 {
+    margin: 0;
+  }
+
+  button {
+    padding: 5px 10px;
+    font-size: 12px;
+    border: 1px solid;
+    color: gray;
+    border-color: grey;
+    border-radius: 7px;
+    background-color: white;
+  }
+}
+
+.priceHotel {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+@media Screen and (min-width: 375px) {
+  .image {
+    width: 90vw;
+    margin: 0 auto;
+  }
+
+  .contenedor {
+    &__cardhotel {
+      padding: 0 0 10px 0;
+    }
+
+    &__espacio {
+      padding-top: 10px;
+      width: 80vw;
+      margin: 0 auto;
+    }
+
+    &__location {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .priceService {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media Screen and (min-width: 480px) {
+
+  .image {
+    width: 360px;
+    margin: 0 auto;
+  }
+
+  .contenedor {
+    &__cardhotel {
+      padding: 0;
+    }
+
+    &__espacio {
+      padding-top: 10px;
+      width: 330px;
+      margin: 0 auto;
+    }
+  }
+
+  .contenedor__location {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .priceService {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

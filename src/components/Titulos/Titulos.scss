@@ -66,16 +66,18 @@
   }
 }
 
-@media Screen and (max-width: 682px) {
+@media Screen and (max-width: 650px) {
   .contenedor__titulos {
+    height: 55vh;
     &--busqueda {
+      height: 40vh;
       width: 90vw;
       margin: 0 auto;
     }
   }
 }
 
-@media Screen and (min-width: 682px) {
+@media Screen and (min-width: 650px) {
   .contenedor__titulos {
     height: 60vh;
 
@@ -100,6 +102,16 @@
     .border__right2 {
       display: flex;
       border-right: 2px solid gainsboro;
+    }
+  }
+}
+
+@media Screen and (min-width: 967px) {
+  .contenedor__titulos {
+    height: 300px;
+    &--busqueda {
+      height: 180px;
+      width: 70vw;
     }
   }
 }
