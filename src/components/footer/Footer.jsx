@@ -6,8 +6,8 @@ import "./index.scss";
 export default function Footer() {
   return (
     <>
-      <footer className="footer">
-        <div className="footer__content">
+      <footer data-testid="footer" className="footer">
+        <div data-testid="content" className="footer__content">
           <h4 className="hide__contact">Contact Us</h4>
           <div className="footer__bloque">
             <div className="footer__logo">
@@ -15,7 +15,7 @@ export default function Footer() {
               <h3>RICA</h3>
             </div>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores sint sunt repellendus hic vitae laudantium quod...</p>
-            <div className="footer__icons">
+            <div data-testid="icons" className="footer__icons">
               <div><FontAwesomeIcon className="footer__icons--item" icon={faLocationDot} color="#4d4d4e" /> <span>A-32,Albany,Newyork</span></div>
               <div><FontAwesomeIcon className="footer__icons--item" icon={faPhone} color="#4d4d4e" /> <span>518-457-5181</span></div>
               <div><FontAwesomeIcon className="footer__icons--item" icon={faEnvelope} color="#4d4d4e" /> <span>contact@gmail.com</span> </div>
