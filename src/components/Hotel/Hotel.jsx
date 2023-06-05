@@ -1,4 +1,4 @@
-import Star from '../Star/Star'
+import Star from '../star/Star'
 import PropTypes from 'prop-types'
 import './Hotel.scss'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
