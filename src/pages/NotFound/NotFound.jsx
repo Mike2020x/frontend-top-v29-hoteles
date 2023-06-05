@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './index.scss'
 
 export default function NotFound() {
@@ -14,7 +15,7 @@ export default function NotFound() {
             <p className="frase">We are sorry, but the booking you are looking for could not be found.</p>
             <p className="frase">Please check your booking details or contact our support team for further assistance.</p>
           </div>
-          <button>BACK TO HOMEPAGE</button>
+          <button><Link to="/">BACK TO HOMEPAGE</Link></button>
         </div>
       </div>
     </div>
