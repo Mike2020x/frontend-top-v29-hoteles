@@ -11,7 +11,7 @@ export default function Titles() {
             <div className='content__titles--mobileBox'>
               <div className='content__titles--border'>
                 <h4>HOTEL</h4>
-                <input type="text" className='location'/>
+                <input type="text" className='location' />
               </div>
               <div className="border__right1"></div>
               <div className='content__titles--border'>

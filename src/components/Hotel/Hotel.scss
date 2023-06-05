@@ -45,6 +45,13 @@
     }
   }
 
+  .revisiones {
+    h4 {
+      margin: 10px;
+      color: gray;
+    }
+  }
+
   &--priceService {
     display: flex;
 
@@ -126,4 +133,9 @@
       justify-content: space-between;
     }
   }
+}
+
+a {
+  text-decoration: none;
+  color: #000;
 }
