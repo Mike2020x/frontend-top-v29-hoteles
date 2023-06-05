@@ -2,6 +2,7 @@ import './index.scss'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed, faCheck, faCouch, faShower, faTv } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 
 export default function Room({ title, image, beforePrice, nowPrice }) {
@@ -32,7 +33,7 @@ export default function Room({ title, image, beforePrice, nowPrice }) {
               <p className='line'>{beforePrice}</p>
               <h4>{nowPrice}</h4>
               <p>per night</p>
-              <button>Book Now</button>
+              <button><Link to="/summary">Book Now</Link></button>
             </div>
           </div>
         </div>
@@ -47,5 +48,3 @@ Room.propTypes = {
   beforePrice: PropTypes.string,
   nowPrice: PropTypes.string,
 }
-
-
