@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGooglePlus } from '@fortawesome/free-brands-svg-icons';
 import './index.scss';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [isLoginActive, setIsLoginActive] = useState(true);
@@ -49,7 +50,7 @@ const Login = () => {
             <input type="password" placeholder="Password" />
           </div>
           <div className="u-form-group">
-            <button>Log in</button>
+            <button><Link to="/dashboard">Log in</Link></button>
           </div>
           <div className="u-form-group">
             <a href="#" className="forgot-password">
