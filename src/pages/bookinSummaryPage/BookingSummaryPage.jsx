@@ -1,4 +1,4 @@
-import BookingSummery from "../../components/bookingSummary/BookingSummery";
+import BookingSummary from "../../components/bookingSummary/BookingSummary";
 import TravelerInfo from "../../components/travelerInfo/TravelerInfo";
 import ".//BookingSummaryPage.scss"
 
@@ -6,7 +6,7 @@ import ".//BookingSummaryPage.scss"
 export default function BookingSummaryPage() {
   return (
     <div className="summary-page">
-      <BookingSummery />
+      <BookingSummary />
       <TravelerInfo />
     </div>
   )
