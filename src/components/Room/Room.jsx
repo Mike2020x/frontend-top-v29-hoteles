@@ -48,5 +48,3 @@ Room.propTypes = {
   beforePrice: PropTypes.string,
   nowPrice: PropTypes.string,
 }
-
-
