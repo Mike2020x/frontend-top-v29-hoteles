@@ -38,7 +38,7 @@ export default function Titles() {
               <div className="border__right2"></div>
             </div>
             <div className='content__titles--box search'>
-              <button><Link to="hotel-list">SEARCH</Link></button>
+              <button><Link to="/hotel-list">SEARCH</Link></button>
             </div>
           </div>
         </div>
