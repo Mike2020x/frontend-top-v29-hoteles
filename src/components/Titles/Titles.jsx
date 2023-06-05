@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './Titles.scss'
 
 export default function Titles() {
@@ -11,7 +12,7 @@ export default function Titles() {
             <div className='content__titles--mobileBox'>
               <div className='content__titles--border'>
                 <h4>HOTEL</h4>
-                <input type="text" className='location' />
+                <input type="text" className='location'/>
               </div>
               <div className="border__right1"></div>
               <div className='content__titles--border'>
@@ -37,7 +38,7 @@ export default function Titles() {
               <div className="border__right2"></div>
             </div>
             <div className='content__titles--box search'>
-              <button>SEARCH</button>
+              <button><Link to="hotel-list">SEARCH</Link></button>
             </div>
           </div>
         </div>
