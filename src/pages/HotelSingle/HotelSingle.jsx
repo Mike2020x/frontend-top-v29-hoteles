@@ -1,7 +1,7 @@
 import './index.scss'
 import Room from '../../components/Room/Room'
 import Hotel from '../../components/Hotel/Hotel'
-import Star from '../../components/Star/Star'
+import Star from '../../components/star/Star'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faHeart, faShareFromSquare } from '@fortawesome/free-solid-svg-icons'
 
