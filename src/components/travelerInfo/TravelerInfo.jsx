@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import PhoneNumberInput from "../phoneInput/PhoneNumberInput"
 import "./index.scss"
 
@@ -35,7 +36,7 @@ export default function TravelerInfo() {
             <button className="info__coupon--btn">APPLY</button>
           </div>
         </div>
-        <input className="info__pay-btn" type="submit" value="PAY NOW" />
+        <Link to="/checkout"><input className="info__pay-btn" type="submit" value="PAY NOW" /></Link>
       </form>
     </div>
   )

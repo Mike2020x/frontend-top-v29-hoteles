@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import './Hotel.scss'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 
 export default function Hotel({ imageHotel, title, location, description, pastprice, actualprice }) {
 
   return (
     <>
+    <Link to="/hotel-single">
       <div className='content__hotelCard'>
         <img src={imageHotel} className="content__hotelCard--image" alt={imageHotel} />
         <div className='content__hotelCard--space'>
@@ -36,6 +38,7 @@ export default function Hotel({ imageHotel, title, location, description, pastpr
           </div>
         </div>
       </div>
+      </Link>
     </>
   )
 }

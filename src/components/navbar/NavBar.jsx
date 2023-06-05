@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faUser, faGear, faCircleCheck, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import "./index.scss";
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -40,7 +41,7 @@ export default function NavBar() {
             </select>
           </div>
           <button>
-            <FontAwesomeIcon icon={faUser} />
+            <Link to="/signup"><FontAwesomeIcon icon={faUser} /></Link>
           </button>
           <button id="faGear" className="nav-bar__buttons--item">
             <FontAwesomeIcon icon={faGear} />
