@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './Titulos.scss'
 
 function Titulos() {
@@ -11,7 +12,7 @@ function Titulos() {
             <div className='contenedor__titulos--mobileBox'>
               <div className='contenedor__titulos--border'>
                 <h4>HOTEL</h4>
-                <input type="text" className='location'/>
+                <input type="text" className='location' />
               </div>
               <div className="border__right1"></div>
               <div className='contenedor__titulos--border'>
@@ -37,7 +38,7 @@ function Titulos() {
               <div className="border__right2"></div>
             </div>
             <div className='contenedor__titulos--box search'>
-              <button>SEARCH</button>
+              <Link to="/hotel-list">SEARCH</Link>
             </div>
           </div>
         </div>

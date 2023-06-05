@@ -39,8 +39,8 @@
 
 .revisiones {
   h4 {
-      margin: 10px;
-      color: gray;
+    margin: 10px;
+    color: gray;
   }
 }
 
@@ -128,4 +128,9 @@
     flex-direction: row;
     justify-content: space-between;
   }
+}
+
+a {
+  text-decoration: none;
+  color: #000;
 }
