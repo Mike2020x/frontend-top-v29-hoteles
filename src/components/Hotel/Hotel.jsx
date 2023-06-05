@@ -1,4 +1,4 @@
-import Estrellas from '../Estrellas/Estrellas'
+import Star from '../Star/Star'
 import PropTypes from 'prop-types'
 import './Hotel.scss'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +19,7 @@ export default function Hotel({ imageHotel, title, location, description, pastpr
           </div>
           <p>{description}</p>
           <div className='content__hotelCard--stars'>
-            <Estrellas/>
+            <Star/>
             <div className='content__hotelCard--reviews'>
               <h4>26412 review</h4>
             </div>

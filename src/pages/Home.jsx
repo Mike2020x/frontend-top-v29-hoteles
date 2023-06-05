@@ -1,14 +1,14 @@
-import Titulos from "../components/Titulos/Titulos";
-import ListaOfertas from "../components/ListaOfertas/ListaOfertas";
-import ListaLocalizaciones from "../components/ListaLocalizaciones/ListaLocalizaciones";
+import Titles from "../components/Titles/Titles";
+import ListOffers from "../components/ListOffers/ListOffers";
+import ListLocations from "../components/ListLocations/ListLocations";
 import Blog from "../components/Blog/Blog";
 
 export default function Home() {
   return (
     <div>
-      <Titulos />
-      <ListaOfertas />
-      <ListaLocalizaciones />
+      <Titles />
+      <ListOffers />
+      <ListLocations />
       <Blog />
     </div>
   )

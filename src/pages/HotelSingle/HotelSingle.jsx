@@ -1,7 +1,7 @@
 import './index.scss'
 import Room from '../../components/Room/Room'
 import Hotel from '../../components/Hotel/Hotel'
-import Estrellas from '../../components/Estrellas/Estrellas'
+import Star from '../../components/Star/Star'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faHeart, faShareFromSquare } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,7 +13,7 @@ export default function HotelSingle() {
         <div>
           <div className='content__hotelSingle--title'>
             <h2>Sea View Hotel</h2>
-            <div className='star__show' ><Estrellas /></div>
+            <div className='star__show' ><Star /></div>
             <button><FontAwesomeIcon icon={faShareFromSquare} /></button>
             <button><FontAwesomeIcon icon={faHeart} /></button>
           </div>
