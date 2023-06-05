@@ -1,8 +1,8 @@
-import Localizacion from '../Localizacion/Localizacion';
-import './ListaLocalizaciones.scss';
+import Location from '../Location/Location';
+import './ListLocations.scss';
 
-function ListaLocalizaciones() {
-  const localizaciones = [
+export default function ListLocations() {
+  const locations = [
     {
       imageLocation: './south-africa.jpg',
       title: 'South Africa',
@@ -37,10 +37,10 @@ function ListaLocalizaciones() {
 
   return (
     <>
-      <div className='lista__localizaciones'>
-        {localizaciones.map((localizacion, index) => (
-          <div className={`lista__localizaciones--item ${index > 1 ? 'hide' : ''}`} key={index}>
-            <Localizacion {...localizacion} />
+      <div className='list__locations'>
+        {locations.map((location, index) => (
+          <div className={`list__locations--item ${index > 1 ? 'hide' : ''}`} key={index}>
+            <Location {...location} />
           </div>
         ))}
       </div>
@@ -48,4 +48,3 @@ function ListaLocalizaciones() {
   );
 }
 
-export default ListaLocalizaciones;

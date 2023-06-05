@@ -1,7 +1,7 @@
-.blog {
+.content__blog {
   background-color: aquamarine;
 
-  &__description {
+  &--description {
     padding: 10px;
     text-align: center;
     display: flex;
@@ -13,7 +13,7 @@
     }
   }
 
-  &__attribute {
+  &--attribute {
     margin: 0 auto;
     width: 100%;
     background-color: white;
@@ -24,10 +24,10 @@
     }
   }
 
-  &__published {
+  &--published {
     padding: 10px;
 
-    &--article {
+    &-article {
       border: 2px outset rgba(192, 192, 192, 0.2);
     }
 
@@ -48,20 +48,20 @@
     }
   }
 
-  &__newsletter {
+  &--newsletter {
     padding: 0 15px 15px 15px;
   }
 
-  &__newsletter p {
+  &--newsletter p {
     color: gray;
   }
 
-  &__newsletter button {
+  &--newsletter button {
     padding: 10px;
     border-radius: 7px;
   }
 
-  &__subscribe {
+  &--subscribe {
     text-align: center;
 
     p,
@@ -70,7 +70,7 @@
     }
   }
 
-  &__email {
+  &--email {
     width: 90%;
     margin: 0 auto;
     padding: 15px;
@@ -89,17 +89,17 @@
     }
   }
 
-  &__show {
+  &--show {
     display: none;
   }
 
 }
 
 @media Screen and (min-width: 500px) {
-  .blog {
-    &__published {
+  .content__blog {
+    &--published {
 
-      &--article {
+      &-article {
         display: flex;
         align-items: center;
         width: 100%;
@@ -111,26 +111,26 @@
       }
     }
 
-    &__show {
+    &--show {
       display: none;
     }
 
-    &__attribute {
+    &--attribute {
       width: 200px;
     }
   }
 }
 
 @media Screen and (min-width: 670px) {
-  .blog {
+  .content__blog {
 
-    &__subscribe {
+    &--subscribe {
       padding: 20px 0 10px 0;
       display: flex;
       gap: 15px;
     }
 
-    &__email {
+    &--email {
       align-items: center;
 
       button {
@@ -141,20 +141,20 @@
 }
 
 @media Screen and (min-width: 1030px) {
-  .blog {
-    &__published {
+  .content__blog {
+    &--published {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
 
-      &--article {
+      &-article {
         display: flex;
         width: 480px;
       }
     }
 
-    &__news,
-    &__email {
+    &--news,
+    &--email {
       padding: 0 30px;
     }
 
@@ -162,18 +162,18 @@
 }
 
 @media Screen and (min-width: 1350px) {
-  .blog {
-    &__description {
+  .content__blog {
+    &--description {
       width: 80vw;
       margin: 0 auto;
       padding: 20px 0 40px 0;
     }
 
-    &__published {
+    &--published {
       width: 80vw;
       margin: 0 auto;
 
-      &--article {
+      &-article {
         width: 530px;
       }
     }

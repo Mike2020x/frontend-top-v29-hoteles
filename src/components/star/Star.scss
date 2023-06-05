@@ -1,0 +1,19 @@
+.content__star {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 24px;
+
+  &--only {
+    display: flex;
+    gap: 5px;
+
+    &--style {
+      margin: 0;
+      padding: 0;
+      height: 16px;
+      cursor: pointer
+    }
+  }
+}
+
