@@ -5,6 +5,8 @@
   flex-wrap: wrap;
   align-items: center;
 
+
+
   h4 {
     margin-top: 0;
   }
@@ -38,6 +40,11 @@
 
   &--price {
     width: 300px;
+
+    a {
+      color: white;
+      font-weight: bold;
+    }
 
     h4 {
       margin: 0;
