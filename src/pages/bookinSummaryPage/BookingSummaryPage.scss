@@ -14,3 +14,14 @@
   width: 100%;
   outline: none;
 }
+
+.summary-page {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 780px) {
+  .summary-page {
+    display: block;
+  }
+}
