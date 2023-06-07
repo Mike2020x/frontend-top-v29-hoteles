@@ -12,7 +12,7 @@ export default function Titles() {
             <div className='content__titles--mobileBox'>
               <div className='content__titles--border'>
                 <h4>HOTEL</h4>
-                <input type="text" className='location'/>
+                <input type="text" className='location' />
               </div>
               <div className="border__right1"></div>
               <div className='content__titles--border'>
@@ -29,11 +29,14 @@ export default function Titles() {
               <div className="border__right1"></div>
               <div className='content__titles--border'>
                 <h4>GUESTS</h4>
-                <select className='amount'>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
+                <input
+                  className="choose_guest"
+                  type="number"
+                  placeholder="choose"
+                  min="1"
+                  max="5"
+                />
+
               </div>
               <div className="border__right2"></div>
             </div>

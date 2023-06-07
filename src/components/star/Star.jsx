@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Star.scss';
 
 export default function Star() {
   //const [contar, setContar] = useState(0)
   const [valor, setValor] = useState(Array(5).fill(""));
+
 
   const handleClick = (index) => {
     const nuevosValores = valor.map((v, i) => (i <= index ? "Check" : ""));
