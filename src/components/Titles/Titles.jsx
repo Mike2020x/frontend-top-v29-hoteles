@@ -35,7 +35,6 @@ export default function Titles() {
                   min="1"
                   max="5"
                 />
-
               </div>
               <div className="border__right2"></div>
             </div>
