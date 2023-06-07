@@ -32,7 +32,6 @@ export default function Titles() {
                 <input
                   className="choose_guest"
                   type="number"
-                  placeholder="choose"
                   min="1"
                   max="5"
                 />

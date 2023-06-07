@@ -8,6 +8,17 @@
     h2 {
       margin: 0;
     }
+
+    button {
+      border: 0;
+      background-color: white;
+    }
+  }
+
+  .box__hotelSingle {
+    display: flex;
+    flex-wrap: wrap;
+    width: 630px;
   }
 
   &--principal {
@@ -56,12 +67,19 @@
       margin: 10px;
     }
   }
+
+  .navbar__hotelSingle {
+    margin: 20px 0
+  }
 }
 
 @media (min-width: 375px) {
 
   .star__show,
-  .hotelSingle__show {
+  .hotelSingle__show,
+  .free__buttons,
+  .text__show,
+  .title__big {
     display: none;
   }
 }
@@ -82,12 +100,55 @@
 @media (min-width: 820px) {
   .hotelSingle__show {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hotelSingle__price {
+    font-size: 20px;
+  }
+
+  .free__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    button {
+      font-weight: bold;
+    }
+  }
+
+  .text__show {
+    display: flex;
+  }
+
+  .hotelSingle__list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
   }
 
   .content__hotelSingle {
+    &--title {
+      display: flex;
+      align-items: center;
+
+      h2 {
+        font-size: 38px;
+      }
+    }
+
+    &--images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+      gap: 10px;
+    }
+
     &--principal {
-      height: 420px;
-      //width: 800px;
+      margin: 0;
+      height: 410px;
+      width: 620px;
     }
 
     &--secondary {
@@ -95,9 +156,43 @@
       background-image: url('/room.jpg');
       background-repeat: no-repeat;
       background-size: 100%;
-      height: 210px;
+      height: 200px;
       width: 360px;
     }
   }
 
+}
+
+@media (min-width: 1027px) {
+  .title__short {
+    display: none;
+  }
+
+  .title__big {
+    display: flex;
+    align-items: center;
+  }
+
+  .book__now {
+    display: flex;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border: 0;
+    border-radius: 20px;
+    background-color: red;
+  }
+
+  .navbar__hotelSingle {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .hotelSingle__payment {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: end;
+    width: 180px;
+  }
 }
