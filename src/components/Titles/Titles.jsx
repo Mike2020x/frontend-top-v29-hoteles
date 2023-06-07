@@ -32,11 +32,9 @@ export default function Titles() {
                 <input
                   className="choose_guest"
                   type="number"
-                  placeholder="choose"
                   min="1"
                   max="5"
                 />
-
               </div>
               <div className="border__right2"></div>
             </div>
