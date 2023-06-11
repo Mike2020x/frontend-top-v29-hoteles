@@ -1,4 +1,4 @@
-  .lista__localizaciones {
+  .list__locations {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -7,7 +7,7 @@
   }
 
   @media screen and (max-width: 375px) {
-    .lista__localizaciones {
+    .list__locations {
       margin: 0;
 
       .hide {

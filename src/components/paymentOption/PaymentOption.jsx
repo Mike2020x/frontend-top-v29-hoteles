@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import "./index.scss"
+import { Link } from 'react-router-dom';
 export default function PaymentOption() {
   const [selectedMethod, setSelectedMethod] = useState('');
 
@@ -52,6 +53,7 @@ export default function PaymentOption() {
           {/* Aquí puedes mostrar información adicional del método de pago seleccionado */}
         </div>
       )}
+      <Link to="/booking-success"><input className="info__pay-btn" type="submit" value="MAKE PAYMENT" /></Link>
     </div>
   );
 }

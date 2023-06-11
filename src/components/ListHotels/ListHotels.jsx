@@ -1,13 +1,13 @@
 import Hotel from '../Hotel/Hotel'
-import './ListaHoteles.scss'
+import './ListHotels.scss'
 
-function ListaHoteles() {
+export default function ListHotels() {
   const hotels = Array(9).fill(null); // Genera un array con 9 elementos nulos
 
   return (
-    <div className='contenedor__hoteles'>
+    <div className='content__listHotels'>
       {hotels.map((_, index) => (
-        <div className='contenedor__hoteles--card' key={index}>
+        <div className='content__listHotels--card' key={index}>
           <Hotel
             imageHotel="./exampleHotel.jpg"
             imageLogo="./logoLocation.jpg"
@@ -22,5 +22,3 @@ function ListaHoteles() {
     </div>
   )
 }
-
-export default ListaHoteles
