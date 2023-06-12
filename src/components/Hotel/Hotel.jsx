@@ -5,13 +5,13 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 
-export default function Hotel({ imageHotel, title, location, description, pastprice, actualprice }) {
+export default function Hotel({ image, title, location, description, pastprice, actualprice }) {
 
   return (
     <>
     <Link to="/hotel-single">
       <div className='content__hotelCard'>
-        <img src={imageHotel} className="content__hotelCard--image" alt={imageHotel} />
+        <img src={image} className="content__hotelCard--image" alt={image} />
         <div className='content__hotelCard--space'>
           <div className='content__hotelCard--location'>
             <h1>{title}</h1>
@@ -44,8 +44,7 @@ export default function Hotel({ imageHotel, title, location, description, pastpr
 }
 
 Hotel.propTypes = {
-  imageHotel: PropTypes.string,
-  imageLogo: PropTypes.string,
+  image: PropTypes.string,
   title: PropTypes.string,
   location: PropTypes.string,
   description: PropTypes.string,
