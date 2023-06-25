@@ -1,16 +1,26 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './index.scss';
 
 export default function SearchForm() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [hotel, setHotel] = useState('');
   const [checkIn, setCheckIn] = useState(getCurrentDate());
   const [checkOut, setCheckOut] = useState(getNextDay(getCurrentDate()));
   const [guests, setGuests] = useState(1);
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    setHotel(searchParams.get('hotel') || '');
+    setCheckIn(searchParams.get('checkIn') || getCurrentDate());
+    setCheckOut(searchParams.get('checkOut') || getNextDay(getCurrentDate()));
+    setGuests(parseInt(searchParams.get('guests')) || 1);
+  }, [location.search]);
+
   const handleInputChange = (event) => {
+    event.preventDefault();
     const { name, value } = event.target;
 
     if (name === 'hotel') {
@@ -26,8 +36,9 @@ export default function SearchForm() {
   };
 
   const handleSearch = () => {
+
     if (!hotel) {
-      alert('Por favor, complete el campo del hotel.');
+      alert('Por favor, ingrese el nombre o la ciudad del hotel.');
       return;
     }
 
@@ -37,7 +48,7 @@ export default function SearchForm() {
     searchParams.set('checkOut', checkOut);
     searchParams.set('guests', guests);
 
-    navigate(`/hotel-list?${searchParams.toString()}`);
+    navigate(`/hotel-list?search=${searchParams.toString()}`);
   };
 
   return (
@@ -54,6 +65,7 @@ export default function SearchForm() {
                 name="hotel"
                 value={hotel}
                 onChange={handleInputChange}
+                placeholder="Name or City"
               />
             </div>
             <div className="border__right1"></div>

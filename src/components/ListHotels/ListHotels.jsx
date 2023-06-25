@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Hotel from '../Hotel/Hotel';
-import api from '../../api/hotel';
 import './ListHotels.scss';
 
 export default function ListHotels() {
@@ -12,31 +11,35 @@ export default function ListHotels() {
   const checkOut = searchParams.get('checkOut');
   const guests = searchParams.get('guests');
 
-  const initialHotels = [
+  const initialHotel = [
     {
       image: './exampleHotel.jpg',
-      title: 'The Venetian',
+      hotel: 'The Venetian',
       location: 'New York',
-      description: 'Lorem Ipsum is simply dummy text the printing Ipsum is simply Lorem Ipsum is simply dummy text of the...',
+      about: 'Lorem Ipsum is simply dummy text the printing Ipsum is simply Lorem Ipsum is simply dummy text of the...',
       pastprice: '1300',
-      actualprice: '1245',
-    },
+      actualprice: '1245'
+    }
   ];
 
-  const [hotels, setHotels] = useState(initialHotels);
+  const [hotels, setHotels] = useState(initialHotel);
 
   useEffect(() => {
     async function fetchHotels() {
       try {
-        const response = await api.get('/api/hotels', {
-          params: {
-            hotel,
-            checkIn,
-            checkOut,
-            guests,
-          },
-        });
-        setHotels(response.data);
+        // const response = await api.get('/api/hotels', {
+        //   params: {
+        //     hotel,
+        //     checkIn,
+        //     checkOut,
+        //     guests,
+        //   },
+        // });
+        const response = await fetch('https://backend-top-v29-hoteles.onrender.com/api/hotel')
+        if (response.ok) {
+          const data = await response.json()
+          setHotels(data);
+        }
       } catch (error) {
         console.error('Error fetching hotels:', error);
       }
@@ -46,27 +49,21 @@ export default function ListHotels() {
   }, [hotel, checkIn, checkOut, guests]);
 
   return (
-    <div>
-      <h2>Resultados de búsqueda:</h2>
-      <p>Hotel: {hotel}</p>
-      <p>Check In: {checkIn}</p>
-      <p>Check Out: {checkOut}</p>
-      <p>Guests: {guests}</p>
-
+    <>
       <div className='content__listHotels'>
         {hotels.map((hotel, index) => (
           <div className='content__listHotels--card' key={index}>
             <Hotel
-              image={hotel.image}
-              title={hotel.title}
-              location={hotel.location}
-              description={hotel.description}
-              pastprice={hotel.pastPrice}
-              actualprice={hotel.actualPrice}
+              image='./exampleHotel.jpg'
+              title={hotel.hotel}
+              location='New York'
+              description={hotel.about}
+              pastprice='1300'
+              actualprice='1245'
             />
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
