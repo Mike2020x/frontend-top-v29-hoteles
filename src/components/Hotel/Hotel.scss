@@ -43,6 +43,10 @@ a {
     }
   }
 
+  &--stars {
+    display: flex;
+  }
+
   &--reviews {
     h4 {
       margin: 10px;
