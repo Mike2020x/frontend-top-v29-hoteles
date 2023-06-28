@@ -1,65 +1,74 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import Hotel from '../Hotel/Hotel';
-import './ListHotels.scss';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import calcularCostoReserva from "./calculateCost";
+import Hotel from "../Hotel/Hotel";
+import "./ListHotels.scss";
 
 export default function ListHotels() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const hotel = searchParams.get('hotel');
-  const checkIn = searchParams.get('checkIn');
-  const checkOut = searchParams.get('checkOut');
-  const guests = searchParams.get('guests');
+  const hotelSearch = searchParams.get("hotel").toLowerCase();
+  const checkIn = new Date(searchParams.get("checkIn"));
+  const checkOut = new Date(searchParams.get("checkOut"));
+  const guests = Number(searchParams.get("guests"));
 
-  const initialHotel = [
-    {
-      image: './exampleHotel.jpg',
-      hotel: 'The Venetian',
-      location: 'New York',
-      about: 'Lorem Ipsum is simply dummy text the printing Ipsum is simply Lorem Ipsum is simply dummy text of the...',
-      pastprice: '1300',
-      actualprice: '1245'
-    }
-  ];
+  const [hotels, setHotels] = useState([]);
 
-  const [hotels, setHotels] = useState(initialHotel);
+  const { costoTotal, precioPasado, precioConDescuento } = calcularCostoReserva(
+    checkIn,
+    checkOut,
+    guests
+  );
+  console.log("Costo de la reserva:", costoTotal);
 
   useEffect(() => {
     async function fetchHotels() {
       try {
-        // const response = await api.get('/api/hotels', {
-        //   params: {
-        //     hotel,
-        //     checkIn,
-        //     checkOut,
-        //     guests,
-        //   },
-        // });
-        const response = await fetch('https://backend-top-v29-hoteles.onrender.com/api/hotel')
+        const response = await fetch(
+          `https://backend-top-v29-hoteles.onrender.com/api/hotel`
+        );
         if (response.ok) {
-          const data = await response.json()
-          setHotels(data);
+          const data = await response.json();
+          const hotelFilter = data.filter((element) =>
+            element.hotel.toLowerCase().includes(hotelSearch)
+          );
+          // Math.ceil((Math.random()) * 100 + 100)
+          // const updatedHotels = filteredHotels.map((element) => {
+          //   const { image, hotel, location, about } = element;
+          //   const { url } = image;
+          //   const { city } = location;
+          //   return {
+          //     image: url,
+          //     hotel: hotel,
+          //     location: city,
+          //     about: about,
+          //     pastprice: "",
+          //     actualprice: "",
+          //   };
+          // });
+          console.log(hotelFilter);
+          setHotels(hotelFilter);
         }
       } catch (error) {
-        console.error('Error fetching hotels:', error);
+        console.error("Error fetching hotels:", error);
       }
     }
 
     fetchHotels();
-  }, [hotel, checkIn, checkOut, guests]);
+  }, [hotelSearch]);
 
   return (
     <>
-      <div className='content__listHotels'>
+      <div className="content__listHotels">
         {hotels.map((hotel, index) => (
-          <div className='content__listHotels--card' key={index}>
+          <div className="content__listHotels--card" key={index}>
             <Hotel
-              image='./exampleHotel.jpg'
+              image={hotel.image}
               title={hotel.hotel}
-              location='New York'
+              location={hotel.location}
               description={hotel.about}
-              pastprice='1300'
-              actualprice='1245'
+              pastprice={precioPasado}
+              actualprice={precioConDescuento}
             />
           </div>
         ))}
