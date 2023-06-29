@@ -32,7 +32,7 @@ export default function ListHotels() {
           const hotelFilter = data.filter((element) =>
             element.hotel.toLowerCase().includes(hotelSearch)
           );
-          // Math.ceil((Math.random()) * 100 + 100)
+
           // const updatedHotels = filteredHotels.map((element) => {
           //   const { image, hotel, location, about } = element;
           //   const { url } = image;
@@ -60,18 +60,21 @@ export default function ListHotels() {
   return (
     <>
       <div className="content__listHotels">
-        {hotels.map((hotel, index) => (
-          <div className="content__listHotels--card" key={index}>
-            <Hotel
-              image={hotel.image}
-              title={hotel.hotel}
-              location={hotel.location}
-              description={hotel.about}
-              pastprice={precioPasado}
-              actualprice={precioConDescuento}
-            />
-          </div>
-        ))}
+        {hotels.map((hotel, index) => {
+          let azar = Math.ceil(Math.random() * 100);
+          return (
+            <div className="content__listHotels--card" key={index}>
+              <Hotel
+                image={hotel.image}
+                title={hotel.hotel}
+                location={hotel.location}
+                description={hotel.about}
+                pastprice={precioPasado + azar}
+                actualprice={precioConDescuento + azar}
+              />
+            </div>
+          );
+        })}
       </div>
     </>
   );
