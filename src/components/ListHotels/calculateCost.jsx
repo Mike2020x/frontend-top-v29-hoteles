@@ -1,5 +1,4 @@
 export default function calcularCostoReserva(checkIn, checkOut, guests) {
-  const precioBasePorNoche = 100; // Math.ceil((Math.random()) * 100 + 100)
   const duracionEstadia = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24)); // Duración de la estadía en días
   const numeroHabitaciones = Math.ceil(guests / 2); // Suponiendo que 2 personas pueden compartir una habitación
 
@@ -10,6 +9,8 @@ export default function calcularCostoReserva(checkIn, checkOut, guests) {
   const descuentoPrecioPasado = 0.2; // Porcentaje de descuento basado en el precio pasado (20%)
 
   // Cálculo del costo base por noche con factores adicionales
+  
+  let precioBasePorNoche = Math.ceil(Math.random() * 100) + 100;
   let costoBasePorNoche = precioBasePorNoche;
   if (guests > 1) {
     costoBasePorNoche += costoAdicionalPorPersona * (guests - 2); // Se aplican costos adicionales por cada persona adicional
@@ -24,8 +25,8 @@ export default function calcularCostoReserva(checkIn, checkOut, guests) {
   costoTotal += costoTotal * porcentajeImpuesto; // Se agrega el impuesto al costo total
 
   // Cálculo del precio pasado con descuento
-  const precioPasado = precioBasePorNoche * numeroHabitaciones;
-  const precioConDescuento = precioPasado - (precioPasado * descuentoPrecioPasado);
+  const precioPasado = Math.ceil(precioBasePorNoche * numeroHabitaciones);
+  const precioConDescuento = Math.ceil(precioPasado - (precioPasado * descuentoPrecioPasado));
 
   return {
     costoTotal,
