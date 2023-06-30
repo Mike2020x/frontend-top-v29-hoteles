@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import calcularCostoReserva from "./calculateCost";
+import fetchSearch from "./fetchSearch";
 import Hotel from "../Hotel/Hotel";
 import "./ListHotels.scss";
 
@@ -11,46 +12,49 @@ export default function ListHotels() {
   const checkIn = new Date(searchParams.get("checkIn"));
   const checkOut = new Date(searchParams.get("checkOut"));
   const guests = Number(searchParams.get("guests"));
-
   const [hotels, setHotels] = useState([]);
-
-  const { costoTotal, precioPasado, precioConDescuento } = calcularCostoReserva(
-    checkIn,
-    checkOut,
-    guests
-  );
-  console.log("Costo de la reserva:", costoTotal);
+  const costs = []
 
   useEffect(() => {
     async function fetchHotels() {
       try {
-        const response = await fetch(
-          `https://backend-top-v29-hoteles.onrender.com/api/hotel`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          const hotelFilter = data.filter((element) =>
-            element.hotel.toLowerCase().includes(hotelSearch)
-          );
+        // Obtener los IDs de búsqueda
+        const searchIds = await fetchSearch(hotelSearch);
 
-          // const updatedHotels = filteredHotels.map((element) => {
-          //   const { image, hotel, location, about } = element;
-          //   const { url } = image;
-          //   const { city } = location;
-          //   return {
-          //     image: url,
-          //     hotel: hotel,
-          //     location: city,
-          //     about: about,
-          //     pastprice: "",
-          //     actualprice: "",
-          //   };
-          // });
-          console.log(hotelFilter);
-          setHotels(hotelFilter);
-        }
+        // Obtener las propiedades relacionadas para cada hotel
+        const hotelsRelatedData = await Promise.all(
+          searchIds.map(async (id) => {
+            const hotelResponse = await fetch(
+              `https://backend-top-v29-hoteles.onrender.com/api/hotel/${id}`
+            );
+            const hotelData = await hotelResponse.json();
+            const name = hotelData.hotel;
+            const about = hotelData.about;
+
+            const locationResponse = await fetch(
+              `https://backend-top-v29-hoteles.onrender.com/api/location/${id}`
+            );
+            const locationData = await locationResponse.json();
+            const city = locationData.city;
+
+            const imageResponse = await fetch(
+              `https://backend-top-v29-hoteles.onrender.com/api/image/${id}`
+            );
+            const imageData = await imageResponse.json();
+            const url = imageData.url;
+
+            return {
+              title: name,
+              description: about,
+              location: city,
+              image: url,
+            };
+          })
+        );
+
+        setHotels(hotelsRelatedData);
       } catch (error) {
-        console.error("Error fetching hotels:", error);
+        console.error("Error fetching hotels names:", error);
       }
     }
 
@@ -61,16 +65,20 @@ export default function ListHotels() {
     <>
       <div className="content__listHotels">
         {hotels.map((hotel, index) => {
-          let azar = Math.ceil(Math.random() * 100);
+          let { costoTotal, precioPasado, precioConDescuento } =
+            calcularCostoReserva(checkIn, checkOut, guests);
+          costs.push(costoTotal)
+          let reviews = Math.ceil(Math.random() * 10000)
           return (
             <div className="content__listHotels--card" key={index}>
               <Hotel
-                image={hotel.image}
-                title={hotel.hotel}
-                location={hotel.location}
-                description={hotel.about}
-                pastprice={precioPasado + azar}
-                actualprice={precioConDescuento + azar}
+                image={hotel.image} // Obtener la primera imagen del hotel
+                title={hotel.title}
+                location={hotel.location} // Obtener la primera ubicación del hotel
+                description={hotel.description}
+                reviews={reviews}
+                pastprice={precioPasado.toString()}
+                actualprice={precioConDescuento.toString()}
               />
             </div>
           );
