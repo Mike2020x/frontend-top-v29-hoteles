@@ -9,6 +9,7 @@ import BookingSuccess from "../pages/BookingSuccess"
 import UserDashboard from "../pages/UserDashboard"
 import BookingSummary from "../pages/bookinSummaryPage/BookingSummaryPage";
 import NotFound from "../pages/NotFound/NotFound"
+import VerifyAccount from "../pages/VerifyAccount/VerifyAccount";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,8 +41,8 @@ const router = createBrowserRouter([
         // loader: loaderProduct,
       },
       {
-        path: "signup",
-        element: <SignUp />,
+        path: "verify-account/:token",
+        element: <VerifyAccount />,
         // loader: loaderProduct,
       },
       {

@@ -1,14 +1,121 @@
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGooglePlus } from '@fortawesome/free-brands-svg-icons';
-import './index.scss';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faGooglePlus } from "@fortawesome/free-brands-svg-icons";
+import { Link } from "react-router-dom";
+import "./index.scss";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
-  const [isLoginActive, setIsLoginActive] = useState(true);
+  const [formData, setFormData] = useState({
+    isLoginActive: true,
+    phone: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    showPassword: false,
+    errorMessage: "",
+  });
 
   const handleTabClick = (isLogin) => {
-    setIsLoginActive(isLogin);
+    setFormData((prevData) => ({
+      ...prevData,
+      isLoginActive: isLogin,
+    }));
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const loginData = {
+        email: formData.email,
+        password: formData.password,
+      };
+
+      // Llamar a la API para iniciar sesión
+      const response = await fetch(
+        "https://backend-top-v29-hoteles.onrender.com/auth/local/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        }
+      );
+
+      // Manejar la respuesta de la API según sea necesario
+      if (response.ok) {
+        // Redireccionar al panel de usuario o realizar otra acción
+        window.location.href = "/user-dashboard";
+      } else {
+        // Manejar el caso de error en el inicio de sesión
+        console.log("Error en el inicio de sesión");
+      }
+    } catch (error) {
+      // Manejar errores de conexión o de la API
+      console.log("Error:", error);
+    }
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    // Verificar si las contraseñas coinciden
+    if (formData.password !== formData.confirmPassword) {
+      setFormData((prevData) => ({
+        ...prevData,
+        errorMessage: "Las contraseñas no coinciden",
+      }));
+      return;
+    }
+
+    try {
+      const signupData = {
+        phone: formData.phone,
+        email: formData.email,
+        password: formData.password,
+      };
+
+      // Llamar a la API para registrarse
+      const response = await fetch(
+        "https://backend-top-v29-hoteles.onrender.com/auth/local/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signupData),
+        }
+      );
+
+      // Manejar la respuesta de la API según sea necesario
+      if (response.ok) {
+        // Redireccionar al panel de usuario o realizar otra acción
+        window.location.href = "/user-dashboard";
+      } else {
+        // Manejar el caso de error en el registro
+        console.log("Error en el registro");
+      }
+    } catch (error) {
+      // Manejar errores de conexión o de la API
+      console.log("Error:", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const togglePasswordVisibility = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      showPassword: !prevData.showPassword,
+    }));
   };
 
   return (
@@ -16,7 +123,7 @@ const Login = () => {
       <div className="lb-header">
         <a
           href="#"
-          className={isLoginActive ? 'active' : ''}
+          className={formData.isLoginActive ? "active" : ""}
           id="login-box-link"
           onClick={() => handleTabClick(true)}
         >
@@ -24,7 +131,7 @@ const Login = () => {
         </a>
         <a
           href="#"
-          className={!isLoginActive ? 'active' : ''}
+          className={!formData.isLoginActive ? "active" : ""}
           id="signup-box-link"
           onClick={() => handleTabClick(false)}
         >
@@ -34,48 +141,113 @@ const Login = () => {
       <div className="social-login">
         <a href="#">
           <FontAwesomeIcon icon={faFacebook} className="fa fa-facebook fa-lg" />
-          Login in with Facebook
+          Login with Facebook
         </a>
         <a href="#">
-          <FontAwesomeIcon icon={faGooglePlus} className="fa fa-google-plus fa-lg" />
-          Login in with Google
+          <FontAwesomeIcon
+            icon={faGooglePlus}
+            className="fa fa-google-plus fa-lg"
+          />
+          Login with Google
         </a>
       </div>
-      {isLoginActive ? (
-        <form className="email-login">
+      {!formData.isLoginActive && (
+        <form className="email-signup" onSubmit={handleSignUp}>
           <div className="u-form-group">
-            <input type="email" placeholder="Email" />
+            <input
+              type="text"
+              placeholder="Phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
           </div>
           <div className="u-form-group">
-            <input type="password" placeholder="Password" />
+            <div className="input-with-icon">
+              <input
+                type={formData.showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <i onClick={togglePasswordVisibility}>
+                {formData.showPassword ? (
+                  <FontAwesomeIcon icon={faEyeSlash} />
+                ) : (
+                  <FontAwesomeIcon icon={faEye} />
+                )}
+              </i>
+            </div>
           </div>
           <div className="u-form-group">
-            <button><Link to="/user-dashboard">Log in</Link></button>
+            <div className="input-with-icon">
+              <input
+                type={formData.showPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+              <i onClick={togglePasswordVisibility}>
+                {formData.showPassword ? (
+                  <FontAwesomeIcon icon={faEyeSlash} />
+                ) : (
+                  <FontAwesomeIcon icon={faEye} />
+                )}
+              </i>
+            </div>
           </div>
+          {formData.errorMessage && (
+            <div className="error-message">{formData.errorMessage}</div>
+          )}
           <div className="u-form-group">
-            <a href="#" className="forgot-password">
-              Forgot password?
-            </a>
+            <button type="submit">Sign Up</button>
           </div>
         </form>
-      ) : (
-        <form className="email-signup">
+      )}
+      {formData.isLoginActive && (
+        <form className="email-login" onSubmit={handleLogin}>
           <div className="u-form-group">
-            <input type="email" placeholder="Email" />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
           </div>
           <div className="u-form-group">
-            <input type="password" placeholder="Password" />
+            <div className="input-with-icon">
+              <input
+                type={formData.showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <i onClick={togglePasswordVisibility}>
+                {formData.showPassword ? (
+                  <FontAwesomeIcon icon={faEyeSlash} />
+                ) : (
+                  <FontAwesomeIcon icon={faEye} />
+                )}
+              </i>
+            </div>
           </div>
+          {formData.errorMessage && (
+            <div className="error-message">{formData.errorMessage}</div>
+          )}
           <div className="u-form-group">
-            <input type="password" placeholder="Confirm Password" />
+            <button type="submit">Log In</button>
           </div>
-          <div className="u-form-group">
-            <button>Sign Up</button>
+          <div className="forgot-password">
+            <Link to="/forgot-password">Forgot password?</Link>
           </div>
         </form>
       )}
     </div>
   );
-}
+};
 
 export default Login;
