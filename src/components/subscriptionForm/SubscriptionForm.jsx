@@ -53,11 +53,19 @@ const SubscriptionForm = () => {
 
   return (
     <div className="subscription-form">
-      <h3 className="subscription-form__title">Subscribe to our Newsletter</h3>
+      <div className="subscription-form__content">
+        <h3 className="subscription-form__title">
+          Subscribe to our Newsletter
+        </h3>
+        <p className="subscription-form__description">
+          Subscribe and receive our newsletters to follow the news about our
+          fresh and fantastic products.
+        </p>
+      </div>
       {isSubscribed ? (
         <p className="subscription-form__message">Thank you for subscribing!</p>
       ) : (
-        <>
+        <div className="subscription-form__content">
           <p className="subscription-form__description">
             Get the latest updates and special offers directly in your inbox.
           </p>
@@ -76,10 +84,10 @@ const SubscriptionForm = () => {
               className="subscription-form__button"
               disabled={isLoading}
             >
-              {isLoading ? "Subscribing..." : "Subscribe"}
+              {isLoading ? "SUBSCRIBING..." : "SUBSCRIBE"}
             </button>
           </form>
-        </>
+        </div>
       )}
     </div>
   );
