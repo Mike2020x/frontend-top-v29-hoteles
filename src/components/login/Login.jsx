@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGooglePlus } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -49,7 +49,7 @@ const Login = () => {
       // Manejar la respuesta de la API según sea necesario
       if (response.ok) {
         // Redireccionar al panel de usuario o realizar otra acción
-        window.location.href = "/user-dashboard";
+        //window.location.href = "/user-dashboard";
       } else {
         // Manejar el caso de error en el inicio de sesión
         console.log("Error en el inicio de sesión");
@@ -60,9 +60,10 @@ const Login = () => {
     }
   };
 
+  const navigate = useNavigate()
+
   const handleSignUp = async (e) => {
     e.preventDefault();
-
     // Verificar si las contraseñas coinciden
     if (formData.password !== formData.confirmPassword) {
       setFormData((prevData) => ({
@@ -78,7 +79,6 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       };
-      console.log(signupData);
       // Llamar a la API para registrarse
       const response = await fetch(
         `${import.meta.env.VITE_BASE_URL}/api/user`,
@@ -94,7 +94,8 @@ const Login = () => {
       // Manejar la respuesta de la API según sea necesario
       if (response.ok) {
         // Redireccionar al panel de usuario o realizar otra acción
-        window.location.href = "/user-dashboard";
+        const url = `/verify-account/${formData.email}`
+        navigate(url);
       } else {
         // Manejar el caso de error en el registro
         console.log("Error en el registro");
@@ -212,9 +213,9 @@ const Login = () => {
           {formData.errorMessage && (
             <div className="error-message">{formData.errorMessage}</div>
           )}
-          <div className="u-form-group">
+          <Link className="u-form-group">
             <button type="submit">Sign Up</button>
-          </div>
+          </Link>
         </form>
       )}
       {formData.isLoginActive && (

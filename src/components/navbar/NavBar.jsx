@@ -16,7 +16,7 @@ export default function NavBar() {
     <nav className={`navigation__bar ${showSidebar ? 'show-sidebar' : ''}`}>
       <div className="navigation__bar--logo">
         <FontAwesomeIcon icon={faCircleCheck} size="2xl" />
-        <h1>RICA</h1>
+        <h1>MIR</h1>
       </div>
       <ul className="navigation__bar--items">
         <li><a href="/" >HOME</a></li>

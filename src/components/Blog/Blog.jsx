@@ -1,5 +1,6 @@
 //import { useState } from 'react';
 //import PropTypes from 'prop-types'
+import SubscriptionForm from '../subscriptionForm/SubscriptionForm';
 import './Blog.scss';
 
 function Blog() {
@@ -61,6 +62,7 @@ function Blog() {
             <h4>Enter Your Email</h4>
             <button>Subscribe</button>
           </div>
+          <SubscriptionForm />
         </div>
       </div>
 

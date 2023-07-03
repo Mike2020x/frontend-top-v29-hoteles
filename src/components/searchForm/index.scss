@@ -4,10 +4,42 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-image: url('/fondoTitulos.jpg');
+  height: 55vh;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 55vh;
+  background-position: center bottom; // Establece el posicionamiento de la imagen
+  transition: background-image 0.5s ease-in-out; // Agrega una transición suave entre los cambios de imagen
+  background-image: url("/fondoTitulos.jpg"); // Establece una imagen de fondo predeterminada
+  animation: slideImage 20s infinite;
+  cursor: pointer;
+
+  &.paused {
+    animation-play-state: paused;
+  }
+
+  @keyframes slideImage {
+    0% {
+      background-position: center bottom;
+    }
+    10% {
+      background-position: center 90%;
+    }
+    30% {
+      background-position: center 70%;
+    }
+    50% {
+      background-position: center 50%;
+    }
+    70% {
+      background-position: center 30%;
+    }
+    90% {
+      background-position: center 10%;
+    }
+    100% {
+      background-position: center top;
+    }
+  }
 
   a {
     text-decoration: none;
