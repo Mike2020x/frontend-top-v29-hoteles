@@ -1,8 +1,5 @@
 import { useParams } from 'react-router-dom'
-
 import './index.scss'
-
-
 
 export default function VerifyAccount() {
   const { token } = useParams()
@@ -10,7 +7,7 @@ export default function VerifyAccount() {
   const handleClick = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/auth/verify-account/${token}`,
+        `${import.meta.env.VITE_BASE_URL}/auth/local/activate/${token}`,
         {
           method: 'GET',
           headers: {
@@ -43,36 +40,3 @@ export default function VerifyAccount() {
 }
 
 
-
-const handleLogin = async (e) => {
-  e.preventDefault();
-
-  try {
-    // Llamar a la API para iniciar sesión
-    const response = await fetch(
-      "https://backend-top-v29-hoteles.onrender.com/auth/local/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
-
-    // Manejar la respuesta de la API según sea necesario
-    if (response.ok) {
-      // Redireccionar al panel de usuario o realizar otra acción
-      window.location.href = "/user-dashboard";
-    } else {
-      // Manejar el caso de error en el inicio de sesión
-      console.log("Error en el inicio de sesión");
-    }
-  } catch (error) {
-    // Manejar errores de conexión o de la API
-    console.log("Error:", error);
-  }
-};

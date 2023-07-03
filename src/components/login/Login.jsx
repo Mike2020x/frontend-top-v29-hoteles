@@ -28,9 +28,11 @@ const Login = () => {
 
     try {
       const loginData = {
+        phone: formData.phone,
         email: formData.email,
         password: formData.password,
       };
+      console.log(loginData);
 
       // Llamar a la API para iniciar sesión
       const response = await fetch(
@@ -76,10 +78,10 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       };
-
+      console.log(signupData);
       // Llamar a la API para registrarse
       const response = await fetch(
-        "https://backend-top-v29-hoteles.onrender.com/auth/local/login",
+        `${import.meta.env.VITE_BASE_URL}/api/user`,
         {
           method: "POST",
           headers: {
@@ -159,6 +161,15 @@ const Login = () => {
               placeholder="Phone"
               name="phone"
               value={formData.phone}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="u-form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
             />
           </div>
