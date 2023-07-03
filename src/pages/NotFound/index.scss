@@ -1,90 +1,76 @@
-.content__notFound {
-  &--title {
-    padding-left: 30px;
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+
+  &__title {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #ff5a5f;
   }
 
-  &--description {
+  &__content {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-items: center;
+    width: 800px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+  }
 
-    &__image {
-      margin: 14px;
-      padding: 0;
-    }
+  &__image {
+    flex: 1;
+    margin-right: 20px;
 
     img {
-      margin: 30px;
-      height: 360px;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__text {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
 
-    &__text {
-      margin-left: 100px;
-      margin-right: 80px;
-      padding: 30px 50px 60px 50px;
-      font-family: 'Space Mono', monospace;
+    &__message {
+      margin-bottom: 20px;
 
-      &-message {
-        width: 320px;
-        font-size: 20px;
-        margin-bottom: 30px;
-        color: #4F4F4F;
-      }
-
-      h1 {
-        font-size: 50px;
-        font-weight: 500;
-        color: #333333;
-      }
-
-      button {
-        color: white;
-        margin: 10px;
-        padding: 30px;
-        margin-bottom: 30px;
-        text-decoration: none;
-        background-color: #333333;
+      &-line {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 10px;
       }
     }
   }
 
-  @media screen and (max-width: 800px) {
-    &__image {
-      margin-top: 50px;
-      padding: 7px;
+  &__button {
+    background-color: #ff5a5f;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    a {
+      text-decoration: none;
+      color: #fff;
     }
 
-    img {
-      margin: 0;
-      padding: 0;
-      height: 240px;
-    }
-
-    &--description {
-      margin: 0;
-      padding: 0;
-      display: block;
-      align-items: center;
-      justify-items: center;
-    }
-
-    &__text {
-      padding: 10px;
-      margin: 0;
-      align-items: center;
-      justify-content: center;
-
-      h1 {
-        padding-right: 40px;
-        font-size: 35px;
-        font-weight: 500;
-        color: #333333;
-      }
-
-      &-message {
-        width: 270px;
-        font-size: 15px;
-      }
+    &:hover {
+      background-color: #e25056;
     }
   }
 }

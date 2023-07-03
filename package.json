@@ -19,7 +19,9 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@popperjs/core": "^2.11.8",
     "axios": "^1.4.0",
+    "bootstrap": "^5.3.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "pg": "^8.11.0",
@@ -27,7 +29,6 @@
     "react-dom": "^18.2.0",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.12.1",
-    "sass": "^1.62.1",
     "usereducers": "^1.0.1"
   },
   "devDependencies": {
@@ -53,6 +54,7 @@
     "jsdom": "^22.1.0",
     "json-server": "^0.17.3",
     "npm-run-all": "^4.1.5",
+    "sass": "^1.63.6",
     "vite": "^4.3.2",
     "vitest": "^0.31.3"
   },

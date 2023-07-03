@@ -9,6 +9,9 @@ import BookingSuccess from "../pages/BookingSuccess"
 import UserDashboard from "../pages/UserDashboard"
 import BookingSummary from "../pages/bookinSummaryPage/BookingSummaryPage";
 import NotFound from "../pages/NotFound/NotFound"
+import VerifyAccount from "../pages/VerifyAccount/VerifyAccount";
+import VerifyMessage from "../pages/VerifyAccount/VerifyMessage";
+import ForgotPassword from "../pages/VerifyAccount/ForgotPassword";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,9 +43,17 @@ const router = createBrowserRouter([
         // loader: loaderProduct,
       },
       {
-        path: "signup",
-        element: <SignUp />,
+        path: "verify-account/:email",
+        element: <VerifyMessage />,
         // loader: loaderProduct,
+      },
+      {
+        path: "verify-account/token/:id",
+        element: <VerifyAccount />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />,
       },
       {
         path: "booking-success",
