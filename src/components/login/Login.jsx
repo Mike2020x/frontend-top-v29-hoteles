@@ -129,35 +129,35 @@ const Login = () => {
   return (
     <div className="login-box">
       <div className="lb-header">
-        <a
-          href="#"
+        <Link
+          to="#"
           className={formData.isLoginActive ? "active" : ""}
           id="login-box-link"
           onClick={() => handleTabClick(true)}
         >
           Login
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="#"
           className={!formData.isLoginActive ? "active" : ""}
           id="signup-box-link"
           onClick={() => handleTabClick(false)}
         >
           Sign Up
-        </a>
+        </Link>
       </div>
       <div className="social-login">
-        <a href="#">
+        <Link to="#">
           <FontAwesomeIcon icon={faFacebook} className="fa fa-facebook fa-lg" />
           Login with Facebook
-        </a>
-        <a href="#">
+        </Link>
+        <Link to="#">
           <FontAwesomeIcon
             icon={faGooglePlus}
             className="fa fa-google-plus fa-lg"
           />
           Login with Google
-        </a>
+        </Link>
       </div>
       {!formData.isLoginActive && (
         <form className="email-signup" onSubmit={handleSignUp}>
@@ -237,12 +237,6 @@ const Login = () => {
           <div className="u-form-group">
             <button type="submit">Sign Up</button>
           </div>
-          {formData.errorMessage && (
-            <div className="error-message">{formData.errorMessage}</div>
-          )}
-          <Link className="u-form-group">
-            <button type="submit">Sign Up</button>
-          </Link>
         </form>
       )}
       {formData.isLoginActive && (
