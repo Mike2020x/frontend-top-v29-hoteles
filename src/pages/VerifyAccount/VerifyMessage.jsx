@@ -28,7 +28,7 @@ const VerifyMessage = () => {
 };
 
 VerifyMessage.propTypes = {
-  email: PropTypes.string.isRequired,
+  email: PropTypes.string,
 };
 
 export default VerifyMessage;

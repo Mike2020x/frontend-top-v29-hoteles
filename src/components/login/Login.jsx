@@ -8,8 +8,10 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const Login = () => {
   const [formData, setFormData] = useState({
     isLoginActive: true,
-    phone: "",
+    firstName: "",
+    lastName: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
     showPassword: false,
@@ -49,7 +51,7 @@ const Login = () => {
       // Manejar la respuesta de la API según sea necesario
       if (response.ok) {
         // Redireccionar al panel de usuario o realizar otra acción
-        //window.location.href = "/user-dashboard";
+        // window.location.href = "/user-dashboard";
       } else {
         // Manejar el caso de error en el inicio de sesión
         console.log("Error en el inicio de sesión");
@@ -60,7 +62,7 @@ const Login = () => {
     }
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -75,13 +77,16 @@ const Login = () => {
 
     try {
       const signupData = {
-        phone: formData.phone,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
+        phone: formData.phone,
         password: formData.password,
       };
+      console.log(signupData);
       // Llamar a la API para registrarse
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/api/user`,
+        "https://backend-top-v29-hoteles.onrender.com/api/user",
         {
           method: "POST",
           headers: {
@@ -90,11 +95,11 @@ const Login = () => {
           body: JSON.stringify(signupData),
         }
       );
-
+      console.log(response);
       // Manejar la respuesta de la API según sea necesario
       if (response.ok) {
         // Redireccionar al panel de usuario o realizar otra acción
-        const url = `/verify-account/${formData.email}`
+        const url = `/verify-account/${formData.email}`;
         navigate(url);
       } else {
         // Manejar el caso de error en el registro
@@ -156,12 +161,19 @@ const Login = () => {
       </div>
       {!formData.isLoginActive && (
         <form className="email-signup" onSubmit={handleSignUp}>
-          <div className="u-form-group">
+          <div className="u-form-individual">
             <input
               type="text"
-              placeholder="Phone"
-              name="phone"
-              value={formData.phone}
+              placeholder="FirstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              placeholder="LastName"
+              name="lastName"
+              value={formData.lastName}
               onChange={handleChange}
             />
           </div>
@@ -171,6 +183,15 @@ const Login = () => {
               placeholder="Email"
               name="email"
               value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="u-form-group">
+            <input
+              type="text"
+              placeholder="Phone"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
             />
           </div>
@@ -209,6 +230,12 @@ const Login = () => {
                 )}
               </i>
             </div>
+          </div>
+          {formData.errorMessage && (
+            <div className="error-message">{formData.errorMessage}</div>
+          )}
+          <div className="u-form-group">
+            <button type="submit">Sign Up</button>
           </div>
           {formData.errorMessage && (
             <div className="error-message">{formData.errorMessage}</div>
