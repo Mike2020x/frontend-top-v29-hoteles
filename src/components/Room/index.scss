@@ -101,3 +101,121 @@
     }
   }
 }
+
+.room-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 27vw;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__image {
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+  }
+
+  &__information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__details {
+    text-align: center;
+
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #888;
+    }
+  }
+
+  &__price {
+    margin-top: 10px;
+    text-align: center;
+
+    p {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #888;
+
+      svg {
+        margin-right: 5px;
+      }
+    }
+
+    h4,
+    h3 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  &__search {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-inputs {
+      display: flex;
+      flex-direction: column;
+      width: 25vw;
+
+      .room-card__search-input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        outline: none;
+
+        &::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+        }
+      }
+    }
+
+    &-border {
+      width: 1px;
+      height: 100%;
+      background-color: #ccc;
+      margin: 0 10px;
+    }
+
+    &-button {
+      flex-grow: 1;
+
+      .room-card__search-button--link,
+      .room-card__search-button--button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        cursor: pointer;
+        outline: none;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+}
