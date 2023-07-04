@@ -234,12 +234,6 @@ const Login = () => {
           {formData.errorMessage && (
             <div className="error-message">{formData.errorMessage}</div>
           )}
-          <div className="u-form-group">
-            <button type="submit">Sign Up</button>
-          </div>
-          {formData.errorMessage && (
-            <div className="error-message">{formData.errorMessage}</div>
-          )}
           <Link className="u-form-group">
             <button type="submit">Sign Up</button>
           </Link>
