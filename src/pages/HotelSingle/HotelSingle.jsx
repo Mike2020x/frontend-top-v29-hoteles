@@ -1,4 +1,6 @@
 import './index.scss'
+import { useContext } from 'react';
+import { StateContext } from '../../components/ListHotels/ListHotels';
 import Room from '../../components/Room/Room'
 import Hotel from '../../components/Hotel/Hotel'
 import Star from '../../components/star/Star'
@@ -8,13 +10,16 @@ import RoomCard from '../../components/Room/RoomCard'
 
 
 export default function HotelSingle() {
+  const { state } = useContext(StateContext);
+  const { selectedHotel: hotel } = state; // Obtener el hotel seleccionado del estado
+
   return (
     <div className='content__hotelSingle'>
       <div className='content__hotelSingle--room'>
         <div className='navbar__hotelSingle'>
           <div className='box__hotelSingle'>
             <div className='content__hotelSingle--title'>
-              <h2>Sea View Hotel</h2>
+              <h2>{hotel.title}</h2> {/* Usar el título del hotel seleccionado */}
               <div className='star__show' ><Star /></div>
               <button><FontAwesomeIcon icon={faShareFromSquare} /></button>
               <p className='text__show'>Share</p>
@@ -22,7 +27,7 @@ export default function HotelSingle() {
               <p className='text__show'>Save</p>
             </div>
             <div>
-              <p>Mina Road, Bur Dubai, Bubai, United Arab Emirates</p>
+              <p>{hotel.address}</p> {/* Usar la dirección del hotel seleccionado */}
               <div className='free__buttons'>
                 <button>Free Wifi</button>
                 <button>Free Breakfast</button>
@@ -30,8 +35,8 @@ export default function HotelSingle() {
             </div>
           </div>
           <div className='hotelSingle__payment'>
-            <h3 className='title__short'>$250 / Per Night</h3>
-            <p className='title__big'><font size="6">$250</font> / Per Night</p>
+            <h3 className='title__short'>{hotel.totalPrice} / Per Night</h3> {/* Usar el precio total del hotel seleccionado */}
+            <p className='title__big'><font size="6">{hotel.totalPrice}</font> / Per Night</p> {/* Usar el precio total del hotel seleccionado */}
             <button className='hotelSingle__show book__now'>Book This Now</button>
           </div>
         </div>
