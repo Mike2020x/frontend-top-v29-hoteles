@@ -4,6 +4,7 @@ import Hotel from '../../components/Hotel/Hotel'
 import Star from '../../components/star/Star'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faHeart, faShareFromSquare } from '@fortawesome/free-solid-svg-icons'
+import RoomCard from '../../components/Room/RoomCard'
 
 
 export default function HotelSingle() {
@@ -50,8 +51,8 @@ export default function HotelSingle() {
             </div>
           </div>
         </div>
+        <RoomCard />
       </div>
-
       <div className='content__hotelSingle--menu'>
         <h4>Rooms</h4>
         <h4>About</h4>
