@@ -3,87 +3,76 @@ import { useLocation } from "react-router-dom";
 import calcularCostoReserva from "./calculateCost";
 import fetchSearch from "./fetchSearch";
 import Hotel from "../Hotel/Hotel";
+import process from 'process';
 import "./ListHotels.scss";
 
 export default function ListHotels() {
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const hotelSearch = searchParams.get("hotel").toLowerCase();
-  const checkIn = new Date(searchParams.get("checkIn"));
-  const checkOut = new Date(searchParams.get("checkOut"));
-  const guests = Number(searchParams.get("guests"));
   const [hotels, setHotels] = useState([]);
-  const costs = []
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const hotelSearch = searchParams.get("hotel")?.toLowerCase() || "";
     async function fetchHotels() {
       try {
-        // Obtener los IDs de búsqueda
         const searchIds = await fetchSearch(hotelSearch);
+        const hotelsRelatedData = [];
 
-        // Obtener las propiedades relacionadas para cada hotel
-        const hotelsRelatedData = await Promise.all(
-          searchIds.map(async (id) => {
-            const hotelResponse = await fetch(
-              `https://backend-top-v29-hoteles.onrender.com/api/hotel/${id}`
-            );
-            const hotelData = await hotelResponse.json();
-            const name = hotelData.hotel;
-            const about = hotelData.about;
+        for (const id of searchIds) {
+          const [hotelResponse, locationResponse, imageResponse] = await Promise.all([
+            fetch(`${process.env.API_BASE_URL}/hotel/${id}`).then((response) => response.json()),
+            fetch(`${process.env.API_BASE_URL}/location/${id}`).then((response) => response.json()),
+            fetch(`${process.env.API_BASE_URL}/image/${id}`).then((response) => response.json()),
+          ]);
 
-            const locationResponse = await fetch(
-              `https://backend-top-v29-hoteles.onrender.com/api/location/${id}`
-            );
-            const locationData = await locationResponse.json();
-            const city = locationData.city;
+          const { id: hotelId, hotel: title, about } = hotelResponse;
+          const { city } = locationResponse;
+          const { url: image } = imageResponse;
 
-            const imageResponse = await fetch(
-              `https://backend-top-v29-hoteles.onrender.com/api/image/${id}`
-            );
-            const imageData = await imageResponse.json();
-            const url = imageData.url;
+          const checkIn = new Date(searchParams.get("checkIn"));
+          const checkOut = new Date(searchParams.get("checkOut"));
+          const guests = Number(searchParams.get("guests"));
+          const { costoTotal, precioPasado, precioConDescuento } = calcularCostoReserva(checkIn, checkOut, guests);
+          const reviews = Math.ceil(Math.random() * 10000);
 
-            return {
-              title: name,
-              description: about,
-              location: city,
-              image: url,
-            };
-          })
-        );
+          hotelsRelatedData.push({
+            id: hotelId,
+            image,
+            title,
+            location: city,
+            description: about,
+            reviews,
+            pastPrice: precioPasado,
+            actualPrice: precioConDescuento,
+            totalPrice: costoTotal,
+          });
+        }
 
         setHotels(hotelsRelatedData);
       } catch (error) {
-        console.error("Error fetching hotels names:", error);
+        console.error("Error fetching hotel data:", error);
       }
     }
 
     fetchHotels();
-  }, [hotelSearch]);
+  }, [location.search]);
 
   return (
-    <>
-      <div className="content__listHotels">
-        {hotels.map((hotel, index) => {
-          let { costoTotal, precioPasado, precioConDescuento } =
-            calcularCostoReserva(checkIn, checkOut, guests);
-          costs.push(costoTotal)
-          let reviews = Math.ceil(Math.random() * 10000)
-          return (
-            <div className="content__listHotels--card" key={index}>
-              <Hotel
-                image={hotel.image} // Obtener la primera imagen del hotel
-                title={hotel.title}
-                location={hotel.location} // Obtener la primera ubicación del hotel
-                description={hotel.description}
-                reviews={reviews}
-                pastprice={precioPasado.toString()}
-                actualprice={precioConDescuento.toString()}
-              />
-            </div>
-          );
-        })}
-      </div>
-    </>
+    <div className="content__listHotels">
+      {hotels.map((hotel, index) => (
+        <div className="content__listHotels--card" key={index}>
+          <Hotel
+            id={hotel.id}
+            image={hotel.image}
+            title={hotel.title}
+            location={hotel.location}
+            description={hotel.description}
+            reviews={hotel.reviews}
+            pastprice={hotel.pastPrice.toString()}
+            actualprice={hotel.actualPrice.toString()}
+          />
+        </div>
+      ))}
+    </div>
   );
 }
