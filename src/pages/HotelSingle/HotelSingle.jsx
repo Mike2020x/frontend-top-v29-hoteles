@@ -1,16 +1,15 @@
 import './index.scss'
-import { useContext } from 'react';
-import { StateContext } from '../../components/ListHotels/ListHotels';
 import Room from '../../components/Room/Room'
 import Hotel from '../../components/Hotel/Hotel'
 import Star from '../../components/star/Star'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faHeart, faShareFromSquare } from '@fortawesome/free-solid-svg-icons'
 import RoomCard from '../../components/Room/RoomCard'
+import { useHotel } from '../../context'
 
 
 export default function HotelSingle() {
-  const { state } = useContext(StateContext);
+  const { state } = useHotel;
   const { selectedHotel: hotel } = state; // Obtener el hotel seleccionado del estado
 
   return (

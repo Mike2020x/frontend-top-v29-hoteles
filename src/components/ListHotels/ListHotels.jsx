@@ -1,67 +1,24 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Loading from "../loading/Loading";
 import calcularCostoReserva from "./calculateCost";
 import fetchSearch from "./fetchSearch";
 import Hotel from "../Hotel/Hotel";
 import "./ListHotels.scss";
-
-const initialState = {
-  hotels: [],
-  selectedHotel: null,
-  error: null,
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "SET_HOTELS":
-      return {
-        ...state,
-        hotels: action.payload,
-      };
-    case "SELECT_HOTEL":
-      return {
-        ...state,
-        selectedHotel: action.payload,
-      };
-    case "SET_ERROR":
-      return {
-        ...state,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-}
-
-export const StateContext = createContext();
-
-export function useHotelState() {
-  const context = useContext(StateContext);
-  if (!context) {
-    throw new Error("useHotelState must be used within a StateProvider");
-  }
-  return context;
-}
+import { useHotel } from "../../context";
 
 export default function ListHotels() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useHotel();
   const { hotels, selectedHotel, error } = state;
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const hotelSearch = searchParams.get("hotel")?.toLowerCase() || "";
+    const hotelSearch = searchParams.get("hotel")?.toLowerCase();
 
     fetchHotels(hotelSearch, searchParams, dispatch, setLoading);
-  }, [location.search]);
+  }, [dispatch, location.search]);
 
   const handleHotelClick = (hotel) => {
     dispatch({ type: "SELECT_HOTEL", payload: hotel });
@@ -76,33 +33,31 @@ export default function ListHotels() {
   }
 
   return (
-    <StateContext.Provider value={{ state, dispatch }}>
-      <div className="contentlist__Hotels">
-        {hotels.map((hotel) => (
-          <div className="contentlist__Hotels--card" key={hotel.hotelId}>
-            <Hotel
-              HotelId={hotel.hotelId}
-              image={hotel.image}
-              title={hotel.title}
-              location={hotel.location}
-              description={hotel.description}
-              reviews={hotel.reviews}
-              pastprice={hotel.precioPasado}
-              actualprice={hotel.precioConDescuento}
-              onClick={() => handleHotelClick(hotel)}
-            />
-          </div>
-        ))}
-        {selectedHotel && (
-          <div>
-            {/* Renderizar aquí el componente del hotel seleccionado */}
-            <h2>{selectedHotel.title}</h2>
-            <p>{selectedHotel.description}</p>
-            {/* etc. */}
-          </div>
-        )}
-      </div>
-    </StateContext.Provider>
+    <div className="contentlist__Hotels">
+      {hotels.map((hotel) => (
+        <div className="contentlist__Hotels--card" key={hotel.hotelId}>
+          <Hotel
+            HotelId={hotel.hotelId}
+            image={hotel.image}
+            title={hotel.title}
+            location={hotel.location}
+            description={hotel.description}
+            reviews={hotel.reviews}
+            pastprice={hotel.precioPasado}
+            actualprice={hotel.precioConDescuento}
+            onClick={() => handleHotelClick(hotel)}
+          />
+        </div>
+      ))}
+      {selectedHotel && (
+        <div>
+          {/* Renderizar aquí el componente del hotel seleccionado */}
+          <h2>{selectedHotel.title}</h2>
+          <p>{selectedHotel.description}</p>
+          {/* etc. */}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -112,11 +67,7 @@ async function fetchHotels(hotelSearch, searchParams, dispatch, setLoading) {
     const hotelPromises = searchIds.map((id) =>
       fetchHotelData(id, searchParams)
     );
-
-    const hotelsRelatedData = await Promise.all(hotelPromises);
-    const filteredHotels = hotelsRelatedData.filter((hotel) => hotel !== null);
-
-    dispatch({ type: "SET_HOTELS", payload: filteredHotels });
+    dispatch({ type: "SET_HOTELS", payload: hotelPromises });
     setLoading(false);
   } catch (error) {
     dispatch({ type: "SET_ERROR", payload: error });
