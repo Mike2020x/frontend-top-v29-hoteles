@@ -1,5 +1,7 @@
 export default function calcularCostoReserva(checkIn, checkOut, guests) {
-  const duracionEstadia = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24)); // Duración de la estadía en días
+  const duracionEstadia = Math.ceil(
+    (checkOut - checkIn) / (1000 * 60 * 60 * 24)
+  ); // Duración de la estadía en días
   const numeroHabitaciones = Math.ceil(guests / 2); // Suponiendo que 2 personas pueden compartir una habitación
 
   // Factores adicionales
@@ -9,7 +11,7 @@ export default function calcularCostoReserva(checkIn, checkOut, guests) {
   const descuentoPrecioPasado = 0.2; // Porcentaje de descuento basado en el precio pasado (20%)
 
   // Cálculo del costo base por noche con factores adicionales
-  
+
   let precioBasePorNoche = Math.ceil(Math.random() * 100) + 100;
   let costoBasePorNoche = precioBasePorNoche;
   if (guests > 1) {
@@ -21,12 +23,17 @@ export default function calcularCostoReserva(checkIn, checkOut, guests) {
   }
 
   // Cálculo del costo total de la reserva
-  let costoTotal = duracionEstadia * costoBasePorNoche * numeroHabitaciones;
-  costoTotal += costoTotal * porcentajeImpuesto; // Se agrega el impuesto al costo total
+  let total = duracionEstadia * costoBasePorNoche * numeroHabitaciones;
+  total += total * porcentajeImpuesto; // Se agrega el impuesto al costo total
+  const costoTotal = total.toString();
 
   // Cálculo del precio pasado con descuento
-  const precioPasado = Math.ceil(precioBasePorNoche * numeroHabitaciones);
-  const precioConDescuento = Math.ceil(precioPasado - (precioPasado * descuentoPrecioPasado));
+  const pasado = Math.ceil(precioBasePorNoche * numeroHabitaciones);
+  const precioPasado = pasado.toString()
+  const descuento = Math.ceil(
+    precioPasado - precioPasado * descuentoPrecioPasado
+  );
+  const precioConDescuento = descuento.toString()
 
   return {
     costoTotal,
@@ -39,5 +46,3 @@ export default function calcularCostoReserva(checkIn, checkOut, guests) {
 // const checkIn = new Date('2023-07-01');
 // const checkOut = new Date('2023-07-05');
 // const guests = 1;
-
-
