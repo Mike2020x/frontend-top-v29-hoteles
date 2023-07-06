@@ -38,7 +38,7 @@ const Login = () => {
 
       // Llamar a la API para iniciar sesión
       const response = await fetch(
-        "https://backend-top-v29-hoteles.onrender.com/auth/local/login",
+        `${import.meta.env.API_BASE_URL}/api/user`,
         {
           method: "POST",
           headers: {
@@ -86,7 +86,7 @@ const Login = () => {
       console.log(signupData);
       // Llamar a la API para registrarse
       const response = await fetch(
-        "https://backend-top-v29-hoteles.onrender.com/api/user",
+        `${import.meta.env.API_BASE_URL}/api/user`,
         {
           method: "POST",
           headers: {
