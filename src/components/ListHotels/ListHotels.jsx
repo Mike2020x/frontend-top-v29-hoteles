@@ -10,14 +10,23 @@ import { useHotel } from "../../context";
 export default function ListHotels() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
-  const [state, dispatch] = useHotel();
-  const { hotels, selectedHotel, error } = state;
+  const { dispatch } = useHotel();
+  const [list, setList] = useState([]);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const hotelSearch = searchParams.get("hotel")?.toLowerCase();
+    const fetchData = async () => {
+      const searchParams = new URLSearchParams(location.search);
+      const hotelSearch = searchParams.get("hotel")?.toLowerCase();
+      const hotels = await fetchHotels(
+        hotelSearch,
+        searchParams,
+        dispatch,
+        setLoading
+      );
+      setList(hotels);
+    };
 
-    fetchHotels(hotelSearch, searchParams, dispatch, setLoading);
+    fetchData();
   }, [dispatch, location.search]);
 
   const handleHotelClick = (hotel) => {
@@ -28,13 +37,9 @@ export default function ListHotels() {
     return <Loading />;
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   return (
     <div className="contentlist__Hotels">
-      {hotels.map((hotel) => (
+      {list.map((hotel) => (
         <div className="contentlist__Hotels--card" key={hotel.hotelId}>
           <Hotel
             HotelId={hotel.hotelId}
@@ -49,14 +54,6 @@ export default function ListHotels() {
           />
         </div>
       ))}
-      {selectedHotel && (
-        <div>
-          {/* Renderizar aquí el componente del hotel seleccionado */}
-          <h2>{selectedHotel.title}</h2>
-          <p>{selectedHotel.description}</p>
-          {/* etc. */}
-        </div>
-      )}
     </div>
   );
 }
@@ -67,10 +64,13 @@ async function fetchHotels(hotelSearch, searchParams, dispatch, setLoading) {
     const hotelPromises = searchIds.map((id) =>
       fetchHotelData(id, searchParams)
     );
-    dispatch({ type: "SET_HOTELS", payload: hotelPromises });
-    setLoading(false);
+    const hotels = await Promise.all(hotelPromises);
+    dispatch({ type: "SET_HOTELS", payload: hotels });
+    return hotels;
   } catch (error) {
-    dispatch({ type: "SET_ERROR", payload: error });
+    console.error("Error fetching hotel promises:", error);
+    return [];
+  } finally {
     setLoading(false);
   }
 }
