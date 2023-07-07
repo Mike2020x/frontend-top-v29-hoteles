@@ -9,8 +9,29 @@ import { useHotel } from '../../context'
 
 
 export default function HotelSingle() {
-  const { state } = useHotel;
-  const { selectedHotel: hotel } = state; // Obtener el hotel seleccionado del estado
+  const { state } = useHotel();
+  const { selectedHotel: hotel } = state;
+
+  // useEffect(() => {
+  //   async function fetchRoom() {
+
+  //     try {
+  //       if (hotel) {
+
+  //         const id = hotel.hotelId
+
+  // //const [locationResponse, roomResponse, imageResponse] =
+
+
+  //   await Promise.all([
+  //     //fetch(`${import.meta.env.VITE_BASE_URL}/api/location/${id}`),
+  //     // fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
+  //     // fetch(`${import.meta.env.VITE_BASE_URL}/api/image/${id}`),
+  //   ]);
+
+  // const address = locationResponse.address;
+  // const room = roomResponse.
+
 
   return (
     <div className='content__hotelSingle'>
@@ -26,7 +47,7 @@ export default function HotelSingle() {
               <p className='text__show'>Save</p>
             </div>
             <div>
-              <p>{hotel.address}</p> {/* Usar la dirección del hotel seleccionado */}
+              <p>calle la soledad</p> {/* Usar la dirección del hotel seleccionado */}
               <div className='free__buttons'>
                 <button>Free Wifi</button>
                 <button>Free Breakfast</button>
@@ -34,8 +55,8 @@ export default function HotelSingle() {
             </div>
           </div>
           <div className='hotelSingle__payment'>
-            <h3 className='title__short'>{hotel.totalPrice} / Per Night</h3> {/* Usar el precio total del hotel seleccionado */}
-            <p className='title__big'><font size="6">{hotel.totalPrice}</font> / Per Night</p> {/* Usar el precio total del hotel seleccionado */}
+            <h3 className='title__short'>{hotel.cost} / Per Night</h3> {/* Usar el precio total del hotel seleccionado */}
+            <p className='title__big'><font size="6">{hotel.cost}</font> / Per Night</p> {/* Usar el precio total del hotel seleccionado */}
             <button className='hotelSingle__show book__now'>Book This Now</button>
           </div>
         </div>
@@ -127,3 +148,4 @@ export default function HotelSingle() {
     </div>
   )
 }
+

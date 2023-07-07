@@ -39,7 +39,7 @@ export default function ListHotels() {
               const ratings = Math.ceil(Math.random() * 10000).toString();
 
               return {
-                hotelId: id, // Corregido: 'H' en 'hotelId' debe estar en minúscula
+                hotelId: id,
                 image: url,
                 title: name,
                 location: city,
@@ -69,7 +69,7 @@ export default function ListHotels() {
 
 
     fetchHotels();
-  }, [dispatch]);
+  }, [dispatch, location.search]);
 
   const hotels = state.hotels;
 
