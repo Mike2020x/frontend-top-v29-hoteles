@@ -13,6 +13,7 @@ import Loading from "../../components/loading/Loading";
 import { useEffect } from "react";
 import HotelsSlider from "../../components/slider/Slider";
 
+
 export default function HotelSingle() {
   const { state, dispatch } = useHotel();
   const { selectedHotel: hotel, hotels } = state;
