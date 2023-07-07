@@ -12,7 +12,6 @@ const HotelsSlider = ({ hotels, id }) => {
   const visibleHotels = getVisibleHotels();
 
   function getVisibleHotels() {
-    const lastIndex = filteredHotels.length - 1;
     const prevIndex = (currentIndex - 1 + filteredHotels.length) % filteredHotels.length;
     const nextIndex = (currentIndex + 1) % filteredHotels.length;
 
