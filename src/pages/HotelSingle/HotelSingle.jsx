@@ -35,7 +35,7 @@ export default function HotelSingle() {
           const { urlRoom } = imageData
           const { email, phone, networks } = contactsInfoData;
 
-          return {
+          const room = {
             id,
             title,
             urlRoom,
@@ -46,18 +46,19 @@ export default function HotelSingle() {
             phone,
             networks,
           };
+
+          dispatch({ type: "SET_SELECTED_ROOM", payload: room });
         }
-
-        dispatch({ type: "SELECT_HOTEL", payload: hotel});
-
     } catch (error) {
       console.error("Error fetching hotel names:", error); // Corregido: "hotels" -> "hotel" en el mensaje de error
     } finally {
       dispatch({ type: "LOADING", payload: false });
     }
   }
-
+  
   fetchRooms();
+}, [dispatch, hotel]);
+
 
   if (state.loading) {
     return <Loading />;
@@ -156,7 +157,6 @@ export default function HotelSingle() {
           />
         </div>
         <div className="hotelSingle__list">
-          <div>
             {hotels.map((hotel, index) => {
               <div key={index} className="hotelSingle__list--hotel">
                 <Hotel
@@ -172,9 +172,8 @@ export default function HotelSingle() {
                 />
               </div>;
             })}
-          </div>
         </div>
       </div>
     </div>
   );
-)}
+};

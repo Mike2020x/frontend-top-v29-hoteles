@@ -14,6 +14,12 @@ export default function ListHotels() {
   useEffect(() => {
     async function fetchHotels() {
       try {
+        const searchParams = new URLSearchParams(location.search);
+        const hotelSearch = searchParams.get("hotel")?.toLowerCase();
+        const checkIn = new Date(searchParams.get("checkIn"));
+        const checkOut = new Date(searchParams.get("checkOut"));
+        const guests = Number(searchParams.get("guests"));
+
         if (hotelSearch) {
           const searchIds = await fetchSearch(hotelSearch);
           const hotelsRelatedData = await Promise.all(
@@ -29,20 +35,24 @@ export default function ListHotels() {
               const imageData = await imageResponse.json();
               const { hotel, about } = hotelData;
               const { city, address } = locationData;
-              const { urlHotel } = imageData
-              const { precioPasado, precioConDescuento, costoTotal } = calcularCostoReserva(checkIn, checkOut, guests);
+              const { urlHotel } = imageData;
+              const {
+                precioPasado,
+                precioConDescuento,
+                costoTotal,
+              } = calcularCostoReserva(checkIn, checkOut, guests);
               const ratings = Math.ceil(Math.random() * 10000).toString();
 
               return {
                 hotelId: id,
-                imageHotel: urlHotel,
+                image: urlHotel,
                 title: hotel,
-                city,
+                location: city,
                 address,
                 description: about,
                 reviews: ratings,
-                pastPrice: precioPasado.toString(), // Corregido: 'P' en 'pastPrice' debe estar en mayúscula
-                actualPrice: precioConDescuento.toString(), // Corregido: 'A' en 'actualPrice' debe estar en mayúscula
+                pastPrice: precioPasado.toString(),
+                actualPrice: precioConDescuento.toString(),
                 cost: costoTotal.toString(),
               };
             })
@@ -51,21 +61,14 @@ export default function ListHotels() {
           dispatch({ type: "SET_HOTELS", payload: hotelsRelatedData });
         }
       } catch (error) {
-        console.error("Error fetching hotel names:", error); // Corregido: "hotels" -> "hotel" en el mensaje de error
+        console.error("Error fetching hotel names:", error);
       } finally {
         dispatch({ type: "LOADING", payload: false });
       }
     }
 
-    const searchParams = new URLSearchParams(location.search);
-    const hotelSearch = searchParams.get("hotel")?.toLowerCase();
-    const checkIn = new Date(searchParams.get("checkIn"));
-    const checkOut = new Date(searchParams.get("checkOut"));
-    const guests = Number(searchParams.get("guests"));
-
-d
-
-  const hotels = state.hotels;
+    fetchHotels();
+  }, [dispatch, location.search]);
 
   const handleHotelClick = (hotel) => {
     dispatch({ type: "SELECT_HOTEL", payload: hotel });
@@ -77,7 +80,7 @@ d
 
   return (
     <div className="content__listHotels">
-      {hotels.map((hotel, index) => {
+      {state.hotels.map((hotel, index) => {
         return (
           <div className="content__listHotels--card" key={index}>
             <Hotel
