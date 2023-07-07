@@ -5,7 +5,6 @@ const HotelContext = createContext();
 const initialState = {
   hotels: [],
   selectedHotel: null,
-  error: null,
 };
 
 const reducer = (state, action) => {
@@ -25,7 +24,6 @@ const reducer = (state, action) => {
   }
 }
 
-// eslint-disable-next-line react/prop-types
 export const HotelProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -36,5 +34,4 @@ export const HotelProvider = ({ children }) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useHotel = () => useContext(HotelContext);

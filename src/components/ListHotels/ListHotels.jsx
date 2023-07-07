@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Loading from "../loading/Loading";
 import calcularCostoReserva from "./calculateCost";
 import fetchSearch from "./fetchSearch";
 import Hotel from "../Hotel/Hotel";
@@ -9,112 +8,81 @@ import { useHotel } from "../../context";
 
 export default function ListHotels() {
   const location = useLocation();
-  const [loading, setLoading] = useState(true);
-  const { dispatch } = useHotel();
-  const [list, setList] = useState([]);
+  const searchParams = new URLSearchParams(location.search);
+  const hotelSearch = searchParams.get("hotel")?.toLowerCase();
+  const checkIn = new Date(searchParams.get("checkIn"));
+  const checkOut = new Date(searchParams.get("checkOut"));
+  const guests = Number(searchParams.get("guests"));
+  const { state, dispatch } = useHotel();
+  let cost = []
 
   useEffect(() => {
-    const fetchData = async () => {
-      const searchParams = new URLSearchParams(location.search);
-      const hotelSearch = searchParams.get("hotel")?.toLowerCase();
-      const hotels = await fetchHotels(
-        hotelSearch,
-        searchParams,
-        dispatch,
-        setLoading
-      );
-      setList(hotels);
-    };
+    async function fetchHotels() {
+      try {
+        if (hotelSearch) {
+          const searchIds = await fetchSearch(hotelSearch);
 
-    fetchData();
-  }, [dispatch, location.search]);
+          const hotelsRelatedData = await Promise.all(
+            searchIds.map(async (id) => {
+              const [hotelResponse, locationResponse, imageResponse] =
+                await Promise.all([
+                  fetch(`${import.meta.env.VITE_BASE_URL}/api/hotel/${id}`),
+                  fetch(`${import.meta.env.VITE_BASE_URL}/api/location/${id}`),
+                  fetch(`${import.meta.env.VITE_BASE_URL}/api/image/${id}`),
+                ]);
 
-  const handleHotelClick = (hotel) => {
-    dispatch({ type: "SELECT_HOTEL", payload: hotel });
-  };
+              const hotelData = await hotelResponse.json();
+              const locationData = await locationResponse.json();
+              const imageData = await imageResponse.json();
 
-  if (loading) {
-    return <Loading />;
-  }
+              const name = hotelData.hotel;
+              const about = hotelData.about;
+              const city = locationData.city;
+              const url = imageData.url;
+
+              return {
+                title: name,
+                description: about,
+                location: city,
+                image: url,
+              };
+            })
+          );
+
+          dispatch({ type: "SET_HOTELS", payload: hotelsRelatedData });
+        }
+      } catch (error) {
+        console.error("Error fetching hotels names:", error);
+      }
+    }
+
+    fetchHotels();
+  }, [dispatch, hotelSearch]);
+
+  const hotels = state.hotels;
 
   return (
-    <div className="contentlist__Hotels">
-      {list.map((hotel) => (
-        <div className="contentlist__Hotels--card" key={hotel.hotelId}>
-          <Hotel
-            HotelId={hotel.hotelId}
-            image={hotel.image}
-            title={hotel.title}
-            location={hotel.location}
-            description={hotel.description}
-            reviews={hotel.reviews}
-            pastprice={hotel.precioPasado}
-            actualprice={hotel.precioConDescuento}
-            onClick={() => handleHotelClick(hotel)}
-          />
-        </div>
-      ))}
+    <div className="content__listHotels">
+      {hotels.map((hotel, index) => {
+        const { costoTotal, precioPasado, precioConDescuento } =
+          calcularCostoReserva(checkIn, checkOut, guests);
+        cost.push(costoTotal)
+        const reviews = Math.ceil(Math.random() * 10000);
+
+        return (
+          <div className="content__listHotels--card" key={index}>
+            <Hotel
+              image={hotel.image}
+              title={hotel.title}
+              location={hotel.location}
+              description={hotel.description}
+              reviews={reviews}
+              pastprice={precioPasado.toString()}
+              actualprice={precioConDescuento.toString()}
+            />
+          </div>
+        );
+      })}
     </div>
   );
-}
-
-async function fetchHotels(hotelSearch, searchParams, dispatch, setLoading) {
-  try {
-    const searchIds = await fetchSearch(hotelSearch);
-    const hotelPromises = searchIds.map((id) =>
-      fetchHotelData(id, searchParams)
-    );
-    const hotels = await Promise.all(hotelPromises);
-    dispatch({ type: "SET_HOTELS", payload: hotels });
-    return hotels;
-  } catch (error) {
-    console.error("Error fetching hotel promises:", error);
-    return [];
-  } finally {
-    setLoading(false);
-  }
-}
-
-async function fetchHotelData(id, searchParams) {
-  try {
-    const [hotelResponse, locationResponse, imageResponse] = await Promise.all([
-      fetch(`${import.meta.env.API_BASE_URL}/api/hotel/${id}`).then(
-        (response) => response.json()
-      ),
-      fetch(`${import.meta.env.API_BASE_URL}/api/location/${id}`).then(
-        (response) => response.json()
-      ),
-      fetch(`${import.meta.env.API_BASE_URL}/api/image/${id}`).then(
-        (response) => response.json()
-      ),
-    ]);
-
-    const { id: hotelId, hotel: title, about } = hotelResponse;
-    const { city, address } = locationResponse;
-    const { url: image } = imageResponse;
-
-    const checkIn = new Date(searchParams.get("checkIn"));
-    const checkOut = new Date(searchParams.get("checkOut"));
-    const guests = Number(searchParams.get("guests"));
-    const { costoTotal, precioPasado, precioConDescuento } =
-      calcularCostoReserva(checkIn, checkOut, guests);
-
-    const reviews = Math.ceil(Math.random() * 10000).toString();
-
-    return {
-      hotelId,
-      image,
-      title,
-      location: city,
-      address,
-      description: about,
-      reviews,
-      precioPasado,
-      precioConDescuento,
-      costoTotal,
-    };
-  } catch (error) {
-    console.error("Error fetching hotel data:", error);
-    return null;
-  }
 }
