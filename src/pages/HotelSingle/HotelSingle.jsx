@@ -11,13 +11,14 @@ import {
 import RoomCard from "../../components/Room/RoomCard";
 import { useHotel } from "../../context";
 import Loading from "../../components/loading/Loading";
+import { useEffect } from "react";
 
 export default function HotelSingle() {
   const { state, dispatch } = useHotel();
   const { selectedHotel: hotel, hotels } = state;
 
   useEffect(() => {
-    async function fetchRoom() {
+    async function fetchRooms() {
       try {
         if (hotel) {
           const id = hotel.hotelId
@@ -45,7 +46,10 @@ export default function HotelSingle() {
             phone,
             networks,
           };
-        };
+        }
+
+        dispatch({ type: "SELECT_HOTEL", payload: hotel});
+
     } catch (error) {
       console.error("Error fetching hotel names:", error); // Corregido: "hotels" -> "hotel" en el mensaje de error
     } finally {
@@ -53,13 +57,7 @@ export default function HotelSingle() {
     }
   }
 
-  dispatch({ type: "SELECT_HOTEL", payload: hotel});
-  const handleHotelClick = (hotel) => {
-    dispatch({ type: "SELECT_HOTEL", payload: hotel });
-  };
-
-  fetchHotels();
-}, [dispatch, location.search]);
+  fetchRooms();
 
   if (state.loading) {
     return <Loading />;
@@ -170,7 +168,7 @@ export default function HotelSingle() {
                   reviews={hotel.reviews}
                   pastPrice={hotel.pastPrice}
                   actualPrice={hotel.actualPrice}
-                  onClick={() => handleHotelClick(hotel)}
+                  onClick={() => handleRoomClick(hotel)}
                 />
               </div>;
             })}
@@ -179,4 +177,4 @@ export default function HotelSingle() {
       </div>
     </div>
   );
-}
+)}

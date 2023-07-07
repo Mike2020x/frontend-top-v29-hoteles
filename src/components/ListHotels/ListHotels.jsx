@@ -63,9 +63,7 @@ export default function ListHotels() {
     const checkOut = new Date(searchParams.get("checkOut"));
     const guests = Number(searchParams.get("guests"));
 
-
-    fetchHotels();
-  }, [dispatch, location.search]);
+d
 
   const hotels = state.hotels;
 
