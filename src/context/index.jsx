@@ -1,11 +1,13 @@
-import { createContext, useReducer, useContext } from 'react';
+import { createContext, useReducer, useContext } from "react";
+import PropTypes from "prop-types";
 
 const HotelContext = createContext();
 
 const initialState = {
   hotels: [],
   selectedHotel: null,
-  error: null,
+  selectedRooms: null,
+  loading: true,
 };
 
 const reducer = (state, action) => {
@@ -20,17 +22,21 @@ const reducer = (state, action) => {
         ...state,
         selectedHotel: action.payload,
       };
-    case "SET_ERROR":
+    case "SELECT_ROOMS":
       return {
         ...state,
-        error: action.payload,
+        selectedRooms: action.payload,
+      };
+    case "LOADING":
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       return state;
   }
-}
+};
 
-// eslint-disable-next-line react/prop-types
 export const HotelProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -39,6 +45,10 @@ export const HotelProvider = ({ children }) => {
       {children}
     </HotelContext.Provider>
   );
+};
+
+HotelProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useHotel = () => useContext(HotelContext);
