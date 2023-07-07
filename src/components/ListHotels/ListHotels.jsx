@@ -35,7 +35,7 @@ export default function ListHotels() {
               const imageData = await imageResponse.json();
               const { hotel, about } = hotelData;
               const { city, address } = locationData;
-              const { urlHotel } = imageData;
+              const { url } = imageData;
               const {
                 precioPasado,
                 precioConDescuento,
@@ -45,7 +45,7 @@ export default function ListHotels() {
 
               return {
                 hotelId: id,
-                image: urlHotel,
+                image: url,
                 title: hotel,
                 location: city,
                 address,
@@ -72,6 +72,7 @@ export default function ListHotels() {
 
   const handleHotelClick = (hotel) => {
     dispatch({ type: "SELECT_HOTEL", payload: hotel });
+    dispatch({ type: "LOADING", payload: true });
   };
 
   if (state.loading) {

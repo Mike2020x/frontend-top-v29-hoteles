@@ -1,0 +1,44 @@
+.hotels-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.hotel-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.prev-button,
+.next-button {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #000;
+  cursor: pointer;
+  margin: 1rem;
+  transition: color 0.3s;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  color: #ff0000;
+}
+
+@media (max-width: 768px) {
+  .slider-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}

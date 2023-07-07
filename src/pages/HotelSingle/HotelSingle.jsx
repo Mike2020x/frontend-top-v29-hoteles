@@ -15,54 +15,55 @@ import { useEffect } from "react";
 
 export default function HotelSingle() {
   const { state, dispatch } = useHotel();
-  const { selectedHotel: hotel, hotels } = state;
+  const { selectedHotel: hotel } = state;
 
   useEffect(() => {
     async function fetchRooms() {
       try {
         if (hotel) {
-          const id = hotel.hotelId
+          const id = hotel.hotelId;
           const [roomResponse, imageResponse, contactsInfoResponse] =
-          await Promise.all([
-            fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
-            fetch(`${import.meta.env.VITE_BASE_URL}/api/image/${id}`),
-            fetch(`${import.meta.env.VITE_BASE_URL}/api/contactsInfo/${id}`),
-          ]);
+            await Promise.all([
+              fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
+              fetch(`${import.meta.env.VITE_BASE_URL}/api/contactsInfo/${id}`),
+            ]);
           const roomData = await roomResponse.json();
           const imageData = await imageResponse.json();
           const contactsInfoData = await contactsInfoResponse.json();
           const { title, description, pastPrice, actualPrice } = roomData;
-          const { urlRoom } = imageData
-          const { email, phone, networks } = contactsInfoData;
+          const { url } = imageData;
+          const { email, phone } = contactsInfoData;
 
           const room = {
             id,
             title,
-            urlRoom,
+            url,
             description,
             pastPrice,
             actualPrice,
             email,
             phone,
-            networks,
           };
 
           dispatch({ type: "SET_SELECTED_ROOM", payload: room });
         }
-    } catch (error) {
-      console.error("Error fetching hotel names:", error); // Corregido: "hotels" -> "hotel" en el mensaje de error
-    } finally {
-      dispatch({ type: "LOADING", payload: false });
+      } catch (error) {
+        console.error("Error fetching hotel names:", error); // Corregido: "hotels" -> "hotel" en el mensaje de error
+      } finally {
+        dispatch({ type: "LOADING", payload: false });
+      }
     }
-  }
-  
-  fetchRooms();
-}, [dispatch, hotel]);
 
+    fetchRooms();
+  }, [dispatch, hotel]);
 
   if (state.loading) {
     return <Loading />;
   }
+
+  const handleHotelClick = (hotel) => {
+    dispatch({ type: "SELECT_HOTEL", payload: hotel });
+  };
 
   return (
     <div className="content__hotelSingle">
@@ -85,7 +86,7 @@ export default function HotelSingle() {
               <p className="text__show">Save</p>
             </div>
             <div>
-              <p>calle la soledad</p>{" "}
+              <p>{hotel.address}</p>
               {/* Usar la dirección del hotel seleccionado */}
               <div className="free__buttons">
                 <button>Free Wifi</button>
@@ -94,11 +95,11 @@ export default function HotelSingle() {
             </div>
           </div>
           <div className="hotelSingle__payment">
-            <h3 className="title__short">{hotel.cost} / Per Night</h3>{" "}
+            <h3 className="title__short">{hotel.cost} / Per Night</h3>
             {/* Usar el precio total del hotel seleccionado */}
             <p className="title__big">
               <font size="6">{hotel.cost}</font> / Per Night
-            </p>{" "}
+            </p>
             {/* Usar el precio total del hotel seleccionado */}
             <button className="hotelSingle__show book__now">
               Book This Now
@@ -157,23 +158,23 @@ export default function HotelSingle() {
           />
         </div>
         <div className="hotelSingle__list">
-            {hotels.map((hotel, index) => {
-              <div key={index} className="hotelSingle__list--hotel">
-                <Hotel
-                  hotelId={hotel.hotelId}
-                  image={hotel.image}
-                  title={hotel.title}
-                  location={hotel.location}
-                  description={hotel.description}
-                  reviews={hotel.reviews}
-                  pastPrice={hotel.pastPrice}
-                  actualPrice={hotel.actualPrice}
-                  onClick={() => handleRoomClick(hotel)}
-                />
-              </div>;
-            })}
+          {state.hotels.map((hotel, index) => {
+            <div key={index} className="hotelSingle__list--hotel">
+              <Hotel
+                hotelId={hotel.hotelId}
+                image={hotel.image}
+                title={hotel.title}
+                location={hotel.location}
+                description={hotel.description}
+                reviews={hotel.reviews}
+                pastPrice={hotel.pastPrice}
+                actualPrice={hotel.actualPrice}
+                onClick={() => handleHotelClick(hotel)}
+              />
+            </div>;
+          })}
         </div>
       </div>
     </div>
   );
-};
+}
