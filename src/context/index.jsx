@@ -1,10 +1,12 @@
 import { createContext, useReducer, useContext } from "react";
+import PropTypes from "prop-types";
 
 const HotelContext = createContext();
 
 const initialState = {
   hotels: [],
   selectedHotel: null,
+  selectedRooms: null,
   loading: true,
 };
 
@@ -19,6 +21,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedHotel: action.payload,
+      };
+    case "SELECT_ROOMS":
+      return {
+        ...state,
+        selectedRooms: action.payload,
       };
     case "LOADING":
       return {
@@ -38,6 +45,10 @@ export const HotelProvider = ({ children }) => {
       {children}
     </HotelContext.Provider>
   );
+};
+
+HotelProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useHotel = () => useContext(HotelContext);

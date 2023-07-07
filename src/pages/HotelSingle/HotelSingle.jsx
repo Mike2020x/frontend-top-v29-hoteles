@@ -12,33 +12,48 @@ import { useHotel } from "../../context";
 import Loading from "../../components/loading/Loading";
 import { useEffect } from "react";
 import HotelsSlider from "../../components/slider/Slider";
-
+import { roomImages } from "../../assets/images";
 
 export default function HotelSingle() {
   const { state, dispatch } = useHotel();
-  const { selectedHotel: hotel, hotels } = state;
+  const { hotels, selectedHotel: hotel, selectedRooms: rooms } = state;
 
   useEffect(() => {
     async function fetchRooms() {
       try {
         if (hotel) {
           const id = hotel.hotelId;
-          const [roomResponse, imageResponse, contactsInfoResponse] =
-            await Promise.all([
-              fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
-              fetch(`${import.meta.env.VITE_BASE_URL}/api/contactsInfo/${id}`),
-            ]);
+          const [roomResponse, contactsInfoResponse] = await Promise.all([
+            fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
+            fetch(`${import.meta.env.VITE_BASE_URL}/api/contactInfo/${id}`),
+          ]);
           const roomData = await roomResponse.json();
-          const imageData = await imageResponse.json();
           const contactsInfoData = await contactsInfoResponse.json();
           const { title, description, pastPrice, actualPrice } = roomData;
-          const { url } = imageData;
           const { email, phone } = contactsInfoData;
 
-          const room = {
+          // Clonar el array original para evitar modificarlo directamente
+          const availableIndexes = roomImages.map((_, index) => index);
+
+          let imageRooms = [];
+
+          for (let i = 0; i < 5; i++) {
+            // Genera un número aleatorio entre 0 y availableIndexes.length - 1
+            const randomIndex = Math.floor(
+              Math.random() * availableIndexes.length
+            );
+            const selectedIndex = availableIndexes[randomIndex];
+            const randomImageUrl = roomImages[selectedIndex];
+            imageRooms.push(randomImageUrl);
+
+            // Eliminar el índice seleccionado del array de índices disponibles
+            availableIndexes.splice(randomIndex, 1);
+          }
+
+          const rooms = {
             id,
             title,
-            url,
+            images: imageRooms,
             description,
             pastPrice,
             actualPrice,
@@ -46,10 +61,11 @@ export default function HotelSingle() {
             phone,
           };
 
-          dispatch({ type: "SET_SELECTED_ROOM", payload: room });
+          dispatch({ type: "SELECT_ROOMS", payload: rooms });
         }
       } catch (error) {
-        console.error("Error fetching hotel names:", error); // Corregido: "hotels" -> "hotel" en el mensaje de error
+        // Corregido: "hotels" -> "hotel" en el mensaje de error
+        console.error("Error fetching hotel names:", error);
       } finally {
         dispatch({ type: "LOADING", payload: false });
       }
@@ -68,8 +84,7 @@ export default function HotelSingle() {
         <div className="navbar__hotelSingle">
           <div className="box__hotelSingle">
             <div className="content__hotelSingle--title">
-              <h2>{hotel.title}</h2>{" "}
-              {/* Usar el título del hotel seleccionado */}
+              <h2>{hotel.title}</h2>
               <div className="star__show">
                 <Star />
               </div>
@@ -84,7 +99,6 @@ export default function HotelSingle() {
             </div>
             <div>
               <p>{hotel.address}</p>
-              {/* Usar la dirección del hotel seleccionado */}
               <div className="free__buttons">
                 <button>Free Wifi</button>
                 <button>Free Breakfast</button>
@@ -93,11 +107,9 @@ export default function HotelSingle() {
           </div>
           <div className="hotelSingle__payment">
             <h3 className="title__short">{hotel.cost} / Per Night</h3>
-            {/* Usar el precio total del hotel seleccionado */}
             <p className="title__big">
               <font size="6">{hotel.cost}</font> / Per Night
             </p>
-            {/* Usar el precio total del hotel seleccionado */}
             <button className="hotelSingle__show book__now">
               Book This Now
             </button>
@@ -105,21 +117,30 @@ export default function HotelSingle() {
         </div>
 
         <div className="content__hotelSingle--images">
-          <div className="content__hotelSingle--principal">
+          <div className="content__hotelSingle--principal"
+          style={{ backgroundImage: `url('${hotel.image}')` }}>
             <select className="selected-label left">
               <FontAwesomeIcon icon={faAngleRight} rotation={180} />
             </select>
             <select className="selected-label right">
               <FontAwesomeIcon icon={faAngleRight} />
             </select>
-            <p className="view-all">View All Images</p>
+            <p className="view-all">
+              Hotel Images
+            </p>
           </div>
           <div className="hotelSingle__show">
-            <div className="content__hotelSingle--secondary">
-              <p className="view-all">Room Images</p>
+            <div className="content__hotelSingle--secondary"
+            style={{ backgroundImage: `url(${rooms.images[0]})` }}>
+              <p className="view-all">
+                Room Image
+              </p>
             </div>
-            <div className="content__hotelSingle--secondary">
-              <p className="view-all">Poll Images</p>
+            <div className="content__hotelSingle--secondary"
+            style={{ backgroundImage: `url(${rooms.images[1]})` }}>
+              <p className="view-all">
+                Room Image
+              </p>
             </div>
           </div>
         </div>
@@ -137,19 +158,19 @@ export default function HotelSingle() {
         <div className="hotelSingle__rooms">
           <Room
             title="Deluxe Room"
-            image="/room1.jpg"
+            image={`${rooms.images[2]}`}
             beforePrice="$1250"
             nowPrice="$1000"
           />
           <Room
             title="Suite Room"
-            image="/room2.jpg"
+            image={`${rooms.images[3]}`}
             beforePrice="$1350"
             nowPrice="$1100"
           />
           <Room
             title="Royal Room"
-            image="/room3.jpg"
+            image={`${rooms.images[4]}`}
             beforePrice="$1950"
             nowPrice="$1800"
           />
