@@ -1,6 +1,5 @@
 import "./index.scss";
 import Room from "../../components/Room/Room";
-import Hotel from "../../components/Hotel/Hotel";
 import Star from "../../components/star/Star";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,10 +11,11 @@ import RoomCard from "../../components/Room/RoomCard";
 import { useHotel } from "../../context";
 import Loading from "../../components/loading/Loading";
 import { useEffect } from "react";
+import HotelsSlider from "../../components/slider/Slider";
 
 export default function HotelSingle() {
   const { state, dispatch } = useHotel();
-  const { selectedHotel: hotel } = state;
+  const { selectedHotel: hotel, hotels } = state;
 
   useEffect(() => {
     async function fetchRooms() {
@@ -60,10 +60,6 @@ export default function HotelSingle() {
   if (state.loading) {
     return <Loading />;
   }
-
-  const handleHotelClick = (hotel) => {
-    dispatch({ type: "SELECT_HOTEL", payload: hotel });
-  };
 
   return (
     <div className="content__hotelSingle">
@@ -157,22 +153,8 @@ export default function HotelSingle() {
             nowPrice="$1800"
           />
         </div>
-        <div className="hotelSingle__list">
-          {state.hotels.map((hotel, index) => {
-            <div key={index} className="hotelSingle__list--hotel">
-              <Hotel
-                hotelId={hotel.hotelId}
-                image={hotel.image}
-                title={hotel.title}
-                location={hotel.location}
-                description={hotel.description}
-                reviews={hotel.reviews}
-                pastPrice={hotel.pastPrice}
-                actualPrice={hotel.actualPrice}
-                onClick={() => handleHotelClick(hotel)}
-              />
-            </div>;
-          })}
+        <div>
+          <HotelsSlider hotels={hotels} id={hotel.hotelId} />
         </div>
       </div>
     </div>

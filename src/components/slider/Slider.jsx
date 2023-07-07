@@ -1,20 +1,34 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Hotel from './Hotel';
+import Hotel from '../Hotel/Hotel';
 import { useHotel } from '../../context';
 import './index.scss';
 
-const HotelsSlider = ({ hotels }) => {
-
+const HotelsSlider = ({ hotels, id }) => {
   const { dispatch } = useHotel();
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const filteredHotels = hotels.filter((hotel) => hotel.hotelId !== id);
+  const visibleHotels = getVisibleHotels();
+
+  function getVisibleHotels() {
+    const lastIndex = filteredHotels.length - 1;
+    const prevIndex = (currentIndex - 1 + filteredHotels.length) % filteredHotels.length;
+    const nextIndex = (currentIndex + 1) % filteredHotels.length;
+
+    return [
+      filteredHotels[prevIndex],
+      filteredHotels[currentIndex],
+      filteredHotels[nextIndex]
+    ];
+  }
+
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % hotels.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % filteredHotels.length);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + hotels.length) % hotels.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + filteredHotels.length) % filteredHotels.length);
   };
 
   const handleHotelClick = (hotel) => {
@@ -24,8 +38,8 @@ const HotelsSlider = ({ hotels }) => {
   return (
     <div className="hotels-slider">
       <div className="slider-container">
-        {hotels.slice(currentIndex, currentIndex + 3).map((hotel, index) => (
-          <div key={index} className="hotel-card">
+        {visibleHotels.map((hotel) => (
+          <div key={hotel.hotelId} className="hotel-card">
             <Hotel
               hotelId={hotel.hotelId}
               image={hotel.image}
@@ -59,6 +73,7 @@ HotelsSlider.propTypes = {
       actualPrice: PropTypes.string.isRequired,
     })
   ).isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default HotelsSlider;
