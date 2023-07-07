@@ -13,6 +13,7 @@ import { useHotel } from "../../context";
 import Loading from "../../components/loading/Loading";
 import { useEffect } from "react";
 
+
 export default function HotelSingle() {
   const { state, dispatch } = useHotel();
   const { selectedHotel: hotel } = state;
