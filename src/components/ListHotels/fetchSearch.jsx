@@ -1,8 +1,8 @@
 export default async function fetchSearch(hotelSearch) {
   try {
     const [responseHotel, responseLocation] = await Promise.all([
-      fetch(`https://backend-top-v29-hoteles.onrender.com/api/hotel`),
-      fetch(`https://backend-top-v29-hoteles.onrender.com/api/location`)
+      fetch(`${import.meta.env.VITE_BASE_URL}/api/hotel`),
+      fetch(`${import.meta.env.VITE_BASE_URL}/api/location`)
     ]);
 
     if (responseHotel.ok && responseLocation.ok) {

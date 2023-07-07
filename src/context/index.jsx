@@ -1,10 +1,11 @@
-import { createContext, useReducer, useContext } from 'react';
+import { createContext, useReducer, useContext } from "react";
 
 const HotelContext = createContext();
 
 const initialState = {
   hotels: [],
   selectedHotel: null,
+  loading: true,
 };
 
 const reducer = (state, action) => {
@@ -19,10 +20,15 @@ const reducer = (state, action) => {
         ...state,
         selectedHotel: action.payload,
       };
+    case "LOADING":
+      return {
+        ...state,
+        loading: action.payload,
+      };
     default:
       return state;
   }
-}
+};
 
 export const HotelProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
