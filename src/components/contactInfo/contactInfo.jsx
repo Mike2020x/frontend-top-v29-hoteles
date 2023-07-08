@@ -5,7 +5,6 @@ import "../contactInfo/ContactInfo.scss"
 export default function ContactInfo() {
   return (
     <div className="contact-info">
-
       <h3>CONTACT INFO</h3>
       <div><FontAwesomeIcon className="icons--item" icon={faLocationDot} color="#4d4d4e" /> <span>A-32,Albany,Newyork</span></div>
       <div><FontAwesomeIcon className="icons--item" icon={faPhone} color="#4d4d4e" /> <span>518-457-5181</span></div>
