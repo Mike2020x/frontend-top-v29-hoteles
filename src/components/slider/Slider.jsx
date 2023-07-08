@@ -72,7 +72,7 @@ HotelsSlider.propTypes = {
       actualPrice: PropTypes.string.isRequired,
     })
   ).isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default HotelsSlider;

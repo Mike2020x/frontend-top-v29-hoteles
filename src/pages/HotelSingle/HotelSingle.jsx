@@ -117,30 +117,30 @@ export default function HotelSingle() {
         </div>
 
         <div className="content__hotelSingle--images">
-          <div className="content__hotelSingle--principal"
-          style={{ backgroundImage: `url('${hotel.image}')` }}>
+          <div
+            className="content__hotelSingle--principal"
+            style={{ backgroundImage: `url('${hotel.image}')` }}
+          >
             <select className="selected-label left">
               <FontAwesomeIcon icon={faAngleRight} rotation={180} />
             </select>
             <select className="selected-label right">
               <FontAwesomeIcon icon={faAngleRight} />
             </select>
-            <p className="view-all">
-              Hotel Images
-            </p>
+            <p className="view-all">Hotel Images</p>
           </div>
           <div className="hotelSingle__show">
-            <div className="content__hotelSingle--secondary"
-            style={{ backgroundImage: `url(${rooms.images[0]})` }}>
-              <p className="view-all">
-                Room Image
-              </p>
+            <div
+              className="content__hotelSingle--secondary"
+              style={{ backgroundImage: `url(${rooms.images[0]})` }}
+            >
+              <p className="view-all">Room Image</p>
             </div>
-            <div className="content__hotelSingle--secondary"
-            style={{ backgroundImage: `url(${rooms.images[1]})` }}>
-              <p className="view-all">
-                Room Image
-              </p>
+            <div
+              className="content__hotelSingle--secondary"
+              style={{ backgroundImage: `url(${rooms.images[1]})` }}
+            >
+              <p className="view-all">Room Image</p>
             </div>
           </div>
         </div>
