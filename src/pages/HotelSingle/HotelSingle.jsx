@@ -13,6 +13,8 @@ import Loading from "../../components/loading/Loading";
 import { useEffect } from "react";
 import HotelsSlider from "../../components/slider/Slider";
 import { roomImages } from "../../assets/images";
+import ContactInfo from "../../components/contactInfo/contactInfo";
+
 
 export default function HotelSingle() {
   const { state, dispatch } = useHotel();
@@ -115,10 +117,9 @@ export default function HotelSingle() {
             </button>
           </div>
         </div>
-
         <div className="content__hotelSingle--images">
           <div className="content__hotelSingle--principal"
-          style={{ backgroundImage: `url('${hotel.image}')` }}>
+            style={{ backgroundImage: `url('${hotel.image}')` }}>
             <select className="selected-label left">
               <FontAwesomeIcon icon={faAngleRight} rotation={180} />
             </select>
@@ -131,13 +132,13 @@ export default function HotelSingle() {
           </div>
           <div className="hotelSingle__show">
             <div className="content__hotelSingle--secondary"
-            style={{ backgroundImage: `url(${rooms.images[0]})` }}>
+              style={{ backgroundImage: `url(${rooms.images[0]})` }}>
               <p className="view-all">
                 Room Image
               </p>
             </div>
             <div className="content__hotelSingle--secondary"
-            style={{ backgroundImage: `url(${rooms.images[1]})` }}>
+              style={{ backgroundImage: `url(${rooms.images[1]})` }}>
               <p className="view-all">
                 Room Image
               </p>
@@ -145,6 +146,7 @@ export default function HotelSingle() {
           </div>
         </div>
         <RoomCard />
+        <ContactInfo />
       </div>
       <div className="content__hotelSingle--menu">
         <h4>ROOMS</h4>
