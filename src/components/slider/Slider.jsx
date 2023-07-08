@@ -37,8 +37,8 @@ const HotelsSlider = ({ hotels, id }) => {
   return (
     <div className="hotels-slider">
       <div className="slider-container">
-        {visibleHotels.map((hotel) => (
-          <div key={hotel.hotelId} className="hotel-card">
+        {visibleHotels.map((hotel, index) => (
+          <div key={index} className="hotel-card">
             <Hotel
               hotelId={hotel.hotelId}
               image={hotel.image}

@@ -1,45 +1,59 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useHotel } from "../../context";
+import Loading from "../loading/Loading";
 import "./index.scss";
+
+const API_KEY = import.meta.env.API_KEY;
+const mapOptions = {
+  apiKey: API_KEY,
+};
+
 export default function HotelMap() {
-  const mapRef = useRef(null);
-  const map = useRef(null);
-  const { state } = useHotel();
-  const { selectedHotel: hotelData } = state;
+  const { state, dispatch } = useHotel();
+  const { loading } = state;
+
+  const { isLoaded } = useJsApiLoader({
+    id: mapOptions.googleMapsApiKey,
+    googleMapsApiKey: mapOptions.apiKey,
+    preventGoogleFontsLoading: true,
+  });
+
   useEffect(() => {
-    const loadMap = () => {
-      const google = window.google;
+    if (!isLoaded) {
+      dispatch({ type: "LOADING", payload: true });
+    } else {
+      dispatch({ type: "LOADING", payload: false });
+    }
+  }, [isLoaded, loading, dispatch]);
 
-      map.current = new google.maps.Map(mapRef.current, {
-        center: { lat: 0, lng: 0 }, // Inicializar con coordenadas nulas
-        zoom: 15,
-      });
+  if (loading) {
+    return <Loading />;
+  }
 
-      const geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ address: hotelData?.address }, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
-          const location = results[0].geometry.location;
-          map.current.setCenter(location);
+  const containerStyle = {
+    width: "100%",
+    height: "100%",
+  };
 
-          new google.maps.Marker({
-            position: location,
-            map: map.current,
-          });
-        }
-      });
-    };
+  const center = {
+    lat: 4.624335,
+    lng: -74.063644,
+  }
 
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.MAP_API_KEY}&libraries=places`;
-    script.onload = loadMap;
-    document.body.appendChild(script);
-
-    return () => {
-      if (map.current) {
-        map.current.setMap(null);
-      }
-      document.body.removeChild(script);
-    };
-  }, [hotelData?.address]);
-  return <div className="map" ref={mapRef}></div>;
+  return (
+    <div className="HotelMapContainer">
+      <div className="map">
+        {isLoaded && (
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={10}
+          >
+            <Marker position={center} />
+          </GoogleMap>
+        )}
+      </div>
+    </div>
+  );
 }

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useHotel } from "../../context";
+import "./index.scss";
 
 export default function RoomCard() {
   const navigate = useNavigate();
@@ -55,19 +55,20 @@ export default function RoomCard() {
   };
 
   // Generar la URL de la imagen de la vista previa del mapa
+
   const mapPreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(
     hotelData.address
   )}&zoom=15&size=400x300&maptype=roadmap&markers=color:red%7C${encodeURIComponent(
     hotelData.address
-  )}&key=${import.meta.env.MAP_API_KEY}`;
-  
+  )}&key=${import.meta.env.API_KEY}`;
+
   return (
     <div className="room-card">
-      <div className="room-card__image">
-        <Link to="/hotel-map">
-          <img src={mapPreviewUrl} alt="Map Preview" />
-        </Link>
-      </div>
+      <Link to="/hotel-map" >
+        <div className="room-card__image">
+          <img src={mapPreviewUrl} alt="Map preview" />
+        </div>
+      </Link>
       <div>
         <div className="room-card__information">
           <h3>Deluxe Rate</h3>
