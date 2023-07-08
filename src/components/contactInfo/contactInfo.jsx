@@ -1,31 +1,32 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faTwitter, faGoogle } from '@fortawesome/free-brands-svg-icons';
-
-export default function contactInfoComponent() {
+import { faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
+import "../contactInfo/ContactInfo.scss"
+export default function ContactInfo() {
   return (
-    <div className="">
+    <div className="contact-info">
 
       <h3>CONTACT INFO</h3>
-
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti dicta explicabo error sunt! Error sed quasi quia, officia laboriosam quae repellendus officiis deleniti vero, dolor doloremque recusandae suscipit sint incidunt.</p>
-      <p>145896258</p>
-      <p>contact@seaview.com</p>
-
-      <div className="footer__social--item">
-        <FontAwesomeIcon icon={faFacebook} color="#ff0000" />
+      <div><FontAwesomeIcon className="icons--item" icon={faLocationDot} color="#4d4d4e" /> <span>A-32,Albany,Newyork</span></div>
+      <div><FontAwesomeIcon className="icons--item" icon={faPhone} color="#4d4d4e" /> <span>518-457-5181</span></div>
+      <div><FontAwesomeIcon className="icons--item" icon={faEnvelope} color="#4d4d4e" /> <span>contact@gmail.com</span> </div>
+      <div className="social">
+        <div className="social--item">
+          <FontAwesomeIcon icon={faFacebook} color="#ff0000" />
+        </div>
+        <div className="social--item">
+          <FontAwesomeIcon icon={faInstagram} color="#ff0000" />
+        </div>
+        <div className="social--item">
+          <FontAwesomeIcon icon={faTwitter} color="#ff0000" />
+        </div>
+        <div className="social--item">
+          <FontAwesomeIcon icon={faGoogle} color="#ff0000" />
+        </div>
       </div>
-      <div className="footer__social--item">
-        <FontAwesomeIcon icon={faInstagram} color="#ff0000" />
-      </div>
-      <div className="footer__social--item">
-        <FontAwesomeIcon icon={faTwitter} color="#ff0000" />
-      </div>
-      <div className="footer__social--item">
-        <FontAwesomeIcon icon={faGoogle} color="#ff0000" />
-      </div>
-
-      <strong>CheckIn: 2:00 PM</strong>
+      <strong>CheckIn: 2:00 PM</strong> <br />
       <strong>CheckOut: 12:00 PM</strong>
     </div>
+
   )
 }

@@ -13,6 +13,7 @@ import Loading from "../../components/loading/Loading";
 import { useEffect } from "react";
 import HotelsSlider from "../../components/slider/Slider";
 import { roomImages } from "../../assets/images";
+import ContactInfo from "../../components/contactInfo/contactInfo";
 
 
 export default function HotelSingle() {
@@ -116,7 +117,6 @@ export default function HotelSingle() {
             </button>
           </div>
         </div>
-
         <div className="content__hotelSingle--images">
           <div className="content__hotelSingle--principal"
             style={{ backgroundImage: `url('${hotel.image}')` }}>
@@ -146,6 +146,7 @@ export default function HotelSingle() {
           </div>
         </div>
         <RoomCard />
+        <ContactInfo />
       </div>
       <div className="content__hotelSingle--menu">
         <h4>ROOMS</h4>
