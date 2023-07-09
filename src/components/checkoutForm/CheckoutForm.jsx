@@ -6,26 +6,27 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(card);
     const card = elements.getElement(CardElement)
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
-    console.log(paymentMethod);
+    console.log("🚀 ~ file: CheckoutForm.jsx:11 ~ handleSubmit ~ paymentMethod:", paymentMethod)
 
+    //POST paymentMethod.id to your backend
     const payload = {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         amount: 1000, // $10 en centavos
         paymentMethod,
       }),
     }
   };
+
   return (
 
-    <form onSubmit={() => { handleSubmit }}>
+    <form onSubmit={handleSubmit}>
       <CardElement />
       <button type="submit">Pay</button>
     </form >
