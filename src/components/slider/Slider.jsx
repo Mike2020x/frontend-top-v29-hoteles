@@ -70,14 +70,14 @@ const HotelsSlider = ({ hotels, id }) => {
         ))}
       </div>
       {filteredHotels.length > columns && (
-        <>
+        <div className="hotels-slider__buttons">
           <button className="prev-button" onClick={handlePrev}>
             &lt;
           </button>
           <button className="next-button" onClick={handleNext}>
             &gt;
           </button>
-        </>
+        </div>
       )}
     </div>
   );

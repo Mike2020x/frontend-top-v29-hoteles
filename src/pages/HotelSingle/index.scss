@@ -1,4 +1,16 @@
+.content__titles {
+  &.paused {
+    animation-play-state: paused;
+  }
+}
+
+.content__hotelInfo {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .content__hotelSingle {
+  width: 65vw;
   margin: 10px;
 
   &--room {

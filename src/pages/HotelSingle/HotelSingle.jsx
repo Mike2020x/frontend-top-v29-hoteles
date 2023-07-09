@@ -76,108 +76,112 @@ export default function HotelSingle() {
   }, [dispatch, hotel]);
 
   if (state.loading) {
-    return <Loading />;
+    return <Loading height="100vh" />;
   }
 
   return (
-    <div className="content__hotelSingle">
-      <div className="content__hotelSingle--room">
-        <div className="navbar__hotelSingle">
-          <div className="box__hotelSingle">
-            <div className="content__hotelSingle--title">
-              <h2>{hotel.title}</h2>
-              <div className="star__show">
-                <Star />
+    <div className="content__hotelInfo">
+      <div className="content__hotelSingle">
+        <div className="content__hotelSingle--room">
+          <div className="navbar__hotelSingle">
+            <div className="box__hotelSingle">
+              <div className="content__hotelSingle--title">
+                <h2>{hotel.title}</h2>
+                <div className="star__show">
+                  <Star />
+                </div>
+                <button>
+                  <FontAwesomeIcon icon={faShareFromSquare} />
+                </button>
+                <p className="text__show">Share</p>
+                <button>
+                  <FontAwesomeIcon icon={faHeart} />
+                </button>
+                <p className="text__show">Save</p>
               </div>
-              <button>
-                <FontAwesomeIcon icon={faShareFromSquare} />
-              </button>
-              <p className="text__show">Share</p>
-              <button>
-                <FontAwesomeIcon icon={faHeart} />
-              </button>
-              <p className="text__show">Save</p>
+              <div>
+                <p>{hotel.address}</p>
+                <div className="free__buttons">
+                  <button>Free Wifi</button>
+                  <button>Free Breakfast</button>
+                </div>
+              </div>
             </div>
-            <div>
-              <p>{hotel.address}</p>
-              <div className="free__buttons">
-                <button>Free Wifi</button>
-                <button>Free Breakfast</button>
-              </div>
+            <div className="hotelSingle__payment">
+              <h3 className="title__short">{hotel.cost} / Per Night</h3>
+              <p className="title__big">
+                <font size="6">{hotel.cost}</font> / Per Night
+              </p>
+              <button className="hotelSingle__show book__now">
+                Book This Now
+              </button>
             </div>
           </div>
-          <div className="hotelSingle__payment">
-            <h3 className="title__short">{hotel.cost} / Per Night</h3>
-            <p className="title__big">
-              <font size="6">{hotel.cost}</font> / Per Night
-            </p>
-            <button className="hotelSingle__show book__now">
-              Book This Now
-            </button>
-          </div>
-        </div>
 
-        <div className="content__hotelSingle--images">
-          <div
-            className="content__hotelSingle--principal"
-            style={{ backgroundImage: `url('${hotel.image}')` }}
-          >
-            <select className="selected-label left">
-              <FontAwesomeIcon icon={faAngleRight} rotation={180} />
-            </select>
-            <select className="selected-label right">
-              <FontAwesomeIcon icon={faAngleRight} />
-            </select>
-            <p className="view-all">Hotel Images</p>
+          <div className="content__hotelSingle--images">
+            <div
+              className="content__hotelSingle--principal"
+              style={{ backgroundImage: `url('${hotel.image}')` }}
+            >
+              <select className="selected-label left">
+                <FontAwesomeIcon icon={faAngleRight} rotation={180} />
+              </select>
+              <select className="selected-label right">
+                <FontAwesomeIcon icon={faAngleRight} />
+              </select>
+              <p className="view-all">Hotel Images</p>
+            </div>
+            <div className="hotelSingle__show">
+              <div
+                className="content__hotelSingle--secondary"
+                style={{ backgroundImage: `url(${rooms.images[0]})` }}
+              >
+                <p className="view-all">Room Image</p>
+              </div>
+              <div
+                className="content__hotelSingle--secondary"
+                style={{ backgroundImage: `url(${rooms.images[1]})` }}
+              >
+                <p className="view-all">Room Image</p>
+              </div>
+            </div>
           </div>
-          <div className="hotelSingle__show">
-            <div
-              className="content__hotelSingle--secondary"
-              style={{ backgroundImage: `url(${rooms.images[0]})` }}
-            >
-              <p className="view-all">Room Image</p>
-            </div>
-            <div
-              className="content__hotelSingle--secondary"
-              style={{ backgroundImage: `url(${rooms.images[1]})` }}
-            >
-              <p className="view-all">Room Image</p>
-            </div>
+        </div>
+        <div className="content__hotelSingle--menu">
+          <h4>ROOMS</h4>
+          <h4>ABOUT</h4>
+          <h4>FACILITY</h4>
+          <h4>LOCATION</h4>
+          <h4>REVIEWS</h4>
+          <h4>POLICIES</h4>
+        </div>
+        <div className="hotelSingle__body">
+          <div className="hotelSingle__rooms">
+            <Room
+              title="Deluxe Room"
+              image={`${rooms.images[2]}`}
+              beforePrice="$1250"
+              nowPrice="$1000"
+            />
+            <Room
+              title="Suite Room"
+              image={`${rooms.images[3]}`}
+              beforePrice="$1350"
+              nowPrice="$1100"
+            />
+            <Room
+              title="Royal Room"
+              image={`${rooms.images[4]}`}
+              beforePrice="$1950"
+              nowPrice="$1800"
+            />
+          </div>
+          <div>
+            <HotelsSlider hotels={hotels} id={hotel.hotelId} />
           </div>
         </div>
       </div>
-      <div className="content__hotelSingle--menu">
-        <h4>ROOMS</h4>
-        <h4>ABOUT</h4>
-        <h4>FACILITY</h4>
-        <h4>LOCATION</h4>
-        <h4>REVIEWS</h4>
-        <h4>POLICIES</h4>
-      </div>
-      <div className="hotelSingle__body">
-        <div className="hotelSingle__rooms">
-          <Room
-            title="Deluxe Room"
-            image={`${rooms.images[2]}`}
-            beforePrice="$1250"
-            nowPrice="$1000"
-          />
-          <Room
-            title="Suite Room"
-            image={`${rooms.images[3]}`}
-            beforePrice="$1350"
-            nowPrice="$1100"
-          />
-          <Room
-            title="Royal Room"
-            image={`${rooms.images[4]}`}
-            beforePrice="$1950"
-            nowPrice="$1800"
-          />
-        </div>
-        <div>
-          <HotelsSlider hotels={hotels} id={hotel.hotelId} />
-        </div>
+      <div className="content__hotelSingle--extras">
         <RoomCard />
         <ContactInfo />
       </div>
