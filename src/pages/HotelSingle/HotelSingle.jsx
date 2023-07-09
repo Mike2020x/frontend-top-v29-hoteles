@@ -13,6 +13,7 @@ import Loading from "../../components/loading/Loading";
 import { useEffect } from "react";
 import HotelsSlider from "../../components/slider/Slider";
 import { roomImages } from "../../assets/images";
+import ContactInfo from "../../components/contactInfo/contactInfo";
 
 export default function HotelSingle() {
   const { state, dispatch } = useHotel();
@@ -178,6 +179,7 @@ export default function HotelSingle() {
           <HotelsSlider hotels={hotels} id={hotel.hotelId} />
         </div>
         <RoomCard />
+        <ContactInfo />
       </div>
     </div>
   );
