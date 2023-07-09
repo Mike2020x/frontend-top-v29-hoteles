@@ -39,7 +39,7 @@ export default function HotelMap() {
   const center = {
     lat: 4.624335,
     lng: -74.063644,
-  }
+  };
 
   return (
     <div className="HotelMapContainer">

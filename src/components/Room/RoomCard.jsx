@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { useHotel } from "../../context";
+// import { useHotel } from "../../context";
+// import HotelMap from "../hotelMap/HotelMap";
 import "./index.scss";
 
 export default function RoomCard() {
@@ -12,8 +13,8 @@ export default function RoomCard() {
   const [checkIn, setCheckIn] = useState(getCurrentDate());
   const [checkOut, setCheckOut] = useState(getNextDay(getCurrentDate()));
   const [guests, setGuests] = useState(1);
-  const { state } = useHotel();
-  const { selectedHotel: hotelData } = state;
+  // const { state } = useHotel();
+  // const { selectedHotel: hotelData } = state;
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -54,19 +55,20 @@ export default function RoomCard() {
     navigate(`/hotel-list?search=${searchParams.toString()}`);
   };
 
-  // Generar la URL de la imagen de la vista previa del mapa
+  const handleSize = () => {};
 
-  const mapPreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(
-    hotelData.address
-  )}&zoom=15&size=400x300&maptype=roadmap&markers=color:red%7C${encodeURIComponent(
-    hotelData.address
-  )}&key=${import.meta.env.API_KEY}`;
+  // Generar la URL de la imagen de la vista previa del mapa
+  // const mapPreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(
+  //   "Calle 113 Number 7-65, , Bogotá - Colombia"
+  // )}&zoom=15&size=400x300&maptype=roadmap&markers=color:red%7C${encodeURIComponent(
+  //   "Calle 113 Number 7-65, , Bogotá - Colombia"
+  // )}&key=${import.meta.env.API_KEY}`;
 
   return (
-    <div className="room-card">
-      <Link to="/hotel-map" >
+    <div className="room-card" onClick={handleSize}>
+      <Link to="/hotel-map">
         <div className="room-card__image">
-          <img src={mapPreviewUrl} alt="Map preview" />
+          <img src="/google-map.jpg" alt="Google Map" />
         </div>
       </Link>
       <div>

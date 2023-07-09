@@ -144,7 +144,6 @@ export default function HotelSingle() {
             </div>
           </div>
         </div>
-        <RoomCard />
       </div>
       <div className="content__hotelSingle--menu">
         <h4>ROOMS</h4>
@@ -178,6 +177,7 @@ export default function HotelSingle() {
         <div>
           <HotelsSlider hotels={hotels} id={hotel.hotelId} />
         </div>
+        <RoomCard />
       </div>
     </div>
   );

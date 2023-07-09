@@ -115,8 +115,8 @@
 
   &__image {
     img {
-      width: 100%;
-      height: auto;
+      width: 200px;
+      margin: 0 auto;
       border-radius: 5px;
     }
   }
@@ -126,6 +126,10 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+
+    h3, p {
+      margin-top: 0;
+    }
   }
 
   &__details {

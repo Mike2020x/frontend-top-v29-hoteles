@@ -1,33 +1,49 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import Hotel from '../Hotel/Hotel';
-import { useHotel } from '../../context';
-import './index.scss';
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Hotel from "../Hotel/Hotel";
+import { useHotel } from "../../context";
+import "./index.scss";
 
 const HotelsSlider = ({ hotels, id }) => {
   const { dispatch } = useHotel();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [columns, setColumns] = useState(1);
+
+  useEffect(() => {
+    const updateColumns = () => {
+      const width = window.innerWidth;
+      if (width >= 1150) {
+        setColumns(3);
+      } else if (width >= 930) {
+        setColumns(2);
+      } else {
+        setColumns(1);
+      }
+    };
+
+    updateColumns();
+
+    window.addEventListener("resize", updateColumns);
+
+    return () => {
+      window.removeEventListener("resize", updateColumns);
+    };
+  }, []);
 
   const filteredHotels = hotels.filter((hotel) => hotel.hotelId !== id);
   const visibleHotels = getVisibleHotels();
 
   function getVisibleHotels() {
-    const prevIndex = (currentIndex - 1 + filteredHotels.length) % filteredHotels.length;
-    const nextIndex = (currentIndex + 1) % filteredHotels.length;
-
-    return [
-      filteredHotels[prevIndex],
-      filteredHotels[currentIndex],
-      filteredHotels[nextIndex]
-    ];
+    const startIndex = currentIndex % filteredHotels.length;
+    return filteredHotels.slice(startIndex, startIndex + columns);
   }
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % filteredHotels.length);
+    setCurrentIndex((prevIndex) => prevIndex + columns);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + filteredHotels.length) % filteredHotels.length);
+    setCurrentIndex((prevIndex) => prevIndex - columns);
   };
 
   const handleHotelClick = (hotel) => {
@@ -53,8 +69,16 @@ const HotelsSlider = ({ hotels, id }) => {
           </div>
         ))}
       </div>
-      <button className="prev-button" onClick={handlePrev}>&lt;</button>
-      <button className="next-button" onClick={handleNext}>&gt;</button>
+      {filteredHotels.length > columns && (
+        <>
+          <button className="prev-button" onClick={handlePrev}>
+            &lt;
+          </button>
+          <button className="next-button" onClick={handleNext}>
+            &gt;
+          </button>
+        </>
+      )}
     </div>
   );
 };
