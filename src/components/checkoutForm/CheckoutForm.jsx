@@ -22,6 +22,10 @@ export default function CheckoutForm() {
         paymentMethod,
       }),
     }
+
+    const response = await fetch("http://localhost:8080/api/payment", payload);
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
