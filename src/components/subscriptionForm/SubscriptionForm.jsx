@@ -25,7 +25,7 @@ const SubscriptionForm = () => {
         }
       })
       .catch((error) => {
-        throw new Error("Failed to subscribe. Please try again.");
+        throw new Error("Failed to subscribe. Please try again: ", error);
       });
   };
 
@@ -59,7 +59,7 @@ const SubscriptionForm = () => {
         </h3>
         <p className="subscription-form__description">
           Subscribe and receive our newsletters to follow the news about our
-          fresh and fantastic products.
+          fresh and fantastic hotels booking.
         </p>
       </div>
       {isSubscribed ? (
@@ -67,7 +67,7 @@ const SubscriptionForm = () => {
       ) : (
         <div className="subscription-form__content">
           <p className="subscription-form__description">
-            Get the latest updates and special offers directly in your inbox.
+            Get the latest updates and special offers of hotels booking directly in your inbox.
           </p>
           <form onSubmit={handleSubmit} className="subscription-form__form">
             <input

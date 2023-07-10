@@ -12,6 +12,7 @@ import NotFound from "../pages/NotFound/NotFound"
 import VerifyAccount from "../pages/VerifyAccount/VerifyAccount";
 import VerifyMessage from "../pages/VerifyAccount/VerifyMessage";
 import ForgotPassword from "../pages/VerifyAccount/ForgotPassword";
+import HotelMap from "../components/hotelMap/HotelMap";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
       {
         path: "hotel-single",
         element: <HotelSingle />,
+        // loader: loaderProduct,
+      },
+      {
+        path: "hotel-map",
+        element: <HotelMap />,
         // loader: loaderProduct,
       },
       {
