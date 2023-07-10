@@ -22,6 +22,8 @@ a {
   }
 
   &--space {
+    padding: 0;
+
     p {
       margin: 0;
       font-size: 14px;
@@ -109,7 +111,6 @@ a {
     }
 
     &--space {
-      padding-top: 10px;
       width: 80vw;
       margin: 0 auto;
     }
@@ -136,7 +137,6 @@ a {
     }
 
     &--space {
-      padding-top: 10px;
       width: 330px;
       margin: 0 auto;
     }

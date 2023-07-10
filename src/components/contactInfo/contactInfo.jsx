@@ -23,7 +23,7 @@ export default function ContactInfo() {
           <FontAwesomeIcon icon={faGoogle} color="#ff0000" />
         </div>
       </div>
-      <strong>CheckIn: 2:00 PM</strong> <br />
+      <strong>CheckIn: 2:00 PM</strong>
       <strong>CheckOut: 12:00 PM</strong>
     </div>
 

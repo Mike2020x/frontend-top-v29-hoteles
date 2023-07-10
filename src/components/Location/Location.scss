@@ -1,14 +1,11 @@
 .location {
   text-align: center;
-  width: 100%;
-  max-width: 375px; /* Ajusta el tamaño máximo para la vista celular */
-  margin: 0 auto;
+  width: 150px;
   font-weight: bold;
 
   img {
     border-radius: 10px;
-    width: 100%;
-    height: auto;
+    height: 200px;
   }
 
   h2 {
@@ -18,22 +15,5 @@
   p {
     font-size: 14px;
     color: grey;
-  }
-
-  @media (min-width: 376px) {
-    /* Ajusta los estilos para pantallas más grandes que 375px */
-    max-width: 768px; /* Ajusta el tamaño máximo para la vista tablet */
-  }
-
-  @media (min-width: 769px) {
-    /* Ajusta los estilos para pantallas más grandes que 768px */
-    max-width: 1440px; /* Ajusta el tamaño máximo para la vista desktop */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .location__content {
-      margin-left: 20px;
-    }
   }
 }
