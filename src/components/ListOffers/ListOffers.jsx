@@ -6,7 +6,7 @@ export default function ListOffers() {
   return (
     <>
      <div className='content__listOffers'>
-        <h1>Top Offers</h1>
+        <h2>Top Offers</h2>
         <div className='content__listOffers--Offer'>
           <div className='content__listOffers--Offer--card offer'>
             <Offer

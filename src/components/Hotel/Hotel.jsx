@@ -1,25 +1,29 @@
+import React from 'react';
 import Star from "../star/Star";
 import PropTypes from "prop-types";
-import "./Hotel.scss";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import "./Hotel.scss";
 
-export default function Hotel({
-  hotelId,
-  image,
-  title,
-  location,
-  description,
-  reviews,
-  pastPrice,
-  actualPrice,
-  onClick,
-}) {
+const Hotel = React.forwardRef(function Hotel(
+  {
+    hotelId,
+    image,
+    title,
+    location,
+    description,
+    reviews,
+    pastPrice,
+    actualPrice,
+    onClick,
+  },
+  ref
+) {
   return (
     <>
       <Link to="/hotel-single" onClick={onClick}>
-        <div id={hotelId} className="content__hotelCard">
+        <div id={hotelId} className="content__hotelCard" ref={ref}>
           <img src={image} className="content__hotelCard--image" alt={image} />
           <div className="content__hotelCard--space">
             <div className="content__hotelCard--location">
@@ -30,7 +34,9 @@ export default function Hotel({
                 </h4>
               </div>
             </div>
-            <p>{description}</p>
+            <div className="content__hotelCard--description">
+              <p>{description}</p>
+            </div>
             <div className="content__hotelCard--stars">
               <Star />
               <div className="content__hotelCard--reviews">
@@ -54,7 +60,7 @@ export default function Hotel({
       </Link>
     </>
   );
-}
+});
 
 Hotel.propTypes = {
   hotelId: PropTypes.string,
@@ -67,3 +73,5 @@ Hotel.propTypes = {
   actualPrice: PropTypes.string,
   onClick: PropTypes.func,
 };
+
+export default Hotel;

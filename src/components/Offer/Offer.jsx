@@ -8,7 +8,7 @@ export default function Offer({ imageOferta, title, description }) {
       <div className='content__offer'>
         <img src={imageOferta} className="content__offer--image" alt={imageOferta} width="200px" />
         <div className='content__offer--text'>
-          <h2>{title}</h2>
+          <h3>{title}</h3>
           <p>{description}</p>
         </div>
       </div>

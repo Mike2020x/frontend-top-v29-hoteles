@@ -1,15 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useHotel } from "../../context";
+
 import calcularCostoReserva from "./calculateCost";
 import fetchSearch from "./fetchSearch";
 import Hotel from "../Hotel/Hotel";
 import Loading from "../loading/Loading";
 import "./ListHotels.scss";
-import { useHotel } from "../../context";
 
 export default function ListHotels() {
   const location = useLocation();
   const { state, dispatch } = useHotel();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
+  const firstHotelRef = useRef(null); // Referencia al primer hotel
 
   useEffect(() => {
     async function fetchHotels() {
@@ -36,11 +40,8 @@ export default function ListHotels() {
               const { hotel, about } = hotelData;
               const { city, address } = locationData;
               const { url } = imageData;
-              const {
-                precioPasado,
-                precioConDescuento,
-                costoTotal,
-              } = calcularCostoReserva(checkIn, checkOut, guests);
+              const { precioPasado, precioConDescuento, costoTotal } =
+                calcularCostoReserva(checkIn, checkOut, guests);
               const ratings = Math.ceil(Math.random() * 10000).toString();
 
               return {
@@ -59,9 +60,11 @@ export default function ListHotels() {
           );
 
           dispatch({ type: "SET_HOTELS", payload: hotelsRelatedData });
+          const slicedData = hotelsRelatedData.slice(0, 6);
+          setData(slicedData);
         }
       } catch (error) {
-        console.error("Error fetching hotel names:", error);
+        console.error("Error fetching hotels:", error);
       } finally {
         dispatch({ type: "LOADING", payload: false });
       }
@@ -76,28 +79,59 @@ export default function ListHotels() {
   };
 
   if (state.loading) {
-    return <Loading />;
+    return <Loading height="30vh" />;
   }
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+
+    const startIndex = (page - 1) * 6;
+    const endIndex = startIndex + 6;
+    const slicedData = state.hotels.slice(startIndex, endIndex);
+    setData(slicedData);
+    // Desplazarse al primer hotel cuando cambie el conjunto de datos
+    if (firstHotelRef.current) {
+      firstHotelRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const totalPages = Math.ceil(state.hotels.length / 6);
+
   return (
-    <div className="content__listHotels">
-      {state.hotels.map((hotel, index) => {
-        return (
-          <div className="content__listHotels--card" key={index}>
-            <Hotel
-              hotelId={hotel.hotelId}
-              image={hotel.image}
-              title={hotel.title}
-              location={hotel.location}
-              description={hotel.description}
-              reviews={hotel.reviews}
-              pastPrice={hotel.pastPrice}
-              actualPrice={hotel.actualPrice}
-              onClick={() => handleHotelClick(hotel)}
-            />
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div className="content__listHotels">
+        {data.map((hotel, index) => {
+          return (
+            <div className="content__listHotels--card" key={index}>
+              <Hotel
+                hotelId={hotel.hotelId}
+                image={hotel.image}
+                title={hotel.title}
+                location={hotel.location}
+                description={hotel.description}
+                reviews={hotel.reviews}
+                pastPrice={hotel.pastPrice}
+                actualPrice={hotel.actualPrice}
+                onClick={() => handleHotelClick(hotel)}
+                ref={index === 0 ? firstHotelRef : null} // Establecer la referencia al primer hotel
+              />
+            </div>
+          );
+        })}
+      </div>
+      <div className="content__listHotels--buttons">
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+          (page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={currentPage === page ? "active" : ""}
+            >
+              {page}
+            </button>
+          )
+        )}
+      </div>
+    </>
   );
 }

@@ -2,9 +2,10 @@ import Titles from '../../components/Titles/Titles'
 import ListHotels from '../../components/ListHotels/ListHotels'
 import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAnglesRight, faGripLinesVertical, faSliders } from '@fortawesome/free-solid-svg-icons'
+import { faGripLinesVertical, faSliders } from '@fortawesome/free-solid-svg-icons'
 
 export default function HotelList() {
+
   return (
     <div className='content__hotelList'>
       <Titles />
@@ -33,13 +34,6 @@ export default function HotelList() {
         </div>
       </div>
       <ListHotels />
-      <div className='content__hotelList--buttons'>
-        <button><FontAwesomeIcon icon={faAnglesRight} rotation={180} /></button>
-        <button className='red'>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button><FontAwesomeIcon icon={faAnglesRight} /></button>
-      </div>
     </div>
   )
 }
