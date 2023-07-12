@@ -147,21 +147,6 @@ $color-fascinante: mix(
 
 @media Screen and (max-width: 642px) {
   .content__titles {
-    height: 60vh;
-
-    h1 {
-      font-size: 22px;
-    }
-
-    &--search {
-      height: 40vh;
-      width: 70vw;
-    }
-  }
-}
-
-@media Screen and (min-width: 643px) {
-  .content__titles {
     &--search {
       padding: 0;
       width: 80vw;
@@ -187,13 +172,6 @@ $color-fascinante: mix(
 
 @media Screen and (max-width: 1115px) and (min-width: 643px) {
   .content__titles {
-    &--mobileBox {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      gap: 0;
-    }
-
     &--search {
       height: 180px;
       width: 70vw;
@@ -203,6 +181,21 @@ $color-fascinante: mix(
 
 @media Screen and (min-width: 1106px) {
   .content__titles {
+    &--search {
+      height: 180px;
+    }
+  }
+}
+
+@media Screen and (min-width: 1115px) {
+  .content__titles {
+    &--mobileBox {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 0;
+    }
+
     &--search {
       height: 100px;
     }

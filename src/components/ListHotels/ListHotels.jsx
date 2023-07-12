@@ -79,7 +79,7 @@ export default function ListHotels() {
   };
 
   if (state.loading) {
-    return <Loading height="30vh" />;
+    return <Loading height="35vh" />;
   }
 
   const handlePageChange = (page) => {
