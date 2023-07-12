@@ -9,6 +9,7 @@
 
 
   &--text {
+
     font-weight: bold;
 
     h3 {
@@ -19,11 +20,5 @@
       font-size: 14px;
       color: grey;
     }
-  }
-}
-
-@media screen and (max-width: 431px) {
-  .content__offer--text {
-    width: 320px;
   }
 }
