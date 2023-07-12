@@ -119,14 +119,13 @@ export default function RoomCard() {
             placeholder="Rooms & Guests"
             onChange={handleInputChange}
           />
-          <input
-            className="room-card__search-input"
-            placeholder="Room Type"
-            type="select"
-            name="hotel"
-            value={hotel}
-            onChange={handleInputChange}
-          />
+          <select name="room" id="types">
+            <option value="0">Room Type</option>
+            <option value="1">Single Room</option>
+            <option value="2">Double Room</option>
+            <option value="3">Family Room</option>
+            <option value="4">Suite Room</option>
+          </select>
         </div>
         <div className="room-card__search-button">
           {hotel ? (
