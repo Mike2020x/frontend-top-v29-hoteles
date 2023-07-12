@@ -1,11 +1,13 @@
 .content__room {
   padding: 15px;
+  margin: 15px 0;
   border: 2px outset rgb(220, 220, 220, 0.5);
+  background-color: white;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 67vw;
 
   h4 {
     margin-top: 0;
@@ -74,14 +76,33 @@
   }
 }
 
-@media Screen and (min-width: 500px) {
+.navbar__hotelSingle {
+  width: 70vw;
+}
+
+@media Screen and (min-width: 375px) {
   .content__room {
     display: flex;
     justify-content: center;
 
     img {
+      margin: 0;
       height: 200px;
       width: 360px;
+    }
+  }
+}
+
+@media Screen and (max-width: 540px) {
+  .content__room {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    img {
+      margin: 0 auto;
+      width: 300px;
     }
   }
 }
@@ -101,8 +122,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 15px;
   padding: 10px;
-  width: 300px;
+  width: 310px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -111,7 +133,7 @@
   &__image {
     img {
       width: 200px;
-      margin: 0 auto;
+      margin: 0;
       border-radius: 5px;
     }
   }
@@ -121,10 +143,11 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    width: 280px;
 
     h3,
     p {
-      margin-top: 0;
+      margin: 0;
     }
   }
 
@@ -165,7 +188,7 @@
   }
 
   &__search {
-    margin-top: 20px;
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -173,18 +196,24 @@
     &-inputs {
       display: flex;
       flex-direction: column;
-      width: 20vw;
+      margin-top: 10px;
+      width: 300px;
+      gap: 10px;
+
+      #types {
+        height: 40px;
+        padding: 10px;
+      }
 
       .room-card__search-input {
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        text-align: center;
         font-size: 14px;
         outline: none;
-
-        &::-webkit-calendar-picker-indicator {
-          filter: invert(1);
-        }
+        width: 280px;
+        height: 20px;
       }
     }
 
@@ -202,6 +231,7 @@
       .room-card__search-button--button {
         width: 100%;
         padding: 10px;
+        margin: 20px 10px 10px;
         border: none;
         border-radius: 5px;
         font-size: 16px;
