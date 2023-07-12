@@ -1,139 +1,89 @@
 .verify-account-button {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 
-    & img {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    &__title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    &__description {
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #777;
-    }
-
-    & p {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    &__button {
-      background-color: #ff5a5f;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: #e25056;
-      }
-    }
+  img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-bottom: 20px;
   }
 
-  .verify-message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-top: 40px;
-
-    &__image {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    &__content {
-      max-width: 500px;
-    }
-
-    &__title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    &__info {
-      margin-bottom: 20px;
-    }
-
-    &__info-text {
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    &__email {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    &__instructions {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
   }
 
-  .forgot-password {
-    text-align: center;
-    margin-top: 40px;
-
-    &__title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    &__description {
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #777;
-    }
-
-    &__form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    &__input {
-      width: 300px;
-      padding: 10px;
-      margin-right: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    &__button {
-      background-color: #ff5a5f;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: #e25056;
-      }
-    }
+  &__description {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #777;
   }
 
+  & p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    background-color: #ff5a5f;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #e25056;
+    }
+  }
+}
+
+.verify-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 40px;
+
+  &__image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  &__content {
+    max-width: 500px;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    margin-bottom: 20px;
+  }
+
+  &__info-text {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  &__email {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  &__instructions {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+}

@@ -1,3 +1,7 @@
+$width: 100%;
+$width1: 240px;
+$height1: 360px;
+
 a {
   text-decoration: none;
   color: black;
@@ -7,16 +11,18 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   border: 2px outset rgb(128, 128, 128, 0.2);
-  width: 100%;
+  width: $width;
   margin: 0 auto;
 
   &--image {
-    height: 240px;
-    width: 360px;
+    height: $width1;
+    width: $height1;
   }
 
   &--space {
+    padding: 0;
 
     p {
       margin: 0;
@@ -27,6 +33,12 @@ a {
 
   &--location {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    height: 90px;
+    gap: 10px;
 
     h2 {
       margin: 0;
@@ -46,6 +58,8 @@ a {
 
   &--stars {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
 
   &--reviews {
@@ -55,8 +69,15 @@ a {
     }
   }
 
+  &--description {
+    padding: 10px;
+    height: 100px;
+  }
+
   &--priceService {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 
     h2 {
       margin: 0;
@@ -81,7 +102,6 @@ a {
 }
 
 @media Screen and (min-width: 375px) {
-
   .contenedor__hotelCard {
     padding: 0 0 10px 0;
 
@@ -91,7 +111,6 @@ a {
     }
 
     &--space {
-      padding-top: 10px;
       width: 80vw;
       margin: 0 auto;
     }
@@ -118,7 +137,6 @@ a {
     }
 
     &--space {
-      padding-top: 10px;
       width: 330px;
       margin: 0 auto;
     }
@@ -127,7 +145,6 @@ a {
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 20px;
     }
 
     &--priceService {

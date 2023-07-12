@@ -10,7 +10,7 @@ export default function Checkout() {
   return (
     <div className="checkout-page">
       <BookingSummary />
-      <Elements stripe={stripePromise}>
+      <Elements stripe={stripePromise}>|
         <CheckoutForm />
       </Elements>
     </div>

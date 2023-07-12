@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./index.scss";
-import { titleImages } from "../../assets/images"
+import { titleImages } from "../../assets/images";
 export default function SearchForm() {
   const navigate = useNavigate();
   const location = useLocation();

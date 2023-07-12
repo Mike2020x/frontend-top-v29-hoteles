@@ -2,7 +2,7 @@
 export const roomImages = [
   "https://res.cloudinary.com/dyvir87cf/image/upload/v1688749080/rooms/istockphoto-532108754-612x612_kxp6oq.jpg",
   "https://res.cloudinary.com/dyvir87cf/image/upload/v1688749080/rooms/istockphoto-499125608-612x612_wgswmz.jpg",
-  "https://res.cloudinary.com/dyvir87cf/image/upload/v1688749080/rooms/istockphoto-92881228-612x612_dycoco.jpg0",
+  "https://res.cloudinary.com/dyvir87cf/image/upload/v1688749080/rooms/istockphoto-92881228-612x612_dycoco.jpg",
   "https://res.cloudinary.com/dyvir87cf/image/upload/v1688749080/rooms/istockphoto-170226166-612x612_rpettr.jpg",
   "https://res.cloudinary.com/dyvir87cf/image/upload/v1688749080/rooms/istockphoto-1187720768-612x612_uhhiki.jpg",
   "https://res.cloudinary.com/dyvir87cf/image/upload/v1688749079/rooms/istockphoto-480307316-612x612_zsaqjw.jpg",

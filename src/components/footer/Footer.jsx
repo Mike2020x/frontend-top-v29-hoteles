@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="footer__bloque">
             <div className="footer__logo">
               <FontAwesomeIcon icon={faCircleCheck} size="2xl" />
-              <h3>RICA</h3>
+              <h3>MIR</h3>
             </div>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores sint sunt repellendus hic vitae laudantium quod...</p>
             <div data-testid="icons" className="footer__icons">
@@ -98,7 +98,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="footer__copyright">
-            <span className="copyright">Copyright 2023 make it real camp 💖</span>
+            <span className="copyright">Copyright © 2023 | Develop by Juan Cabello & Michael Gonzales | Make It Real Camp - Top.v29 💖</span>
           </div>
         </div>
       </footer>
