@@ -180,22 +180,22 @@ export default function HotelSingle() {
             <div className="hotelSingle__body--info">
               <div className="hotelSingle__rooms">
                 <Room
-                  title="Deluxe Room"
+                  title="Single Room"
                   image={`${rooms.images[2]}`}
-                  beforePrice="$1250"
-                  nowPrice="$1000"
+                  beforePrice={`$${hotel.pastPrice}`}
+                  nowPrice={`$${hotel.actualPrice}`}
                 />
                 <Room
-                  title="Suite Room"
+                  title="Double Room"
                   image={`${rooms.images[3]}`}
-                  beforePrice="$1350"
-                  nowPrice="$1100"
+                  beforePrice={`$${(Number(hotel.pastPrice) * 1.5).toString()}`}
+                  nowPrice={`$${(Number(hotel.actualPrice) * 1.5).toString()}`}
                 />
                 <Room
-                  title="Royal Room"
+                  title="Family Room"
                   image={`${rooms.images[4]}`}
-                  beforePrice="$1950"
-                  nowPrice="$1800"
+                  beforePrice={`$${(Number(hotel.pastPrice) * 2).toString()}`}
+                  nowPrice={`$${(Number(hotel.actualPrice) * 2).toString()}`}
                 />
               </div>
               <div className="content__hotelSingle--extras">
@@ -222,15 +222,15 @@ export default function HotelSingle() {
 HotelSingle.propTypes = {
   hotels: PropTypes.arrayOf(
     PropTypes.shape({
-      hotelId: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      location: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      reviews: PropTypes.string.isRequired,
-      pastPrice: PropTypes.string.isRequired,
-      actualPrice: PropTypes.string.isRequired,
+      hotelId: PropTypes.string,
+      image: PropTypes.string,
+      title: PropTypes.string,
+      location: PropTypes.string,
+      description: PropTypes.string,
+      reviews: PropTypes.string,
+      pastPrice: PropTypes.string,
+      actualPrice: PropTypes.string,
     })
-  ).isRequired,
-  id: PropTypes.string.isRequired,
+  ),
+  id: PropTypes.string,
 };

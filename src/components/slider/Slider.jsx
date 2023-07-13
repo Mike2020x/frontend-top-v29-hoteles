@@ -86,17 +86,17 @@ const HotelsSlider = ({ hotels, id }) => {
 HotelsSlider.propTypes = {
   hotels: PropTypes.arrayOf(
     PropTypes.shape({
-      hotelId: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      location: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      reviews: PropTypes.string.isRequired,
-      pastPrice: PropTypes.string.isRequired,
-      actualPrice: PropTypes.string.isRequired,
+      hotelId: PropTypes.string,
+      image: PropTypes.string,
+      title: PropTypes.string,
+      location: PropTypes.string,
+      description: PropTypes.string,
+      reviews: PropTypes.string,
+      pastPrice: PropTypes.string,
+      actualPrice: PropTypes.string,
     })
-  ).isRequired,
-  id: PropTypes.string.isRequired,
+  ),
+  id: PropTypes.string,
 };
 
 export default HotelsSlider;
