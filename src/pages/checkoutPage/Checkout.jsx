@@ -1,6 +1,6 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-//import BookingSummary from "../../components/bookingSummary/BookingSummary";
+import BookingSummary from "../../components/bookingSummary/BookingSummary";
 import CheckoutForm from "../../components/checkoutForm/CheckoutForm"
 import "./Checkout.scss"
 
@@ -9,8 +9,8 @@ const stripePromise = loadStripe('pk_test_51NRePDChrlYiKVZXLI7OtIoZzDyUydZfgw3M4
 export default function Checkout() {
   return (
     <div className="checkout-page">
-
-      <Elements stripe={stripePromise}>
+      <BookingSummary />
+      <Elements stripe={stripePromise}>|
         <CheckoutForm />
       </Elements>
     </div>
