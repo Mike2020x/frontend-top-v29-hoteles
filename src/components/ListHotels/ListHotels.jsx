@@ -41,7 +41,7 @@ export default function ListHotels() {
               const { hotel, about } = hotelData;
               const { city, address } = locationData;
               const { url } = imageData;
-              const { precioPasado, precioConDescuento, costoTotal } =
+              const { precioPasado, precioConDescuento, costoTotal, duracionEstadia, descuento, impuesto, precioBasePorNoche } =
                 calcularCostoReserva(checkIn, checkOut, guests);
               const ratings = Math.ceil(Math.random() * 10000).toString();
 
@@ -56,6 +56,10 @@ export default function ListHotels() {
                 pastPrice: precioPasado.toString(),
                 actualPrice: precioConDescuento.toString(),
                 cost: costoTotal.toString(),
+                days: duracionEstadia.toString(),
+                discount: descuento.toString(),
+                taxes: impuesto.toString(),
+                priceNight: precioBasePorNoche.toString(),
                 checkIn,
                 checkOut,
                 guests,

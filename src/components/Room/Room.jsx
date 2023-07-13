@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed, faCheck, faCouch, faShower, faTv } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-
-
 export default function Room({ title, image, beforePrice, nowPrice }) {
 
   return (
