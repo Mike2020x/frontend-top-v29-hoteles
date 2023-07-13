@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-
+import "./index.scss"
 export default function CheckoutForm() {
   const stripe = useStripe()
   const elements = useElements()
@@ -30,9 +30,9 @@ export default function CheckoutForm() {
 
   return (
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form">
       <CardElement />
-      <button type="submit">Pay</button>
+      <button type="submit" className="pay-btn">Pay</button>
     </form >
   )
 }
