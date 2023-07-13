@@ -15,10 +15,16 @@ import HotelsSlider from "../../components/slider/Slider";
 import Loading from "../../components/loading/Loading";
 import { useHotel } from "../../context";
 import { roomImages } from "../../assets/images";
-
+import { useLocation } from "react-router-dom";
 export default function HotelSingle() {
+  const location = useLocation()
   const { state, dispatch } = useHotel();
   const { hotels, selectedHotel: hotel, selectedRooms: rooms } = state;
+
+  const searchParams = new URLSearchParams(location.search);
+  const checkIn = new Date(searchParams.get("checkIn"));
+  const checkOut = new Date(searchParams.get("checkOut"));
+  // const guests = Number(searchParams.get("guests"));
 
   useEffect(() => {
     async function fetchRooms() {
@@ -194,7 +200,13 @@ export default function HotelSingle() {
               </div>
               <div className="content__hotelSingle--extras">
                 <RoomCard />
-                <ContactInfo />
+                <ContactInfo
+                  checkIn={checkIn}
+                  checkOut={checkOut}
+                  address={hotel.address}
+                  email={rooms.email}
+                  phone={rooms.phone}
+                />
               </div>
             </div>
             <div>
