@@ -24,21 +24,27 @@ export default function calcularCostoReserva(checkIn, checkOut, guests) {
 
   // Cálculo del costo total de la reserva
   let total = duracionEstadia * costoBasePorNoche * numeroHabitaciones;
-  total += total * porcentajeImpuesto; // Se agrega el impuesto al costo total
+  const impuesto = total * porcentajeImpuesto;
+  total += impuesto  // Se agrega el impuesto al costo total
   const costoTotal = total.toString();
 
   // Cálculo del precio pasado con descuento
   const pasado = Math.ceil(precioBasePorNoche * numeroHabitaciones);
   const precioPasado = pasado.toString()
-  const descuento = Math.ceil(
-    precioPasado - precioPasado * descuentoPrecioPasado
+  const descuento = precioPasado * descuentoPrecioPasado
+  const descuentoFinal = Math.ceil(
+    precioPasado - descuento
   );
-  const precioConDescuento = descuento.toString()
+  const precioConDescuento = descuentoFinal.toString()
 
   return {
     costoTotal,
     precioPasado,
     precioConDescuento,
+    duracionEstadia,
+    descuento,
+    impuesto,
+    precioBasePorNoche
   };
 }
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-// import { useHotel } from "../../context";
+import { useHotel } from "../../context";
 // import HotelMap from "../hotelMap/HotelMap";
 import "./index.scss";
 
@@ -13,8 +13,8 @@ export default function RoomCard() {
   const [checkIn, setCheckIn] = useState(getCurrentDate());
   const [checkOut, setCheckOut] = useState(getNextDay(getCurrentDate()));
   const [guests, setGuests] = useState(1);
-  // const { state } = useHotel();
-  // const { selectedHotel: hotelData } = state;
+  const { state } = useHotel();
+  const { selectedHotel: hotelData } = state;
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -55,17 +55,8 @@ export default function RoomCard() {
     navigate(`/hotel-list?search=${searchParams.toString()}`);
   };
 
-  const handleSize = () => {};
-
-  // Generar la URL de la imagen de la vista previa del mapa
-  // const mapPreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(
-  //   "Calle 113 Number 7-65, , Bogotá - Colombia"
-  // )}&zoom=15&size=400x300&maptype=roadmap&markers=color:red%7C${encodeURIComponent(
-  //   "Calle 113 Number 7-65, , Bogotá - Colombia"
-  // )}&key=${import.meta.env.API_KEY}`;
-
   return (
-    <div className="room-card" onClick={handleSize}>
+    <div className="room-card" >
       <Link to="/hotel-map">
         <div className="room-card__image">
           <img src="/google-map.jpg" alt="Google Map" />
@@ -80,13 +71,13 @@ export default function RoomCard() {
           <p>
             <FontAwesomeIcon icon={faCheck} /> Room Only
           </p>
-          <h4>$251</h4>
+          <h4>{hotelData.pastPrice}</h4>
         </div>
         <div className="room-card__information">
           <p>
             <FontAwesomeIcon icon={faCheck} /> Non Refundable
           </p>
-          <h3>$230</h3>
+          <h3>{hotelData.actualPrice}</h3>
         </div>
       </div>
       <div className="room-card__search">
@@ -120,11 +111,9 @@ export default function RoomCard() {
             onChange={handleInputChange}
           />
           <select name="room" id="types">
-            <option value="0">Room Type</option>
-            <option value="1">Single Room</option>
-            <option value="2">Double Room</option>
-            <option value="3">Family Room</option>
-            <option value="4">Suite Room</option>
+            <option value="Single Room">Single Room</option>
+            <option value="Double Room">Double Room</option>
+            <option value="Family Room">Family Room</option>
           </select>
         </div>
         <div className="room-card__search-button">
