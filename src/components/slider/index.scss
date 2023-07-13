@@ -1,0 +1,77 @@
+$color-azul: #0647b8; // Azul intenso
+$color-dorado: #ffbf00; // Dorado vibrante
+$color-plateado: #c0c0c0; // Plateado elegante
+
+$color-fascinante: mix(
+  $color-azul,
+  mix($color-dorado, $color-plateado, 50%),
+  25%
+);
+
+.hotels-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-bottom: 50px;
+
+  .slider-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 1rem;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  .hotel-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+
+    .prev-button,
+    .next-button {
+      background-color: $color-fascinante;
+      border: none;
+      font-size: 2rem;
+      color: #000;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .prev-button {
+      margin-right: 1rem;
+    }
+
+    .prev-button:hover,
+    .next-button:hover {
+      color: white;
+    }
+  }
+
+  @media (max-width: 540px) {
+    &__buttons {
+      flex-direction: row;
+      align-items: center;
+      bottom: -1rem; // Ajusta el valor para acercar los botones al objeto "hotel"
+    }
+  }
+
+  @media (max-width: 768px) {
+    .slider-container {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+}

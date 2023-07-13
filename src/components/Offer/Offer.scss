@@ -12,7 +12,7 @@
 
     font-weight: bold;
 
-    h2 {
+    h3 {
       font-size: 16px;
     }
 
@@ -20,5 +20,11 @@
       font-size: 14px;
       color: grey;
     }
+  }
+}
+
+@media screen and (max-width: 432px) {
+  .content__offer {
+    width: 320px;
   }
 }

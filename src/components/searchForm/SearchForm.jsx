@@ -1,22 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./index.scss";
-
-const backgroundImages = [
-  "/fondoTitulos.jpg",
-  "/hotel-booking-mir.jpg",
-  "/hotel-booking-mir1.jpg",
-  "/hotel-booking-mir2.jpg",
-  "/hotel-booking-mir3.jpg",
-  "/hotel-booking-mir4.jpg",
-  "/hotel-booking-mir5.jpg",
-  "/hotel-booking-mir6.jpg",
-  "/hotel-booking-mir7.jpg",
-  "/hotel-booking-mir8.jpg",
-  "/hotel-booking-mir9.jpg",
-  "/hotel-booking-mir10.jpg",
-];
-
+import { titleImages } from "../../assets/images";
 export default function SearchForm() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,8 +14,8 @@ export default function SearchForm() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-      const randomImageUrl = backgroundImages[randomIndex];
+      const randomIndex = Math.floor(Math.random() * titleImages.length);
+      const randomImageUrl = titleImages[randomIndex];
       setBackgroundImage(randomImageUrl);
     }, 5000); // Intervalo de 5 segundos
 
