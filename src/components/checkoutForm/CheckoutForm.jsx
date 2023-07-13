@@ -23,7 +23,7 @@ export default function CheckoutForm() {
       }),
     }
 
-    const response = await fetch(`${import.meta.env.API_BASE_URL}/api/payment`, payload);
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/payment`, payload);
     const data = await response.json();
     console.log(data);
   };

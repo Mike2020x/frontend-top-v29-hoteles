@@ -31,9 +31,9 @@ export default function ListHotels() {
             searchIds.map(async (id) => {
               const [hotelResponse, locationResponse, imageResponse] =
                 await Promise.all([
-                  fetch(`${import.meta.env.API_BASE_URL}/api/hotel/${id}`),
-                  fetch(`${import.meta.env.API_BASE_URL}/api/location/${id}`),
-                  fetch(`${import.meta.env.API_BASE_URL}/api/image/${id}`),
+                  fetch(`${import.meta.env.VITE_BASE_URL}/api/hotel/${id}`),
+                  fetch(`${import.meta.env.VITE_BASE_URL}/api/location/${id}`),
+                  fetch(`${import.meta.env.VITE_BASE_URL}/api/image/${id}`),
                 ]);
               const hotelData = await hotelResponse.json();
               const locationData = await locationResponse.json();

@@ -32,8 +32,8 @@ export default function HotelSingle() {
         if (hotel) {
           const id = hotel.hotelId;
           const [roomResponse, contactsInfoResponse] = await Promise.all([
-            fetch(`${import.meta.env.API_BASE_URL}/api/room/${id}`),
-            fetch(`${import.meta.env.API_BASE_URL}/api/contactInfo/${id}`),
+            fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
+            fetch(`${import.meta.env.VITE_BASE_URL}/api/contactInfo/${id}`),
           ]);
           const roomData = await roomResponse.json();
           const contactsInfoData = await contactsInfoResponse.json();
