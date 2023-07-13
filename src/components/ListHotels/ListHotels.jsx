@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useHotel } from "../../context";
 
 import calcularCostoReserva from "./calculateCost";
@@ -10,6 +10,7 @@ import "./ListHotels.scss";
 
 export default function ListHotels() {
   const location = useLocation();
+  const navigate = useNavigate()
   const { state, dispatch } = useHotel();
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
@@ -55,6 +56,9 @@ export default function ListHotels() {
                 pastPrice: precioPasado.toString(),
                 actualPrice: precioConDescuento.toString(),
                 cost: costoTotal.toString(),
+                checkIn,
+                checkOut,
+                guests,
               };
             })
           );
@@ -76,6 +80,13 @@ export default function ListHotels() {
   const handleHotelClick = (hotel) => {
     dispatch({ type: "SELECT_HOTEL", payload: hotel });
     dispatch({ type: "LOADING", payload: true });
+
+    const searchParams = new URLSearchParams();
+    searchParams.set("checkIn", hotel.checkIn);
+    searchParams.set("checkOut", hotel.checkOut);
+    searchParams.set("guests", hotel.guests);
+
+    navigate(`/hotel-single?search=${searchParams.toString()}`);
   };
 
   if (state.loading) {
