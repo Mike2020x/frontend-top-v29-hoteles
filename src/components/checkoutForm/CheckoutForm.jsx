@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-
+import "./index.scss"
 export default function CheckoutForm() {
   const stripe = useStripe()
   const elements = useElements()
@@ -23,16 +23,16 @@ export default function CheckoutForm() {
       }),
     }
 
-    const response = await fetch(`${import.meta.env.API_BASE_URL}/api/payment`, payload);
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/payment`, payload);
     const data = await response.json();
     console.log(data);
   };
 
   return (
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form">
       <CardElement />
-      <button type="submit">Pay</button>
+      <button type="submit" className="pay-btn">Pay</button>
     </form >
   )
 }
