@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./index.scss";
 import { titleImages } from "../../assets/images";
 export default function SearchForm() {
@@ -62,7 +62,6 @@ export default function SearchForm() {
     } else if (guests > 10) {
       alert("No se puede ingresar más de 10 personas");
     } else {
-      // Validación adicional antes de navegar
       navigate(
         `/hotel-list?hotel=${hotel}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`
       );

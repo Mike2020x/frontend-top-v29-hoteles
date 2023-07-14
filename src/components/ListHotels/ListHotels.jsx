@@ -10,7 +10,7 @@ import "./ListHotels.scss";
 
 export default function ListHotels() {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { state, dispatch } = useHotel();
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
@@ -41,8 +41,21 @@ export default function ListHotels() {
               const { hotel, about } = hotelData;
               const { city, address } = locationData;
               const { url } = imageData;
-              const { precioPasado, precioConDescuento, costoTotal, duracionEstadia, descuento, impuesto, precioBasePorNoche } =
-                calcularCostoReserva(checkIn, checkOut, guests);
+              const {
+                duracionEstadia,
+                numeroHabitaciones,
+                costoAdicionalPorPersona,
+                precioBasePorNoche,
+                personasAdicionales,
+                costoAdicional,
+                descuentoEstadiaLarga,
+                costoBasePorNoche,
+                total,
+                impuesto,
+                precioPasado,
+                descuento,
+                precioActual,
+              } = calcularCostoReserva(checkIn, checkOut, guests);
               const ratings = Math.ceil(Math.random() * 10000).toString();
 
               return {
@@ -53,16 +66,19 @@ export default function ListHotels() {
                 address,
                 description: about,
                 reviews: ratings,
-                pastPrice: precioPasado.toString(),
-                actualPrice: precioConDescuento.toString(),
-                cost: costoTotal.toString(),
                 days: duracionEstadia.toString(),
-                discount: descuento.toString(),
+                numRooms: numeroHabitaciones.toString(),
+                costAdditionalPerson: costoAdicionalPorPersona.toString(),
+                priceBaseNight: precioBasePorNoche.toString(),
+                personsAdditional: personasAdicionales.toString(),
+                costAdditional: costoAdicional.toString(),
+                discountStay: descuentoEstadiaLarga.toString(),
+                costBaseNight: costoBasePorNoche.toString(),
+                total: total.toString(),
                 taxes: impuesto.toString(),
-                priceNight: precioBasePorNoche.toString(),
-                checkIn,
-                checkOut,
-                guests,
+                pastPrice: precioPasado.toString(),
+                discount: descuento.toString(),
+                actualPrice: precioActual.toString(),
               };
             })
           );
@@ -84,19 +100,13 @@ export default function ListHotels() {
   const handleHotelClick = (hotel) => {
     dispatch({ type: "SELECT_HOTEL", payload: hotel });
     dispatch({ type: "LOADING", payload: true });
-
-    const searchParams = new URLSearchParams();
-    searchParams.set("checkIn", hotel.checkIn);
-    searchParams.set("checkOut", hotel.checkOut);
-    searchParams.set("guests", hotel.guests);
-
-    navigate(`/hotel-single?search=${searchParams.toString()}`);
+    navigate(`/hotel-single?checkIn=${hotel.checkIn}&checkOut=${hotel.checkOut}&guests=${hotel.guests}`)
   };
 
   if (state.loading) {
     return <Loading height="35vh" />;
   }
-
+       
   const handlePageChange = (page) => {
     setCurrentPage(page);
 

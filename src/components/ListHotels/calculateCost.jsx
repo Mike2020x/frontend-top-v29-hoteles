@@ -81,7 +81,7 @@ if (guests > 1) {
   const precioActual = Math.ceil(precioPasado - descuento);
 
   return {
-    duracionEstadia, // en días
+    duracionEstadia, // numero de días
     numeroHabitaciones, // una habitacion puede tener 1 o 2 personas
     costoAdicionalPorPersona, // Si hay dos personas en una habitación
     precioBasePorNoche, // depende del tipo de hotel
