@@ -4,20 +4,13 @@ import { useHotel } from "../../context";
 
 
 export default function BookingSummary() {
-
-  //const location = useLocation();
-
-
   const { state } = useHotel();
   const { selectedRooms: rooms, selectedHotel } = state;
-  //const searchParams = new URLSearchParams(location.search);
-  // const checkIn = new Date(searchParams.get("checkIn"));
-  // const checkOut = new Date(searchParams.get("checkOut"));
 
   return (<div className="summary">
     <h2>Booking Summary</h2>
     <div className="summary__selectedhotel-info">
-      <img src="https://picsum.photos/200/200" alt="selectedhotel-img" />
+      <img src={selectedHotel.image} width="80%" alt="selectedhotel-img" />
       <div className="summary__selectedhotel-info--text">
         <h3>{selectedHotel.title}</h3>
         <p>{rooms.address}</p>
