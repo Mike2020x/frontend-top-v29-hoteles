@@ -46,7 +46,15 @@ export default function SearchForm() {
     } else if (name === "checkOut") {
       setCheckOut(value);
     } else if (name === "guests") {
-      setGuests(value);
+      if (value < 1) {
+        event.target.value = 1;
+        alert('No se puede ingresar valores menores a 1');
+      } else if(value > 10) {
+        event.target.value = 10;
+        alert('No se puede ingresar más de 10 personas');
+      } else {
+        setGuests(value);
+      }
     }
   };
 
@@ -122,7 +130,7 @@ export default function SearchForm() {
                 placeholder={guests}
                 type="number"
                 min="1"
-                max="5"
+                max="10"
                 name="guests"
                 value={guests}
                 onChange={handleInputChange}
