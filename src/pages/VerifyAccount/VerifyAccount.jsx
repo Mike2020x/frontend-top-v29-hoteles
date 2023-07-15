@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./index.scss";
 
 export default function VerifyAccount() {
+  const navigate = useNavigate()
   const { token } = useParams();
 
   const handleClick = async () => {
@@ -16,8 +17,8 @@ export default function VerifyAccount() {
         }
       );
       const data = await response.json();
-      if (data.success) {
-        alert(data.message);
+      if (data.success || data.ok) {
+        navigate("/user-dashboard")
       } else {
         alert(data.message);
       }
