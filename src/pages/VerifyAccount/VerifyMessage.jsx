@@ -1,36 +1,50 @@
-import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./index.scss";
 
-const VerifyMessage = () => {
-  const { email } = useParams();
+export default function VerifyAccount() {
+  const navigate = useNavigate()
+  const { token } = useParams();
+
+  const handleClick = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/auth/local/activate/${token}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+
+      if (data.success) {
+        console.log(data.success)
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      navigate("/user-dashboard")
+    }
+  };
 
   return (
-    <div className="verify-message">
-      <div className="verify-message__content">
-        <img
-          className="verify-message__image"
-          src="/hotel-booking-mir.jpg"
-          alt="ocean and houses panorama"
-        />
-        <h2 className="verify-message__title">Verify Your Email Address</h2>
-        <div className="verify-message__info">
-          <p>The verification link has been resent!</p>
-        </div>
-        <p className="verify-message__info-text">
-          A verification link has been sent to:
-        </p>
-        <h3 className="verify-message__email">{email}</h3>
-        <p className="verify-message__instructions">
-          Please click the button in the message to confirm your email address.
-        </p>
+    <>
+      <div className="verify-account-button">
+        <img src="/hotel-booking-mir.jpg" alt="ocean and houses panorama" />
+        <h2 className="verify-account-button__title">Verifica tu cuenta</h2>
+        <h2 className="verify-account-button__description">
+          Activate your account
+        </h2>
+        <p>Please click the button below to activate your account.</p>
+        <button
+          type="button"
+          className="verify-account-button__button"
+          onClick={handleClick}
+        >
+          Active account
+        </button>
       </div>
-    </div>
+    </>
   );
-};
-
-VerifyMessage.propTypes = {
-  email: PropTypes.string,
-};
-
-export default VerifyMessage;
+}

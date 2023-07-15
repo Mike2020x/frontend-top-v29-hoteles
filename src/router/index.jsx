@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         // loader: loaderProduct,
       },
       {
-        path: "verify-account/token/:id",
+        path: "verify-account/token/:token",
         element: <VerifyAccount />,
       },
       {
