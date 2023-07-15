@@ -1,13 +1,16 @@
 .content__room {
-  padding: 15px;
+  padding: 15px 0;
   margin: 15px 0;
-  border: 2px outset rgb(220, 220, 220, 0.5);
-  background-color: white;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 67vw;
+  width: 68vw;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  line-height: 2rem;
 
   h4 {
     margin-top: 0;
@@ -19,6 +22,10 @@
 
     img {
       margin-right: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      line-height: 2rem;
     }
 
     &-information {
@@ -67,11 +74,15 @@
 
     button {
       background-color: red;
-      border: 0;
-      height: 30px;
       color: white;
+      font-size: 16px;
       font-weight: bold;
-      width: 110px;
+      height: 50px;
+      width: 150px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      line-height: 2rem;
     }
   }
 }
@@ -118,12 +129,18 @@
   }
 }
 
+@media Screen and (max-width: 1115px) {
+  .content__room {
+    width: 70vw;
+  }
+}
+
 .room-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 15px;
-  padding: 10px;
+  padding: 20px;
   width: 310px;
   background-color: #fff;
   border: 1px solid #ccc;
