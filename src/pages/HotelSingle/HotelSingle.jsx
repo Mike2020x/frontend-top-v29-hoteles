@@ -24,13 +24,12 @@ export default function HotelSingle() {
       try {
         if (hotel && !rooms) {
           const id = hotel.hotelId;
-          const [roomResponse, contactsInfoResponse] = await Promise.all([
-            fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
-            fetch(`${import.meta.env.VITE_BASE_URL}/api/contactInfo/${id}`),
-          ]);
-          const roomData = await roomResponse.json();
+          const [contactsInfoResponse] = await fetch(
+            // fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
+            `${import.meta.env.VITE_BASE_URL}/api/contactInfo/${id}`,
+          );
+          // const roomData = await roomResponse.json();
           const contactsInfoData = await contactsInfoResponse.json();
-          const { title, description } = roomData;
           const { email, phone } = contactsInfoData;
 
           // Clonar el array original para evitar modificarlo directamente
@@ -53,9 +52,7 @@ export default function HotelSingle() {
 
           const rooms = {
             id,
-            title,
             images: imageRooms,
-            description,
             pastPrice: hotel.pastPrice,
             actualPrice: hotel.actualPrice,
             email,

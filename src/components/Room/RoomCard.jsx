@@ -21,6 +21,7 @@ export default function RoomCard() {
 
     if (name === "types") {
       setTypes(value);
+      console.log("types actual: ", value);
     } else if (name === "checkIn") {
       setCheckIn(value);
       setCheckOut(getNextDay(value));
@@ -44,7 +45,7 @@ export default function RoomCard() {
       numeroHabitaciones,
       costoAdicionalPorPersona,
       precioBasePorNoche,
-      mensaje,
+      personasAdicionales,
       costoAdicional,
       descuentoEstadiaLarga,
       costoBasePorNoche,
@@ -67,7 +68,7 @@ export default function RoomCard() {
       numRooms: numeroHabitaciones,
       costAdditionalPerson: costoAdicionalPorPersona,
       priceBaseNight: precioBasePorNoche,
-      message: mensaje,
+      message: personasAdicionales,
       costAdditional: costoAdicional,
       discountStay: descuentoEstadiaLarga,
       costBaseNight: costoBasePorNoche,
@@ -79,7 +80,7 @@ export default function RoomCard() {
     };
 
     dispatch({ type: "SELECT_HOTEL", payload: updatedHotel });
-
+    console.log(updatedHotel)
     const updatedRooms = {
       ...selectedRooms,
       pastPrice: precioPasado,
@@ -87,8 +88,7 @@ export default function RoomCard() {
     };
 
     dispatch({ type: "SELECT_ROOMS", payload: updatedRooms });
-    console.log(selectedHotel);
-    console.log(selectedRooms);
+    console.log(updatedRooms)
   };
 
   return (
@@ -146,7 +146,8 @@ export default function RoomCard() {
             placeholder="Rooms & Guests"
             onChange={handleInputChange}
           />
-          <select name="types" id="types" onChange={handleInputChange}>
+          <select name="types" id="types" value={types} onChange={handleInputChange}>
+            <option value="Single Room">Type Room</option>
             <option value="Single Room">Single Room</option>
             <option value="Double Room">Double Room</option>
             <option value="Family Room">Family Room</option>
