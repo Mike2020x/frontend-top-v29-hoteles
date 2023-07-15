@@ -17,13 +17,14 @@ export default function VerifyAccount() {
         }
       );
       const data = await response.json();
-      if (data.success || data.ok) {
-        navigate("/user-dashboard")
-      } else {
-        alert(data.message);
+      
+      if (data.success) {
+        console.log(data.success)
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      navigate("/user-dashboard")
     }
   };
 
