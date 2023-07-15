@@ -101,6 +101,9 @@ export default function ListHotels() {
                   pastPrice: precioPasado,
                   discount: descuento,
                   actualPrice: precioActual,
+                  checkIn,
+                  checkOut,
+                  guests
                 };
               })
             );

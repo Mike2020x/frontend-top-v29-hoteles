@@ -16,7 +16,6 @@ export default function RoomCard() {
   const { selectedHotel, selectedRooms } = state;
 
   const handleInputChange = (event) => {
-    event.preventDefault();
     const { name, value } = event.target;
 
     if (name === "types") {
@@ -27,8 +26,10 @@ export default function RoomCard() {
       setCheckOut(getNextDay(value));
     } else if (name === "checkOut") {
       setCheckOut(value);
+      console.log("checkOut actual: ", checkOut);
     } else if (name === "guests") {
       setGuests(value);
+      console.log("guests actual: ", guests);
     }
   };
 
@@ -39,6 +40,9 @@ export default function RoomCard() {
       alert("Por favor, ingrese la cantidad de personas.");
       return;
     }
+
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
 
     const {
       duracionEstadia,
@@ -55,8 +59,8 @@ export default function RoomCard() {
       descuento,
       precioActual,
     } = calcularCostoRoom(
-      checkIn,
-      checkOut,
+      checkInDate,
+      checkOutDate,
       guests,
       types,
       selectedHotel.priceBaseNight
@@ -80,7 +84,7 @@ export default function RoomCard() {
     };
 
     dispatch({ type: "SELECT_HOTEL", payload: updatedHotel });
-    console.log(updatedHotel)
+    console.log(updatedHotel);
     const updatedRooms = {
       ...selectedRooms,
       pastPrice: precioPasado,
@@ -88,7 +92,7 @@ export default function RoomCard() {
     };
 
     dispatch({ type: "SELECT_ROOMS", payload: updatedRooms });
-    console.log(updatedRooms)
+    console.log(updatedRooms);
   };
 
   return (
@@ -107,13 +111,19 @@ export default function RoomCard() {
           <p>
             <FontAwesomeIcon icon={faCheck} /> Room Only
           </p>
-          <h4>{selectedHotel.pastPrice}</h4>
+          <h4>
+            {isNaN(selectedHotel.pastPrice) ? "N/A" : selectedHotel.pastPrice}
+          </h4>
         </div>
         <div className="room-card__information">
           <p>
             <FontAwesomeIcon icon={faCheck} /> Non Refundable
           </p>
-          <h3>{selectedHotel.actualPrice}</h3>
+          <h3>
+            {isNaN(selectedHotel.actualPrice)
+              ? "N/A"
+              : selectedHotel.actualPrice}
+          </h3>
         </div>
       </div>
       <div className="room-card__search">
@@ -146,7 +156,12 @@ export default function RoomCard() {
             placeholder="Rooms & Guests"
             onChange={handleInputChange}
           />
-          <select name="types" id="types" value={types} onChange={handleInputChange}>
+          <select
+            name="types"
+            id="types"
+            value={types}
+            onChange={handleInputChange}
+          >
             <option value="Single Room">Type Room</option>
             <option value="Single Room">Single Room</option>
             <option value="Double Room">Double Room</option>
