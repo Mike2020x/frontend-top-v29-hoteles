@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useHotel } from "../../context";
-
+import cleanExpiredSearches from "./localStorage";
 import calcularCostoReserva from "./calculateCost";
 import fetchSearch from "./fetchSearch";
 import Hotel from "../Hotel/Hotel";
@@ -10,7 +10,7 @@ import "./ListHotels.scss";
 
 export default function ListHotels() {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { state, dispatch } = useHotel();
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
@@ -19,6 +19,7 @@ export default function ListHotels() {
   useEffect(() => {
     async function fetchHotels() {
       try {
+        cleanExpiredSearches();
         const searchParams = new URLSearchParams(location.search);
         const hotelSearch = searchParams.get("hotel")?.toLowerCase();
         const checkIn = new Date(searchParams.get("checkIn"));
@@ -26,50 +27,103 @@ export default function ListHotels() {
         const guests = Number(searchParams.get("guests"));
 
         if (hotelSearch) {
-          const searchIds = await fetchSearch(hotelSearch);
-          const hotelsRelatedData = await Promise.all(
-            searchIds.map(async (id) => {
-              const [hotelResponse, locationResponse, imageResponse] =
-                await Promise.all([
-                  fetch(`${import.meta.env.VITE_BASE_URL}/api/hotel/${id}`),
-                  fetch(`${import.meta.env.VITE_BASE_URL}/api/location/${id}`),
-                  fetch(`${import.meta.env.VITE_BASE_URL}/api/image/${id}`),
-                ]);
-              const hotelData = await hotelResponse.json();
-              const locationData = await locationResponse.json();
-              const imageData = await imageResponse.json();
-              const { hotel, about } = hotelData;
-              const { city, address } = locationData;
-              const { url } = imageData;
-              const { precioPasado, precioConDescuento, costoTotal, duracionEstadia, descuento, impuesto, precioBasePorNoche } =
-                calcularCostoReserva(checkIn, checkOut, guests);
-              const ratings = Math.ceil(Math.random() * 10000).toString();
+          // Verificar si ya existe una búsqueda en el Local Storage
+          const storedSearches = localStorage.getItem("searches");
+          let searches = storedSearches ? JSON.parse(storedSearches) : [];
 
-              return {
-                hotelId: id,
-                image: url,
-                title: hotel,
-                location: city,
-                address,
-                description: about,
-                reviews: ratings,
-                pastPrice: precioPasado.toString(),
-                actualPrice: precioConDescuento.toString(),
-                cost: costoTotal.toString(),
-                days: duracionEstadia.toString(),
-                discount: descuento.toString(),
-                taxes: impuesto.toString(),
-                priceNight: precioBasePorNoche.toString(),
-                checkIn,
-                checkOut,
-                guests,
-              };
-            })
-          );
+          const existingSearch = searches.find((search) => {
+            // Comparar los valores de búsqueda
+            return (
+              search.hotelSearch === hotelSearch &&
+              search.checkIn === checkIn.toString() &&
+              search.checkOut === checkOut.toString() &&
+              search.guests === guests
+            );
+          });
 
-          dispatch({ type: "SET_HOTELS", payload: hotelsRelatedData });
-          const slicedData = hotelsRelatedData.slice(0, 6);
-          setData(slicedData);
+          if (existingSearch) {
+            // Cargar datos desde el Local Storage
+            const hotelsRelatedData = existingSearch.hotelsRelatedData;
+            dispatch({ type: "SET_HOTELS", payload: hotelsRelatedData });
+            const slicedData = hotelsRelatedData.slice(0, 6);
+            setData(slicedData);
+          } else {
+            const searchIds = await fetchSearch(hotelSearch);
+            const hotelsRelatedData = await Promise.all(
+              searchIds.map(async (id) => {
+                const [hotelResponse, locationResponse, imageResponse] =
+                  await Promise.all([
+                    fetch(`${import.meta.env.VITE_BASE_URL}/api/hotel/${id}`),
+                    fetch(`${import.meta.env.VITE_BASE_URL}/api/location/${id}`),
+                    fetch(`${import.meta.env.VITE_BASE_URL}/api/image/${id}`),
+                  ]);
+                const hotelData = await hotelResponse.json();
+                const locationData = await locationResponse.json();
+                const imageData = await imageResponse.json();
+                const { hotel, about } = hotelData;
+                const { city, address } = locationData;
+                const { url } = imageData;
+                const {
+                  duracionEstadia,
+                  numeroHabitaciones,
+                  costoAdicionalPorPersona,
+                  precioBasePorNoche,
+                  personasAdicionales,
+                  costoAdicional,
+                  descuentoEstadiaLarga,
+                  costoBasePorNoche,
+                  total,
+                  impuesto,
+                  precioPasado,
+                  descuento,
+                  precioActual,
+                } = calcularCostoReserva(checkIn, checkOut, guests);
+                const ratings = Math.ceil(Math.random() * 10000);
+
+                return {
+                  hotelId: id,
+                  image: url,
+                  title: hotel,
+                  location: city,
+                  address,
+                  description: about,
+                  reviews: ratings,
+                  days: duracionEstadia,
+                  numRooms: numeroHabitaciones,
+                  costAdditionalPerson: costoAdicionalPorPersona,
+                  priceBaseNight: precioBasePorNoche,
+                  additionalPerson: personasAdicionales,
+                  costAdditional: costoAdicional,
+                  discountStay: descuentoEstadiaLarga,
+                  costBaseNight: costoBasePorNoche,
+                  total: total,
+                  taxes: impuesto,
+                  pastPrice: precioPasado,
+                  discount: descuento,
+                  actualPrice: precioActual,
+                  checkIn,
+                  checkOut,
+                  guests,
+                  types: "Single Room",
+                };
+              })
+            );
+
+            // Guardar los parámetros de búsqueda y los resultados en el Local Storage
+            searches.push({
+              hotelSearch: hotelSearch,
+              checkIn: checkIn.toString(),
+              checkOut: checkOut.toString(),
+              guests: guests,
+              hotelsRelatedData: hotelsRelatedData,
+            });
+
+            localStorage.setItem("searches", JSON.stringify(searches));
+
+            dispatch({ type: "SET_HOTELS", payload: hotelsRelatedData });
+            const slicedData = hotelsRelatedData.slice(0, 6);
+            setData(slicedData);
+          }
         }
       } catch (error) {
         console.error("Error fetching hotels:", error);
@@ -84,13 +138,7 @@ export default function ListHotels() {
   const handleHotelClick = (hotel) => {
     dispatch({ type: "SELECT_HOTEL", payload: hotel });
     dispatch({ type: "LOADING", payload: true });
-
-    const searchParams = new URLSearchParams();
-    searchParams.set("checkIn", hotel.checkIn);
-    searchParams.set("checkOut", hotel.checkOut);
-    searchParams.set("guests", hotel.guests);
-
-    navigate(`/hotel-single?search=${searchParams.toString()}`);
+    navigate(`/hotel-single?checkIn=${hotel.checkIn}&checkOut=${hotel.checkOut}&guests=${hotel.guests}`);
   };
 
   if (state.loading) {

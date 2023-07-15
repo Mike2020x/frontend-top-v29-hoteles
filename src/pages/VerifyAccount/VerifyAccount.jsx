@@ -11,7 +11,7 @@ export default function VerifyAccount() {
         {
           method: "GET",
           headers: {
-            "content-type": "application/json",
+            "Content-Type": "application/json",
           },
         }
       );

@@ -17,11 +17,8 @@
 
 .summary-page {
   display: flex;
-  justify-content: center;
-}
-
-@media screen and (max-width: 780px) {
-  .summary-page {
-    display: block;
-  }
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f2f2f2;
 }
