@@ -1,4 +1,4 @@
-export default function calcularCostoReserva(checkIn, checkOut, guests) {
+export default function calcularCostoRoom(checkIn, checkOut, guests, types, priceBaseNight) {
   const duracionEstadia = Math.ceil(
     (checkOut - checkIn) / (1000 * 60 * 60 * 24)
   ); // Duración de la estadía en días
@@ -6,44 +6,56 @@ export default function calcularCostoReserva(checkIn, checkOut, guests) {
 
   // Cálculo del costo base por noche con factores adicionales
   let costoAdicionalPorPersona = 20; // Costo adicional por persona
-  let precioBasePorNoche = Math.ceil(Math.random() * 101) + 100;
+  let precioBasePorNoche = priceBaseNight // reemplazando el valor inicial de busqueda en Home y Hotel List
+
+  switch(types) {
+    case "Double Room":
+      costoAdicionalPorPersona = 30
+      precioBasePorNoche += 100;
+      break
+    case "Family Room":
+      costoAdicionalPorPersona = 40
+      precioBasePorNoche += 200;
+      break
+  }
 
   let costoBasePorNoche = precioBasePorNoche;
-  let mensaje = "Room for one";
+  let personasAdicionales = "";
   let costoAdicional = 0;
-  let personasAdicionales = 0;
+  let cantidadPersonas = 0;
 
 // Se aplica un costo adicional si hay dos personas por cada habitación
 if (guests > 1) {
   switch (guests) {
     case 2:
     case 3:
-      mensaje = "Additional cost of 1 guest";
-      personasAdicionales = 1;
+      personasAdicionales = "Additional cost of 1 guest";
+      cantidadPersonas = 1;
       break;
     case 4:
     case 5:
-      mensaje = "Additional cost of 2 guests";
-      personasAdicionales = 2;
+      personasAdicionales = "Additional cost of 2 guests";
+      cantidadPersonas = 2;
       break;
     case 6:
     case 7:
-      mensaje = "Additional cost of 3 guests";
-      personasAdicionales = 3;
+      personasAdicionales = "Additional cost of 3 guests";
+      cantidadPersonas = 3;
       break;
     case 8:
     case 9:
-      mensaje = "Additional cost of 4 guests";
-      personasAdicionales = 4;
+      personasAdicionales = "Additional cost of 4 guests";
+      cantidadPersonas = 4;
       break;
     default:
-      mensaje = "Additional cost of 5 guests";
-      personasAdicionales = 5;
+      personasAdicionales = "Additional cost of 5 guests";
+      cantidadPersonas = 5;
   }
 
-  costoAdicional = costoAdicionalPorPersona * personasAdicionales;
+  costoAdicional = costoAdicionalPorPersona * cantidadPersonas;
   costoBasePorNoche += costoAdicional;
 }
+
 
   // Solo se aplica si la estadía es mayor o igual a una semana
   let descuentoEstadiaLarga = 0
@@ -68,7 +80,7 @@ if (guests > 1) {
     numeroHabitaciones, // una habitacion puede tener 1 o 2 personas
     costoAdicionalPorPersona, // Si hay dos personas en una habitación
     precioBasePorNoche, // depende del tipo de hotel
-    mensaje, // cantidad de personas adicionales
+    personasAdicionales, // cantidad de personas adicionales
     costoAdicional, // generado por las personas adicionales
     descuentoEstadiaLarga, // si se reserva de una semana a más
     costoBasePorNoche, // depende del número de personas

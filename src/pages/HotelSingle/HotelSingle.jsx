@@ -15,21 +15,14 @@ import HotelsSlider from "../../components/slider/Slider";
 import Loading from "../../components/loading/Loading";
 import { useHotel } from "../../context";
 import { roomImages } from "../../assets/images";
-import { useLocation } from "react-router-dom";
 export default function HotelSingle() {
-  const location = useLocation()
   const { state, dispatch } = useHotel();
   const { hotels, selectedHotel: hotel, selectedRooms: rooms } = state;
-
-  const searchParams = new URLSearchParams(location.search);
-  const checkIn = new Date(searchParams.get("checkIn"));
-  const checkOut = new Date(searchParams.get("checkOut"));
-  // const guests = Number(searchParams.get("guests"));
 
   useEffect(() => {
     async function fetchRooms() {
       try {
-        if (hotel) {
+        if (hotel && !rooms) {
           const id = hotel.hotelId;
           const [roomResponse, contactsInfoResponse] = await Promise.all([
             fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
@@ -37,7 +30,7 @@ export default function HotelSingle() {
           ]);
           const roomData = await roomResponse.json();
           const contactsInfoData = await contactsInfoResponse.json();
-          const { title, description, pastPrice, actualPrice } = roomData;
+          const { title, description } = roomData;
           const { email, phone } = contactsInfoData;
 
           // Clonar el array original para evitar modificarlo directamente
@@ -63,8 +56,8 @@ export default function HotelSingle() {
             title,
             images: imageRooms,
             description,
-            pastPrice,
-            actualPrice,
+            pastPrice: hotel.pastPrice,
+            actualPrice: hotel.actualPrice,
             email,
             phone,
           };
@@ -79,7 +72,7 @@ export default function HotelSingle() {
     }
 
     fetchRooms();
-  }, [dispatch, hotel]);
+  }, [dispatch, hotel, rooms]);
 
   if (state.loading) {
     return <Loading height="100vh" />;
@@ -113,9 +106,9 @@ export default function HotelSingle() {
             </div>
           </div>
           <div className="hotelSingle__payment">
-            <h3 className="title__short">$ {hotel.cost} / Per Night</h3>
+            <h3 className="title__short">$ {hotel.actualPrice} / Per Night</h3>
             <p className="title__big">
-              <font size="5">$ {hotel.cost}</font> / Per Night
+              <font size="5">$ {hotel.actualPrice}</font> / Per Night
             </p>
             <button className="hotelSingle__show book__now">
               Book This Now
@@ -180,29 +173,27 @@ export default function HotelSingle() {
             <div className="hotelSingle__body--info">
               <div className="hotelSingle__rooms">
                 <Room
-                  title="Single Room"
+                  title="Deluxe Room"
                   image={`${rooms.images[2]}`}
-                  beforePrice={`$${hotel.pastPrice}`}
-                  nowPrice={`$${hotel.actualPrice}`}
+                  beforePrice={`$${rooms.pastPrice}`}
+                  nowPrice={`$${rooms.actualPrice}`}
                 />
                 <Room
-                  title="Double Room"
+                  title="Suite Room"
                   image={`${rooms.images[3]}`}
-                  beforePrice={`$${(Number(hotel.pastPrice) * 1.5).toString()}`}
-                  nowPrice={`$${(Number(hotel.actualPrice) * 1.5).toString()}`}
+                  beforePrice={`$${((rooms.pastPrice) * 1.5).toString()}`}
+                  nowPrice={`$${((rooms.actualPrice) * 1.5).toString()}`}
                 />
                 <Room
-                  title="Family Room"
+                  title="Royal Room"
                   image={`${rooms.images[4]}`}
-                  beforePrice={`$${(Number(hotel.pastPrice) * 2).toString()}`}
-                  nowPrice={`$${(Number(hotel.actualPrice) * 2).toString()}`}
+                  beforePrice={`$${((rooms.pastPrice) * 2).toString()}`}
+                  nowPrice={`$${((rooms.actualPrice) * 2).toString()}`}
                 />
               </div>
               <div className="content__hotelSingle--extras">
                 <RoomCard />
                 <ContactInfo
-                  checkIn={checkIn}
-                  checkOut={checkOut}
                   address={hotel.address}
                   email={rooms.email}
                   phone={rooms.phone}
