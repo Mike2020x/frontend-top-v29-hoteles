@@ -12,7 +12,6 @@
     align-items: center;
     gap: 10px;
     width: 100%;
-
     &--text {
       width: 100%;
       font-size: 20px;
@@ -22,7 +21,7 @@
 
   &__details {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     border-top: 0.1px solid lightgray;
 
@@ -47,3 +46,4 @@
 
   }
 }
+

@@ -68,7 +68,7 @@ export default function ListHotels() {
                   numeroHabitaciones,
                   costoAdicionalPorPersona,
                   precioBasePorNoche,
-                  mensaje,
+                  personasAdicionales,
                   costoAdicional,
                   descuentoEstadiaLarga,
                   costoBasePorNoche,
@@ -92,7 +92,7 @@ export default function ListHotels() {
                   numRooms: numeroHabitaciones,
                   costAdditionalPerson: costoAdicionalPorPersona,
                   priceBaseNight: precioBasePorNoche,
-                  message: mensaje,
+                  additionalPerson: personasAdicionales,
                   costAdditional: costoAdicional,
                   discountStay: descuentoEstadiaLarga,
                   costBaseNight: costoBasePorNoche,
@@ -103,7 +103,8 @@ export default function ListHotels() {
                   actualPrice: precioActual,
                   checkIn,
                   checkOut,
-                  guests
+                  guests,
+                  types: "Single Room",
                 };
               })
             );

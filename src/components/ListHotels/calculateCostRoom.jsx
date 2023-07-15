@@ -29,27 +29,22 @@ if (guests > 1) {
   switch (guests) {
     case 2:
     case 3:
-      personasAdicionales = "Additional cost of 1 guest";
-      cantidadPersonas = 1;
+      personasAdicionales = 1;
       break;
     case 4:
     case 5:
-      personasAdicionales = "Additional cost of 2 guests";
-      cantidadPersonas = 2;
+      personasAdicionales = 2;
       break;
     case 6:
     case 7:
-      personasAdicionales = "Additional cost of 3 guests";
-      cantidadPersonas = 3;
+      personasAdicionales = 3;
       break;
     case 8:
     case 9:
-      personasAdicionales = "Additional cost of 4 guests";
-      cantidadPersonas = 4;
+      personasAdicionales = 4;
       break;
     default:
-      personasAdicionales = "Additional cost of 5 guests";
-      cantidadPersonas = 5;
+      personasAdicionales = 5;
   }
 
   costoAdicional = costoAdicionalPorPersona * cantidadPersonas;

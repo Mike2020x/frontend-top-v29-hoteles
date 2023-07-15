@@ -72,7 +72,7 @@ export default function RoomCard() {
       numRooms: numeroHabitaciones,
       costAdditionalPerson: costoAdicionalPorPersona,
       priceBaseNight: precioBasePorNoche,
-      message: personasAdicionales,
+      additionalPerson: personasAdicionales,
       costAdditional: costoAdicional,
       discountStay: descuentoEstadiaLarga,
       costBaseNight: costoBasePorNoche,
@@ -81,6 +81,10 @@ export default function RoomCard() {
       pastPrice: precioPasado,
       discount: descuento,
       actualPrice: precioActual,
+      checkInDate,
+      checkOutDate,
+      guests,
+      types: types,
     };
 
     dispatch({ type: "SELECT_HOTEL", payload: updatedHotel });

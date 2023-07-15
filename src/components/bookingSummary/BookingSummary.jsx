@@ -1,8 +1,11 @@
 import "./index.scss";
 import { useHotel } from "../../context";
-//import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function BookingSummary() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const title = searchParams.get("title");
   const { state } = useHotel();
   const { selectedRooms: rooms, selectedHotel } = state;
 
@@ -31,29 +34,51 @@ export default function BookingSummary() {
         </div>
       </div>
       <div className="summary__details">
-        <p>{`${Number(selectedHotel.guests)} Guests, ${
+        <p>Length of stay: {selectedHotel.days}</p>
+        <p>Number of rooms: {selectedHotel.numRooms}</p>
+        <p>Additional guests: {selectedHotel.additionalPerson}</p>
+        <p>Type Room: {selectedHotel.types}</p>
+        <p>{`${Number(selectedHotel.guests)} Guest, 1 ${title}, ${
           selectedHotel.days
         } Night`}</p>
-        <a href="#">Edit</a>
       </div>
       <div className="summary__payment-detail">
         <h3>Payment Details</h3>
         <div className="summary__payment-detail--container">
           <div>
-            <p>Base Price</p>
-            <p>Promo Discount</p>
+            <p>Base price per night</p>
+            <p>Additional cost per guest</p>
+            <p>
+              Total additional cost for{" "}
+              {` ${selectedHotel.additionalPerson} `}
+              {selectedHotel.additionalPerson === 1 ? "guest" : "guests"}
+            </p>
+            <p>Long stay discount</p>
+            <p>Basic cost per night</p>
+            <p>{" "}</p>
+            <p>Total</p>
             <p>Tax & Service Fees</p>
+            <p>Past price</p>
+            <p>Promo Discount</p>
+            <p>Actual price</p>
           </div>
           <div>
-            <p>{`$${selectedHotel.priceNight}`}</p>
-            <p>{`$${selectedHotel.discount}`}</p>
-            <p>{`$${selectedHotel.taxes}`}</p>
-            <div></div>
+            <p>{`$${selectedHotel.priceBaseNight}`}</p>
+            <p>{`$${selectedHotel.costAdditionalPerson}`}</p>
+            <p>{`$${selectedHotel.costAdditional}`}</p>
+            <p>{`$${selectedHotel.discountStay}`}</p>
+            <p>{" "}</p>
+            <p>{`$${selectedHotel.costBaseNight}`}</p>
+            <p>{`+ $${selectedHotel.total}`}</p>
+            <p>{`+ $${selectedHotel.taxes}`}</p>
+            <p><s>{`$${selectedHotel.pastPrice}`}</s></p>
+            <p>{`- $${selectedHotel.discount}`}</p>
+            <p>{`$${selectedHotel.actualPrice}`}</p>
           </div>
         </div>
         <div className="summary__payment-detail--amount">
           <p>Payable Amount</p>
-          <p>{`$${selectedHotel.cost}`}</p>
+          <p>{`$${selectedHotel.actualPrice}`}</p>
         </div>
       </div>
     </div>
