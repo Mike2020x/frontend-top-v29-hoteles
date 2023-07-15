@@ -1,4 +1,4 @@
-export default function calcularCostoReserva(checkIn, checkOut, guests) {
+export default function calcularCostoRoom(checkIn, checkOut, guests, types, priceBaseNight) {
   const duracionEstadia = Math.ceil(
     (checkOut - checkIn) / (1000 * 60 * 60 * 24)
   ); // Duración de la estadía en días
@@ -6,11 +6,23 @@ export default function calcularCostoReserva(checkIn, checkOut, guests) {
 
   // Cálculo del costo base por noche con factores adicionales
   let costoAdicionalPorPersona = 20; // Costo adicional por persona
-  let precioBasePorNoche = Math.ceil(Math.random() * 101) + 100;
+  let precioBasePorNoche = priceBaseNight // reemplazando el valor inicial de busqueda en Home y Hotel List
+
+  switch(types) {
+    case "Double Room":
+      costoAdicionalPorPersona = 30
+      precioBasePorNoche += 100;
+      break
+    case "Family Room":
+      costoAdicionalPorPersona = 40
+      precioBasePorNoche += 200;
+      break
+  }
 
   let costoBasePorNoche = precioBasePorNoche;
+  let personasAdicionales = "";
   let costoAdicional = 0;
-  let personasAdicionales = 0;
+  let cantidadPersonas = 0;
 
 // Se aplica un costo adicional si hay dos personas por cada habitación
 if (guests > 1) {
@@ -35,9 +47,10 @@ if (guests > 1) {
       personasAdicionales = 5;
   }
 
-  costoAdicional = costoAdicionalPorPersona * personasAdicionales;
+  costoAdicional = costoAdicionalPorPersona * cantidadPersonas;
   costoBasePorNoche += costoAdicional;
 }
+
 
   // Solo se aplica si la estadía es mayor o igual a una semana
   let descuentoEstadiaLarga = 0

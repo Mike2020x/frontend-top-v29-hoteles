@@ -7,17 +7,19 @@ const VerifyMessage = () => {
 
   return (
     <div className="verify-message">
-      <img
-        className="verify-message__image"
-        src="/hotel-booking-mir.jpg"
-        alt="ocean and houses panorama"
-      />
       <div className="verify-message__content">
+        <img
+          className="verify-message__image"
+          src="/hotel-booking-mir.jpg"
+          alt="ocean and houses panorama"
+        />
         <h2 className="verify-message__title">Verify Your Email Address</h2>
         <div className="verify-message__info">
           <p>The verification link has been resent!</p>
         </div>
-        <p className="verify-message__info-text">A verification link has been sent to:</p>
+        <p className="verify-message__info-text">
+          A verification link has been sent to:
+        </p>
         <h3 className="verify-message__email">{email}</h3>
         <p className="verify-message__instructions">
           Please click the button in the message to confirm your email address.

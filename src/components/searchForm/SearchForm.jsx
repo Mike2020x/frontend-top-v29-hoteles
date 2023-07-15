@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./index.scss";
 import { titleImages } from "../../assets/images";
 export default function SearchForm() {
@@ -35,7 +35,6 @@ export default function SearchForm() {
   }, [location.search]);
 
   const handleInputChange = (event) => {
-    event.preventDefault();
     const { name, value } = event.target;
 
     if (name === "hotel") {
@@ -50,19 +49,23 @@ export default function SearchForm() {
     }
   };
 
-  const handleSearch = () => {
+  const handleSearch = (event) => {
+    event.preventDefault();
+
     if (!hotel) {
       alert("Por favor, ingrese el nombre o la ciudad del hotel.");
       return;
     }
 
-    const searchParams = new URLSearchParams();
-    searchParams.set("hotel", hotel);
-    searchParams.set("checkIn", checkIn);
-    searchParams.set("checkOut", checkOut);
-    searchParams.set("guests", guests);
-
-    navigate(`/hotel-list?search=${searchParams.toString()}`);
+    if (guests < 1) {
+      alert("No se puede ingresar valores menores a 1");
+    } else if (guests > 10) {
+      alert("No se puede ingresar más de 10 personas");
+    } else {
+      navigate(
+        `/hotel-list?hotel=${hotel}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`
+      );
+    }
   };
 
   return (
@@ -122,7 +125,7 @@ export default function SearchForm() {
                 placeholder={guests}
                 type="number"
                 min="1"
-                max="5"
+                max="10"
                 name="guests"
                 value={guests}
                 onChange={handleInputChange}
@@ -131,15 +134,7 @@ export default function SearchForm() {
             <div className="border__right2"></div>
           </div>
           <div className="content__titles--box search">
-            {hotel ? (
-              <Link
-                to={`/hotel-list?hotel=${hotel}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`}
-              >
-                <button>SEARCH</button>
-              </Link>
-            ) : (
-              <button onClick={handleSearch}>SEARCH</button>
-            )}
+            <button onClick={handleSearch}>SEARCH</button>
           </div>
         </div>
       </div>

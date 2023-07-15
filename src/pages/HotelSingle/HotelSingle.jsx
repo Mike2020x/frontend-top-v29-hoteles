@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faAngleLeft,
   faAngleRight,
   faHeart,
   faShareFromSquare,
@@ -15,38 +16,29 @@ import HotelsSlider from "../../components/slider/Slider";
 import Loading from "../../components/loading/Loading";
 import { useHotel } from "../../context";
 import { roomImages } from "../../assets/images";
-import { useLocation } from "react-router-dom";
 export default function HotelSingle() {
-  const location = useLocation()
-  const { state, dispatch } = useHotel();
-  const { hotels, selectedHotel: hotel, selectedRooms: rooms } = state;
-
-  const searchParams = new URLSearchParams(location.search);
-  const checkIn = new Date(searchParams.get("checkIn"));
-  const checkOut = new Date(searchParams.get("checkOut"));
-  // const guests = Number(searchParams.get("guests"));
+  const {
+    state: { hotels, selectedHotel: hotel, selectedRooms: rooms, loading },
+    dispatch,
+  } = useHotel();
+  // Estado para controlar el índice de la imagen actual
+  const [imageIndex, setImageIndex] = useState(0);
 
   useEffect(() => {
     async function fetchRooms() {
       try {
         if (hotel) {
           const id = hotel.hotelId;
-          const [roomResponse, contactsInfoResponse] = await Promise.all([
-            fetch(`${import.meta.env.VITE_BASE_URL}/api/room/${id}`),
-            fetch(`${import.meta.env.VITE_BASE_URL}/api/contactInfo/${id}`),
-          ]);
-          const roomData = await roomResponse.json();
+          const contactsInfoResponse = await fetch(
+            `${import.meta.env.VITE_BASE_URL}/api/contactInfo/${id}`
+          );
           const contactsInfoData = await contactsInfoResponse.json();
-          const { title, description, pastPrice, actualPrice } = roomData;
           const { email, phone } = contactsInfoData;
 
-          // Clonar el array original para evitar modificarlo directamente
           const availableIndexes = roomImages.map((_, index) => index);
-
           let imageRooms = [];
 
           for (let i = 0; i < 5; i++) {
-            // Genera un número aleatorio entre 0 y availableIndexes.length - 1
             const randomIndex = Math.floor(
               Math.random() * availableIndexes.length
             );
@@ -54,17 +46,14 @@ export default function HotelSingle() {
             const randomImageUrl = roomImages[selectedIndex];
             imageRooms.push(randomImageUrl);
 
-            // Eliminar el índice seleccionado del array de índices disponibles
             availableIndexes.splice(randomIndex, 1);
           }
 
           const rooms = {
             id,
-            title,
             images: imageRooms,
-            description,
-            pastPrice,
-            actualPrice,
+            pastPrice: hotel.pastPrice,
+            actualPrice: hotel.actualPrice,
             email,
             phone,
           };
@@ -81,9 +70,29 @@ export default function HotelSingle() {
     fetchRooms();
   }, [dispatch, hotel]);
 
-  if (state.loading) {
+  if (loading) {
     return <Loading height="100vh" />;
   }
+
+  // Función para manejar el clic del botón de flecha izquierda
+  const handleLeftArrowClick = () => {
+    if (imageIndex === 0) {
+      // Si ya estamos en la primera imagen, retrocedemos al final del array de imágenes
+      setImageIndex(rooms.images.length - 1);
+    } else {
+      setImageIndex(imageIndex - 1);
+    }
+  };
+
+  // Función para manejar el clic del botón de flecha derecha
+  const handleRightArrowClick = () => {
+    if (imageIndex === rooms.images.length - 1) {
+      // Si ya estamos en la última imagen, volvemos al inicio del array de imágenes
+      setImageIndex(0);
+    } else {
+      setImageIndex(imageIndex + 1);
+    }
+  };
 
   return (
     <div className="content__hotelInfo">
@@ -113,9 +122,9 @@ export default function HotelSingle() {
             </div>
           </div>
           <div className="hotelSingle__payment">
-            <h3 className="title__short">$ {hotel.cost} / Per Night</h3>
+            <h3 className="title__short">$ {hotel.actualPrice} / Per Night</h3>
             <p className="title__big">
-              <font size="5">$ {hotel.cost}</font> / Per Night
+              <font size="5">$ {hotel.actualPrice}</font> / Per Night
             </p>
             <button className="hotelSingle__show book__now">
               Book This Now
@@ -134,12 +143,18 @@ export default function HotelSingle() {
                   backgroundRepeat: "no-repeat",
                 }}
               >
-                <select className="selected-label left">
-                  <FontAwesomeIcon icon={faAngleRight} rotation={180} />
-                </select>
-                <select className="selected-label right">
+                <button
+                  className="selected-label left"
+                  onClick={handleLeftArrowClick}
+                >
+                  <FontAwesomeIcon icon={faAngleLeft} />
+                </button>
+                <button
+                  className="selected-label right"
+                  onClick={handleRightArrowClick}
+                >
                   <FontAwesomeIcon icon={faAngleRight} />
-                </select>
+                </button>
                 <p className="view-all">Hotel Images</p>
               </div>
               <div className="hotelSingle__show">
@@ -180,29 +195,27 @@ export default function HotelSingle() {
             <div className="hotelSingle__body--info">
               <div className="hotelSingle__rooms">
                 <Room
-                  title="Single Room"
+                  title="Deluxe Room"
                   image={`${rooms.images[2]}`}
-                  beforePrice={`$${hotel.pastPrice}`}
-                  nowPrice={`$${hotel.actualPrice}`}
+                  beforePrice={`$${rooms.pastPrice}`}
+                  nowPrice={`$${rooms.actualPrice}`}
                 />
                 <Room
-                  title="Double Room"
+                  title="Suite Room"
                   image={`${rooms.images[3]}`}
-                  beforePrice={`$${(Number(hotel.pastPrice) * 1.5).toString()}`}
-                  nowPrice={`$${(Number(hotel.actualPrice) * 1.5).toString()}`}
+                  beforePrice={`$${(rooms.pastPrice * 1.5).toString()}`}
+                  nowPrice={`$${(rooms.actualPrice * 1.5).toString()}`}
                 />
                 <Room
-                  title="Family Room"
+                  title="Royal Room"
                   image={`${rooms.images[4]}`}
-                  beforePrice={`$${(Number(hotel.pastPrice) * 2).toString()}`}
-                  nowPrice={`$${(Number(hotel.actualPrice) * 2).toString()}`}
+                  beforePrice={`$${(rooms.pastPrice * 2).toString()}`}
+                  nowPrice={`$${(rooms.actualPrice * 2).toString()}`}
                 />
               </div>
               <div className="content__hotelSingle--extras">
                 <RoomCard />
                 <ContactInfo
-                  checkIn={checkIn}
-                  checkOut={checkOut}
                   address={hotel.address}
                   email={rooms.email}
                   phone={rooms.phone}
@@ -233,4 +246,10 @@ HotelSingle.propTypes = {
     })
   ),
   id: PropTypes.string,
+};
+
+// Propiedades por defecto para las propTypes
+HotelSingle.defaultProps = {
+  hotels: [],
+  id: "",
 };

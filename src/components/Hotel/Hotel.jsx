@@ -68,9 +68,9 @@ Hotel.propTypes = {
   title: PropTypes.string,
   location: PropTypes.string,
   description: PropTypes.string,
-  reviews: PropTypes.string,
-  pastPrice: PropTypes.string,
-  actualPrice: PropTypes.string,
+  reviews: PropTypes.number,
+  pastPrice: PropTypes.number,
+  actualPrice: PropTypes.number,
   onClick: PropTypes.func,
 };
 

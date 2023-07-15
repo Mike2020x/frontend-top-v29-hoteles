@@ -1,62 +1,106 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useHotel } from "../../context";
-// import HotelMap from "../hotelMap/HotelMap";
+import calcularCostoRoom from "../ListHotels/calculateCostRoom";
 import "./index.scss";
 
 export default function RoomCard() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [hotel, setHotel] = useState("");
   const [checkIn, setCheckIn] = useState(getCurrentDate());
   const [checkOut, setCheckOut] = useState(getNextDay(getCurrentDate()));
   const [guests, setGuests] = useState(1);
-  const { state } = useHotel();
-  const { selectedHotel: hotelData } = state;
+  const [types, setTypes] = useState("Single Room");
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    setHotel(searchParams.get("hotel") || "");
-    setCheckIn(searchParams.get("checkIn") || getCurrentDate());
-    setCheckOut(searchParams.get("checkOut") || getNextDay(getCurrentDate()));
-    setGuests(parseInt(searchParams.get("guests")) || 1);
-  }, [location.search]);
+  const { state, dispatch } = useHotel();
+  const { selectedHotel, selectedRooms } = state;
 
   const handleInputChange = (event) => {
-    event.preventDefault();
     const { name, value } = event.target;
 
-    if (name === "hotel") {
-      setHotel(value);
+    if (name === "types") {
+      setTypes(value);
+      console.log("types actual: ", value);
     } else if (name === "checkIn") {
       setCheckIn(value);
       setCheckOut(getNextDay(value));
     } else if (name === "checkOut") {
       setCheckOut(value);
+      console.log("checkOut actual: ", checkOut);
     } else if (name === "guests") {
       setGuests(value);
+      console.log("guests actual: ", guests);
     }
   };
 
-  const handleSearch = () => {
-    if (!hotel) {
-      alert("Por favor, ingrese el nombre o la ciudad del hotel.");
+  const handleSearch = (event) => {
+    event.preventDefault();
+
+    if (!guests) {
+      alert("Por favor, ingrese la cantidad de personas.");
       return;
     }
 
-    const searchParams = new URLSearchParams();
-    searchParams.set("hotel", hotel);
-    searchParams.set("checkIn", checkIn);
-    searchParams.set("checkOut", checkOut);
-    searchParams.set("guests", guests);
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
 
-    navigate(`/hotel-list?search=${searchParams.toString()}`);
+    const {
+      duracionEstadia,
+      numeroHabitaciones,
+      costoAdicionalPorPersona,
+      precioBasePorNoche,
+      personasAdicionales,
+      costoAdicional,
+      descuentoEstadiaLarga,
+      costoBasePorNoche,
+      total,
+      impuesto,
+      precioPasado,
+      descuento,
+      precioActual,
+    } = calcularCostoRoom(
+      checkInDate,
+      checkOutDate,
+      guests,
+      types,
+      selectedHotel.priceBaseNight
+    );
+
+    const updatedHotel = {
+      ...selectedHotel,
+      days: duracionEstadia,
+      numRooms: numeroHabitaciones,
+      costAdditionalPerson: costoAdicionalPorPersona,
+      priceBaseNight: precioBasePorNoche,
+      additionalPerson: personasAdicionales,
+      costAdditional: costoAdicional,
+      discountStay: descuentoEstadiaLarga,
+      costBaseNight: costoBasePorNoche,
+      total: total,
+      taxes: impuesto,
+      pastPrice: precioPasado,
+      discount: descuento,
+      actualPrice: precioActual,
+      checkInDate,
+      checkOutDate,
+      guests,
+      types: types,
+    };
+
+    dispatch({ type: "SELECT_HOTEL", payload: updatedHotel });
+    console.log(updatedHotel);
+    const updatedRooms = {
+      ...selectedRooms,
+      pastPrice: precioPasado,
+      actualPrice: precioActual,
+    };
+
+    dispatch({ type: "SELECT_ROOMS", payload: updatedRooms });
+    console.log(updatedRooms);
   };
 
   return (
-    <div className="room-card" >
+    <div className="room-card">
       <Link to="/hotel-map">
         <div className="room-card__image">
           <img src="/google-map.jpg" alt="Google Map" />
@@ -71,13 +115,19 @@ export default function RoomCard() {
           <p>
             <FontAwesomeIcon icon={faCheck} /> Room Only
           </p>
-          <h4>{hotelData.pastPrice}</h4>
+          <h4>
+            {isNaN(selectedHotel.pastPrice) ? "N/A" : selectedHotel.pastPrice}
+          </h4>
         </div>
         <div className="room-card__information">
           <p>
             <FontAwesomeIcon icon={faCheck} /> Non Refundable
           </p>
-          <h3>{hotelData.actualPrice}</h3>
+          <h3>
+            {isNaN(selectedHotel.actualPrice)
+              ? "N/A"
+              : selectedHotel.actualPrice}
+          </h3>
         </div>
       </div>
       <div className="room-card__search">
@@ -110,29 +160,26 @@ export default function RoomCard() {
             placeholder="Rooms & Guests"
             onChange={handleInputChange}
           />
-          <select name="room" id="types">
+          <select
+            name="types"
+            id="types"
+            value={types}
+            onChange={handleInputChange}
+          >
+            <option value="Single Room">Type Room</option>
             <option value="Single Room">Single Room</option>
             <option value="Double Room">Double Room</option>
             <option value="Family Room">Family Room</option>
           </select>
         </div>
         <div className="room-card__search-button">
-          {hotel ? (
-            <Link
-              to={`/hotel-list?hotel=${hotel}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`}
-            >
-              <button className="room-card__search-button--link">
-                Book This Now
-              </button>
-            </Link>
-          ) : (
-            <button
-              className="room-card__search-button--button"
-              onClick={handleSearch}
-            >
-              Book This Now
-            </button>
-          )}
+          <button
+            className="room-card__search-button--button"
+            onClick={handleSearch}
+            type="button"
+          >
+            Book This Now
+          </button>
         </div>
       </div>
     </div>

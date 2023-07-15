@@ -67,7 +67,6 @@ $color-fascinante: mix(
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 20px;
   }
 
   &--search {
@@ -137,12 +136,24 @@ $color-fascinante: mix(
   width: 30px;
 }
 
-@media Screen and (max-width: 650px) {
+@media Screen and (max-width: 429px) {
+  .content__titles {
+    h1 {
+      font-size: 21px;
+    }
+  }
+}
+
+@media Screen and (max-width: 649px) {
   .content__titles {
     &--search {
       height: 40vh;
       width: 90vw;
       margin: 0 auto;
+    }
+
+    &--mobileBox {
+      gap: 20px;
     }
   }
 }
