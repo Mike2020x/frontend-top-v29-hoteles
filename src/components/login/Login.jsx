@@ -4,8 +4,11 @@ import { faFacebook, faGooglePlus } from "@fortawesome/free-brands-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useHotel } from "../../context";
 
 const Login = () => {
+  const { state, dispatch } = useHotel();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     isLoginActive: true,
     firstName: "",
@@ -17,7 +20,6 @@ const Login = () => {
     showPassword: false,
     errorMessage: "",
   });
-
   const handleTabClick = (isLogin) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -27,42 +29,40 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    
     try {
       const loginData = {
-        phone: formData.phone,
         email: formData.email,
         password: formData.password,
       };
       console.log(loginData);
 
       // Llamar a la API para iniciar sesión
-      const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/api/user`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(loginData),
-        }
-      );
+      const response = {
+        status: 204,
+      };
 
-      // Manejar la respuesta de la API según sea necesario
-      if (response.ok) {
-        // Redireccionar al panel de usuario o realizar otra acción
-        // window.location.href = "/user-dashboard";
+      // Manejar la respuesta simulada del servidor
+      if (response.status === 204) {
+        // Manejar la respuesta exitosa
+        dispatch({
+          type: "SET_USER",
+          payload: { ...state.user, loginState: true },
+        });
+        navigate("/user-dashboard");
+      } else if (response.status === 400) {
+        // Manejar errores en la respuesta (contraseña incorrecta)
+        alert("Email o contraseña incorrecta");
       } else {
-        // Manejar el caso de error en el inicio de sesión
-        console.log("Error en el inicio de sesión");
+        // Manejar otros errores en la respuesta (opcional)
+        alert("No se pudo iniciar sesión. Inténtalo de nuevo más tarde.");
       }
     } catch (error) {
-      // Manejar errores de conexión o de la API
-      console.log("Error:", error);
+      // Manejar errores de conexión o de la API (simulados)
+      console.log("Error: ", error);
+      alert("Regístrese. Su usuario no existe.");
     }
   };
-
-  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -74,7 +74,6 @@ const Login = () => {
       }));
       return;
     }
-
     try {
       const signupData = {
         firstName: formData.firstName,
@@ -102,15 +101,14 @@ const Login = () => {
         const url = `/verify-account/${formData.email}`;
         navigate(url);
       } else {
-        // Manejar el caso de error en el registro
-        console.log("Error en el registro");
+        throw new Error("Error en el registro");
       }
     } catch (error) {
       // Manejar errores de conexión o de la API
       console.log("Error:", error);
+      alert("Error occurred. Please try again later.");
     }
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -118,14 +116,12 @@ const Login = () => {
       [name]: value,
     }));
   };
-
   const togglePasswordVisibility = () => {
     setFormData((prevData) => ({
       ...prevData,
       showPassword: !prevData.showPassword,
     }));
   };
-
   return (
     <div className="login-box">
       <div className="lb-header">
@@ -282,5 +278,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

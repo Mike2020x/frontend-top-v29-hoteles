@@ -8,6 +8,14 @@ const initialState = {
   selectedHotel: null,
   selectedRooms: null,
   loading: true,
+  user: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    loginState: false,
+  },
 };
 
 const reducer = (state, action) => {
@@ -31,6 +39,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         loading: action.payload,
+      };
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.payload,
       };
     default:
       return state;

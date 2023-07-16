@@ -6,6 +6,7 @@ export default function calcularCostoRoom(checkIn, checkOut, guests, types, pric
 
   // Cálculo del costo base por noche con factores adicionales
   let costoAdicionalPorPersona = 20; // Costo adicional por persona
+  const keepPriceBase = priceBaseNight
   let precioBasePorNoche = priceBaseNight // reemplazando el valor inicial de busqueda en Home y Hotel List
 
   switch(types) {
@@ -84,6 +85,7 @@ if (guests > 1) {
     precioPasado, // precio normal
     descuento, // descuento por promoción
     precioActual, // precio a pagar
+    keepPriceBase, // manteniene el precio base para dar sentido real
   };
 }
 

@@ -127,15 +127,16 @@ export default function HotelSingle() {
             <p className="title__big">
               <font size="5">$ {hotel.actualPrice}</font> / Per Night
             </p>
-            <button className="hotelSingle__show book__now">
             <Link
-                  to={{
-                    pathname: "/summary",
-                    search: `?title=${encodeURIComponent(hotel.title)}`,
-                  }}>
-              Book This Now
-              </Link>
-            </button>
+              to={{
+                pathname: "/summary",
+                search: `?title=${encodeURIComponent(hotel.title)}`,
+              }}
+            >
+              <button className="hotelSingle__show book__now">
+                Book This Now
+              </button>
+            </Link>
           </div>
         </div>
         <div className="content__hotelInfo--room">

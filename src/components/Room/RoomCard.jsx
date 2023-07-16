@@ -11,6 +11,7 @@ export default function RoomCard() {
   const [checkOut, setCheckOut] = useState(getNextDay(getCurrentDate()));
   const [guests, setGuests] = useState(1);
   const [types, setTypes] = useState("Single Room");
+  let priceBaseNight = 0
 
   const { state, dispatch } = useHotel();
   const { selectedHotel, selectedRooms } = state;
@@ -20,16 +21,13 @@ export default function RoomCard() {
 
     if (name === "types") {
       setTypes(value);
-      console.log("types actual: ", value);
     } else if (name === "checkIn") {
       setCheckIn(value);
       setCheckOut(getNextDay(value));
     } else if (name === "checkOut") {
       setCheckOut(value);
-      console.log("checkOut actual: ", checkOut);
     } else if (name === "guests") {
       setGuests(value);
-      console.log("guests actual: ", guests);
     }
   };
 
@@ -37,8 +35,14 @@ export default function RoomCard() {
     event.preventDefault();
 
     if (!guests) {
-      alert("Por favor, ingrese la cantidad de personas.");
+      alert("Por favor, ingrese la cantidad de huéspedes.");
       return;
+    }
+
+    if (priceBaseNight === 0) {
+      priceBaseNight = selectedHotel.priceBaseNight
+    } else {
+      priceBaseNight = selectedHotel.keepPriceBase
     }
 
     const checkInDate = new Date(checkIn);
@@ -58,12 +62,13 @@ export default function RoomCard() {
       precioPasado,
       descuento,
       precioActual,
+      keepPriceBase,
     } = calcularCostoRoom(
       checkInDate,
       checkOutDate,
       guests,
       types,
-      selectedHotel.priceBaseNight
+      priceBaseNight,
     );
 
     const updatedHotel = {
@@ -81,6 +86,7 @@ export default function RoomCard() {
       pastPrice: precioPasado,
       discount: descuento,
       actualPrice: precioActual,
+      keepPriceBase,
       checkInDate,
       checkOutDate,
       guests,
@@ -166,7 +172,6 @@ export default function RoomCard() {
             value={types}
             onChange={handleInputChange}
           >
-            <option value="Single Room">Type Room</option>
             <option value="Single Room">Single Room</option>
             <option value="Double Room">Double Room</option>
             <option value="Family Room">Family Room</option>
