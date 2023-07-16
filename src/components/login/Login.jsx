@@ -20,6 +20,7 @@ const Login = () => {
     showPassword: false,
     errorMessage: "",
   });
+
   const handleTabClick = (isLogin) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -29,7 +30,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     try {
       const loginData = {
         email: formData.email,
@@ -38,9 +39,16 @@ const Login = () => {
       console.log(loginData);
 
       // Llamar a la API para iniciar sesión
-      const response = {
-        status: 204,
-      };
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/auth/local/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        }
+      );
 
       // Manejar la respuesta simulada del servidor
       if (response.status === 204) {

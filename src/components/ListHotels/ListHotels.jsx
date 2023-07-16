@@ -104,7 +104,7 @@ export default function ListHotels() {
                   checkIn,
                   checkOut,
                   guests,
-                  types: "Single Room",
+                  types: "",
                 };
               })
             );

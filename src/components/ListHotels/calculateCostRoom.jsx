@@ -1,23 +1,31 @@
-export default function calcularCostoRoom(checkIn, checkOut, guests, types, priceBaseNight) {
+export default function calcularCostoRoom(
+  checkIn,
+  checkOut,
+  guests,
+  types,
+  keep
+) {
   const duracionEstadia = Math.ceil(
     (checkOut - checkIn) / (1000 * 60 * 60 * 24)
   ); // Duración de la estadía en días
   const numeroHabitaciones = Math.ceil(guests / 2); // Suponiendo que 2 personas pueden compartir una habitación
 
   // Cálculo del costo base por noche con factores adicionales
-  let costoAdicionalPorPersona = 20; // Costo adicional por persona
-  const keepPriceBase = priceBaseNight
-  let precioBasePorNoche = priceBaseNight // reemplazando el valor inicial de busqueda en Home y Hotel List
+  let costoAdicionalPorPersona = 0;
+  let precioBasePorNoche = keep; // mantener el precio base para dar sentido real
 
-  switch(types) {
-    case "Double Room":
-      costoAdicionalPorPersona = 30
+  switch (types) {
+    case "SINGLE":
+      costoAdicionalPorPersona = 20; // Costo adicional por persona
+      break;
+    case "DOUBLE":
+      costoAdicionalPorPersona = 30;
       precioBasePorNoche += 100;
-      break
-    case "Family Room":
-      costoAdicionalPorPersona = 40
+      break;
+    case "FAMILY":
+      costoAdicionalPorPersona = 40;
       precioBasePorNoche += 200;
-      break
+      break;
   }
 
   let costoBasePorNoche = precioBasePorNoche;
@@ -25,50 +33,52 @@ export default function calcularCostoRoom(checkIn, checkOut, guests, types, pric
   let costoAdicional = 0;
   let cantidadPersonas = 0;
 
-// Se aplica un costo adicional si hay dos personas por cada habitación
-if (guests > 1) {
-  switch (guests) {
-    case 2:
-    case 3:
-      personasAdicionales = 1;
-      break;
-    case 4:
-    case 5:
-      personasAdicionales = 2;
-      break;
-    case 6:
-    case 7:
-      personasAdicionales = 3;
-      break;
-    case 8:
-    case 9:
-      personasAdicionales = 4;
-      break;
-    default:
-      personasAdicionales = 5;
+  // Se aplica un costo adicional si hay dos personas por cada habitación
+  if (guests > 0) {
+    switch (guests) {
+      case 2:
+      case 3:
+        personasAdicionales = 1;
+        break;
+      case 4:
+      case 5:
+        personasAdicionales = 2;
+        break;
+      case 6:
+      case 7:
+        personasAdicionales = 3;
+        break;
+      case 8:
+      case 9:
+        personasAdicionales = 4;
+        break;
+      case 10:
+        personasAdicionales = 5;
+        break;
+      default:
+        personasAdicionales = 0;
+    }
+
+    costoAdicional = costoAdicionalPorPersona * cantidadPersonas;
+    costoBasePorNoche += costoAdicional;
   }
 
-  costoAdicional = costoAdicionalPorPersona * cantidadPersonas;
-  costoBasePorNoche += costoAdicional;
-}
-
-
   // Solo se aplica si la estadía es mayor o igual a una semana
-  let descuentoEstadiaLarga = 0
+  let descuentoEstadiaLarga = 0;
 
   // Se aplica el descuento por estadía larga del 10%
   if (duracionEstadia >= 7) {
-    descuentoEstadiaLarga = Math.ceil(costoBasePorNoche * 0.1)
-    costoBasePorNoche -= descuentoEstadiaLarga
+    descuentoEstadiaLarga = Math.ceil(costoBasePorNoche * 0.1);
+    costoBasePorNoche -= descuentoEstadiaLarga;
   }
 
   // Cálculo del costo total de la reserva
   let total = duracionEstadia * costoBasePorNoche * numeroHabitaciones;
   const impuesto = Math.ceil(total * 0.1); // Porcentaje de impuesto (10%)
-  const precioPasado = total + impuesto  // Se agrega el impuesto al costo total
+  const precioPasado = total + impuesto; // Se agrega el impuesto al costo total
 
   // Cálculo del precio pasado con descuento
-  const descuento = Math.ceil(precioPasado * 0.2) // Porcentaje de descuento basado en el precio pasado (20%)
+  const descuento = Math.ceil(precioPasado * 0.2); // Porcentaje de descuento basado en el precio pasado (20%)
   const precioActual = Math.ceil(precioPasado - descuento);
 
   return {
@@ -85,7 +95,6 @@ if (guests > 1) {
     precioPasado, // precio normal
     descuento, // descuento por promoción
     precioActual, // precio a pagar
-    keepPriceBase, // manteniene el precio base para dar sentido real
   };
 }
 

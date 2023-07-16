@@ -10,8 +10,8 @@ export default function RoomCard() {
   const [checkIn, setCheckIn] = useState(getCurrentDate());
   const [checkOut, setCheckOut] = useState(getNextDay(getCurrentDate()));
   const [guests, setGuests] = useState(1);
-  const [types, setTypes] = useState("Single Room");
-  let priceBaseNight = 0
+  const [types, setTypes] = useState("SINGLE");
+  const [keep, setKeep] = useState(0)
 
   const { state, dispatch } = useHotel();
   const { selectedHotel, selectedRooms } = state;
@@ -39,10 +39,8 @@ export default function RoomCard() {
       return;
     }
 
-    if (priceBaseNight === 0) {
-      priceBaseNight = selectedHotel.priceBaseNight
-    } else {
-      priceBaseNight = selectedHotel.keepPriceBase
+    if (keep === 0) {
+      setKeep(selectedHotel.priceBaseNight)
     }
 
     const checkInDate = new Date(checkIn);
@@ -62,13 +60,12 @@ export default function RoomCard() {
       precioPasado,
       descuento,
       precioActual,
-      keepPriceBase,
     } = calcularCostoRoom(
       checkInDate,
       checkOutDate,
       guests,
       types,
-      priceBaseNight,
+      keep,
     );
 
     const updatedHotel = {
@@ -86,7 +83,6 @@ export default function RoomCard() {
       pastPrice: precioPasado,
       discount: descuento,
       actualPrice: precioActual,
-      keepPriceBase,
       checkInDate,
       checkOutDate,
       guests,
@@ -172,9 +168,9 @@ export default function RoomCard() {
             value={types}
             onChange={handleInputChange}
           >
-            <option value="Single Room">Single Room</option>
-            <option value="Double Room">Double Room</option>
-            <option value="Family Room">Family Room</option>
+            <option value="SINGLE">Single Room</option>
+            <option value="DOUBLE">Double Room</option>
+            <option value="FAMILY">Family Room</option>
           </select>
         </div>
         <div className="room-card__search-button">
