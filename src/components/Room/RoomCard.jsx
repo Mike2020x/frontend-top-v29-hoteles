@@ -10,7 +10,8 @@ export default function RoomCard() {
   const [checkIn, setCheckIn] = useState(getCurrentDate());
   const [checkOut, setCheckOut] = useState(getNextDay(getCurrentDate()));
   const [guests, setGuests] = useState(1);
-  const [types, setTypes] = useState("Single Room");
+  const [types, setTypes] = useState("SINGLE");
+  const [keep, setKeep] = useState(0)
 
   const { state, dispatch } = useHotel();
   const { selectedHotel, selectedRooms } = state;
@@ -20,16 +21,13 @@ export default function RoomCard() {
 
     if (name === "types") {
       setTypes(value);
-      console.log("types actual: ", value);
     } else if (name === "checkIn") {
       setCheckIn(value);
       setCheckOut(getNextDay(value));
     } else if (name === "checkOut") {
       setCheckOut(value);
-      console.log("checkOut actual: ", checkOut);
     } else if (name === "guests") {
       setGuests(value);
-      console.log("guests actual: ", guests);
     }
   };
 
@@ -37,8 +35,12 @@ export default function RoomCard() {
     event.preventDefault();
 
     if (!guests) {
-      alert("Por favor, ingrese la cantidad de personas.");
+      alert("Por favor, ingrese la cantidad de huéspedes.");
       return;
+    }
+
+    if (keep === 0) {
+      setKeep(selectedHotel.priceBaseNight)
     }
 
     const checkInDate = new Date(checkIn);
@@ -63,7 +65,7 @@ export default function RoomCard() {
       checkOutDate,
       guests,
       types,
-      selectedHotel.priceBaseNight
+      keep,
     );
 
     const updatedHotel = {
@@ -166,10 +168,9 @@ export default function RoomCard() {
             value={types}
             onChange={handleInputChange}
           >
-            <option value="Single Room">Type Room</option>
-            <option value="Single Room">Single Room</option>
-            <option value="Double Room">Double Room</option>
-            <option value="Family Room">Family Room</option>
+            <option value="SINGLE">Single Room</option>
+            <option value="DOUBLE">Double Room</option>
+            <option value="FAMILY">Family Room</option>
           </select>
         </div>
         <div className="room-card__search-button">
