@@ -1,17 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./index.scss";
-import { useHotel } from "../../context";
-import Loading from "../../components/loading/Loading";
 
 export default function VerifyAccount() {
   const navigate = useNavigate()
   const { token } = useParams();
-  const { state: { loading }, dispatch } = useHotel()
 
   const handleClick = async () => {
-    if (!loading) {
-      return <Loading height="100vh" />;
-    }
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BASE_URL}/auth/local/activate/${token}`,
@@ -23,15 +17,14 @@ export default function VerifyAccount() {
         }
       );
       const data = await response.json();
-
+      
       if (data.success) {
         console.log(data.success)
       }
-
-      navigate("/user-dashboard")
-      dispatch({ type: "LOADING", payload: false });
     } catch (error) {
       console.log(error);
+    } finally {
+      navigate("/user-dashboard")
     }
   };
 
