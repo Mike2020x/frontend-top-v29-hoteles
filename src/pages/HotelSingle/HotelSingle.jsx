@@ -16,6 +16,7 @@ import HotelsSlider from "../../components/slider/Slider";
 import Loading from "../../components/loading/Loading";
 import { useHotel } from "../../context";
 import { roomImages } from "../../assets/images";
+import { Link } from "react-router-dom";
 export default function HotelSingle() {
   const {
     state: { hotels, selectedHotel: hotel, selectedRooms: rooms, loading },
@@ -126,9 +127,16 @@ export default function HotelSingle() {
             <p className="title__big">
               <font size="5">$ {hotel.actualPrice}</font> / Per Night
             </p>
-            <button className="hotelSingle__show book__now">
-              Book This Now
-            </button>
+            <Link
+              to={{
+                pathname: "/summary",
+                search: `?title=${encodeURIComponent(hotel.title)}`,
+              }}
+            >
+              <button className="hotelSingle__show book__now">
+                Book This Now
+              </button>
+            </Link>
           </div>
         </div>
         <div className="content__hotelInfo--room">
