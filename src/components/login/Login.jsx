@@ -6,6 +6,7 @@ import "./index.scss";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     isLoginActive: true,
     firstName: "",
@@ -38,7 +39,7 @@ const Login = () => {
 
       // Llamar a la API para iniciar sesión
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/api/user`,
+        `${import.meta.env.VITE_BASE_URL}/auth/local/login`,
         {
           method: "POST",
           headers: {
@@ -52,17 +53,18 @@ const Login = () => {
       if (response.ok) {
         // Redireccionar al panel de usuario o realizar otra acción
         // window.location.href = "/user-dashboard";
+        navigate("/user-dashboard")
       } else {
         // Manejar el caso de error en el inicio de sesión
-        console.log("Error en el inicio de sesión");
+        alert("Email o contraseña no valido")
       }
     } catch (error) {
       // Manejar errores de conexión o de la API
       console.log("Error:", error);
+      alert("Email o contraseña no valido")
     }
   };
 
-  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
