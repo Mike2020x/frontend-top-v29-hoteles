@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useHotel } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGooglePlus } from "@fortawesome/free-brands-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { useHotel } from "../../context";
+import Loading from "../loading/Loading";
 
 const Login = () => {
 
-  const { state } = useHotel()
+  const navigate = useNavigate();
+  const { state, dispatch } = useHotel()
+  // Estado para mantener el array de usuarios registrados
+  const [registeredUsers, setRegisteredUsers] = useState([]);
   const [formData, setFormData] = useState({
     isLoginActive: true,
     firstName: "",
@@ -21,6 +25,29 @@ const Login = () => {
     errorMessage: "",
   });
 
+  // Function to check if the user exists in LocalStorage or registeredUsers
+  const checkUserInLocalStorage = () => {
+    const email = formData.email;
+    const dataUsers = localStorage.getItem("dataUsers");
+    if (dataUsers) {
+      const users = JSON.parse(dataUsers);
+      const user = users.find((user) => user.email === email);
+      if (user) {
+        return user;
+      }
+    }
+    const registeredUser = registeredUsers.find((user) => user.email === email);
+    return registeredUser;
+  };
+
+  useEffect(() => {
+    // Retrieve registered users from LocalStorage on component mount
+    const registeredUsersData = localStorage.getItem("registeredUsers");
+    if (registeredUsersData) {
+      setRegisteredUsers(JSON.parse(registeredUsersData));
+    }
+  }, []);
+
   const handleTabClick = (isLogin) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -32,40 +59,70 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const loginData = {
-        phone: formData.phone,
-        email: formData.email,
-        password: formData.password,
-      };
-      console.log(loginData);
-
-      // Llamar a la API para iniciar sesión
-      const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/api/user`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(loginData),
+      const user = checkUserInLocalStorage();
+      if (user) {
+        // User found, proceed with login
+        if (user.password === formData.password) {
+          // Successful login, handle user data (if needed) and redirect
+          dispatch({ type: "SET_USER", payload: user });
+          // Redirect to user dashboard or other action
+          navigate("/user-dashboard");
+          console.log("Successful login!");
+        } else {
+          setFormData((prevData) => ({
+            ...prevData,
+            errorMessage: "Contraseña incorrecta",
+          }));
         }
-      );
-
-      // Manejar la respuesta de la API según sea necesario
-      if (response.ok) {
-        // Redireccionar al panel de usuario o realizar otra acción
-        // window.location.href = "/user-dashboard";
       } else {
-        // Manejar el caso de error en el inicio de sesión
-        console.log("Error en el inicio de sesión");
+
+        dispatch({ type: "LOADING", payload: true });
+        // User not found, fetch from API
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/api/user`
+        );
+        if (response.ok) {
+          const users = await response.json();
+          const apiUser = users.find((user) => user.email === formData.email);
+          if (apiUser) {
+            if (apiUser.password === formData.password) {
+              // Successful login, handle user data (if needed) and redirect
+              dispatch({ type: "SET_USER", payload: apiUser });
+              // Redirect to user dashboard or other action
+              navigate("/user-dashboard");
+              console.log("Successful login from API!");
+            } else {
+              setFormData((prevData) => ({
+                ...prevData,
+                errorMessage: "Contraseña incorrecta",
+              }));
+            }
+          } else {
+            setFormData((prevData) => ({
+              ...prevData,
+              errorMessage: "El usuario no está registrado",
+            }));
+          }
+        } else {
+          // Handle API error
+          console.log("Error en el inicio de sesión");
+        }
       }
     } catch (error) {
-      // Manejar errores de conexión o de la API
+      // Handle connection or API errors
       console.log("Error:", error);
+    } finally {
+      dispatch({ type: "LOADING", payload: false });
     }
   };
 
-  const navigate = useNavigate();
+
+  // Función para agregar un nuevo usuario al array de usuarios registrados
+  const handleRegisterUser = (newUser) => {
+    setRegisteredUsers((prevUsers) => [...prevUsers, newUser]);
+    // Guardar el array de usuarios actualizado en el LocalStorage
+    localStorage.setItem("registeredUsers", JSON.stringify([...registeredUsers, newUser]));
+  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -78,6 +135,8 @@ const Login = () => {
       return;
     }
 
+    dispatch({ type: "LOADING", payload: true });
+
     try {
       const signupData = {
         firstName: formData.firstName,
@@ -87,8 +146,6 @@ const Login = () => {
         password: formData.password,
       };
 
-      // Convertir el array de usuarios a formato JSON
-      const usersArrayJSON = JSON.stringify(signupData);
       // Llamar a la API para registrarse
       const response = await fetch(
         `${import.meta.env.VITE_BASE_URL}/api/user`,
@@ -103,8 +160,11 @@ const Login = () => {
       console.log(response);
       // Manejar la respuesta de la API según sea necesario
       if (response.ok) {
+        dispatch({ type: "SET_USER", payload: signupData });
         // Guardar la contraseña en el LocalStorage
         localStorage.setItem("dataUsers", JSON.stringify(signupData));
+        // Registro del nuevo usuario en el LocalStorage
+        handleRegisterUser(signupData);
         // Redireccionar al panel de usuario o realizar otra acción
         const url = `/verify-account/${formData.email}`;
         navigate(url);
@@ -115,6 +175,8 @@ const Login = () => {
     } catch (error) {
       // Manejar errores de conexión o de la API
       console.log("Error:", error);
+    } finally {
+      dispatch({ type: "LOADING", payload: false });
     }
   };
 
@@ -123,6 +185,7 @@ const Login = () => {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      errorMessage: name === "confirmPassword" && prevData.password !== value ? "Las contraseñas no coinciden" : "",
     }));
   };
 
@@ -132,6 +195,10 @@ const Login = () => {
       showPassword: !prevData.showPassword,
     }));
   };
+
+  if (state.loading) {
+    return <Loading height="100vh" />;
+  }
 
   return (
     <div className="login-box">

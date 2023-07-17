@@ -3,7 +3,6 @@ import { useHotel } from "../../context";
 import calcularCostoReserva from "../ListHotels/calculateCost";
 import Hotel from "../Hotel/Hotel";
 import Loading from "../loading/Loading";
-import "./Hotels.scss";
 
 export default function Hotels() {
   const { state, dispatch } = useHotel();

@@ -3,9 +3,8 @@ import "./index.scss";
 import { useHotel } from "../../context";
 
 export default function VerifyAccount() {
-
-  const { state, dispatch } = useHotel()
-  const navigate = useNavigate()
+  const { state, dispatch } = useHotel();
+  const navigate = useNavigate();
   const { token } = useParams();
 
   const handleClick = async () => {
@@ -22,7 +21,7 @@ export default function VerifyAccount() {
       const data = await response.json();
 
       if (data.success) {
-        console.log(data.success)
+        console.log(data.success);
       }
     } catch (error) {
       console.log(error);
@@ -31,26 +30,28 @@ export default function VerifyAccount() {
         type: "SET_USER",
         payload: { ...state.user, loginState: true },
       });
-      navigate("/user-dashboard")
+      navigate("/user-dashboard");
     }
   };
 
   return (
     <>
-      <div className="verify-account-button">
-        <img src="/hotel-booking-mir.jpg" alt="ocean and houses panorama" />
-        <h2 className="verify-account-button__title">Verifica tu cuenta</h2>
-        <h2 className="verify-account-button__description">
-          Activate your account
-        </h2>
-        <p>Please click the button below to activate your account.</p>
-        <button
-          type="button"
-          className="verify-account-button__button"
-          onClick={handleClick}
-        >
-          Active account
-        </button>
+      <div className="verify-account">
+        <div className="verify-account-button">
+          <img src="/hotel-booking-mir.jpg" alt="ocean and houses panorama" />
+          <h2 className="verify-account-button__title">Verifica tu cuenta</h2>
+          <h2 className="verify-account-button__description">
+            Activate your account
+          </h2>
+          <p>Please click the button below to activate your account.</p>
+          <button
+            type="button"
+            className="verify-account-button__button"
+            onClick={handleClick}
+          >
+            Active account
+          </button>
+        </div>
       </div>
     </>
   );
