@@ -25,7 +25,7 @@ export default function CheckoutForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: Number(hotel.cost) * 100,// $10 en centavos
+          amount: Number(hotel.actualPrice) * 100,// $10 en centavos
           paymentMethod,
         }),
       }
