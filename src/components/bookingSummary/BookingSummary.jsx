@@ -1,6 +1,7 @@
-import "./index.scss";
 import { useHotel } from "../../context";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom"
+import "./index.scss";
 
 export default function BookingSummary() {
   const location = useLocation();
@@ -38,9 +39,8 @@ export default function BookingSummary() {
         <p>Number of rooms: {selectedHotel.numRooms}</p>
         <p>Additional guests: {selectedHotel.additionalPerson}</p>
         <p>Type Room: {selectedHotel.types}</p>
-        <p>{`${Number(selectedHotel.guests)} Guest, 1 ${title}, ${
-          selectedHotel.days
-        } Night`}</p>
+        <p>{`${Number(selectedHotel.guests)} Guest, 1 ${title}, ${selectedHotel.days
+          } Night`}</p>
       </div>
       <div className="summary__payment-detail">
         <h3>Payment Details</h3>
@@ -81,6 +81,7 @@ export default function BookingSummary() {
           <p>{`$${selectedHotel.actualPrice}`}</p>
         </div>
       </div>
+      <Link to="/checkout"><input className="info__pay-btn" type="submit" value="PAY NOW" /></Link>
     </div>
   );
 }

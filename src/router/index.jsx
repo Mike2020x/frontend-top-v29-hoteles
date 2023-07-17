@@ -13,7 +13,7 @@ import VerifyAccount from "../pages/VerifyAccount/VerifyAccount";
 import VerifyMessage from "../pages/VerifyAccount/VerifyMessage";
 import ForgotPassword from "../pages/VerifyAccount/ForgotPassword";
 import HotelMap from "../components/hotelMap/HotelMap";
-import Hotels from "../components/hotels/hotels";
+import Hotels from "../components/hotels/Hotels";
 const router = createBrowserRouter([
   {
     path: "/",
