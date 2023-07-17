@@ -1,6 +1,8 @@
 import "./index.scss"
 
 export default function Dashboard() {
+
+  
   return (
     <div className="dashboard">
       <div className="dashboard__info">

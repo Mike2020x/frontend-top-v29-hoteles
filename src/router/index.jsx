@@ -13,6 +13,7 @@ import VerifyAccount from "../pages/VerifyAccount/VerifyAccount";
 import VerifyMessage from "../pages/VerifyAccount/VerifyMessage";
 import ForgotPassword from "../pages/VerifyAccount/ForgotPassword";
 import HotelMap from "../components/hotelMap/HotelMap";
+import Hotels from "../components/hotels/hotels";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
         // loader: loaderProducts,
+      },
+      {
+        path: "hotels",
+        element: <Hotels />,
       },
       {
         path: "checkout",

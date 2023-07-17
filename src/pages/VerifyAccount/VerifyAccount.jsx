@@ -1,7 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./index.scss";
+import { useHotel } from "../../context";
 
 export default function VerifyAccount() {
+
+  const { state, dispatch } = useHotel()
   const navigate = useNavigate()
   const { token } = useParams();
 
@@ -17,13 +20,17 @@ export default function VerifyAccount() {
         }
       );
       const data = await response.json();
-      
+
       if (data.success) {
         console.log(data.success)
       }
     } catch (error) {
       console.log(error);
     } finally {
+      dispatch({
+        type: "SET_USER",
+        payload: { ...state.user, loginState: true },
+      });
       navigate("/user-dashboard")
     }
   };

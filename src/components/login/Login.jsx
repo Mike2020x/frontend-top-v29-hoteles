@@ -4,8 +4,11 @@ import { faFacebook, faGooglePlus } from "@fortawesome/free-brands-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useHotel } from "../../context";
 
 const Login = () => {
+
+  const { state } = useHotel()
   const [formData, setFormData] = useState({
     isLoginActive: true,
     firstName: "",
@@ -83,7 +86,9 @@ const Login = () => {
         phone: formData.phone,
         password: formData.password,
       };
-      console.log(signupData);
+
+      // Convertir el array de usuarios a formato JSON
+      const usersArrayJSON = JSON.stringify(signupData);
       // Llamar a la API para registrarse
       const response = await fetch(
         `${import.meta.env.VITE_BASE_URL}/api/user`,
@@ -98,6 +103,8 @@ const Login = () => {
       console.log(response);
       // Manejar la respuesta de la API según sea necesario
       if (response.ok) {
+        // Guardar la contraseña en el LocalStorage
+        localStorage.setItem("dataUsers", JSON.stringify(signupData));
         // Redireccionar al panel de usuario o realizar otra acción
         const url = `/verify-account/${formData.email}`;
         navigate(url);
