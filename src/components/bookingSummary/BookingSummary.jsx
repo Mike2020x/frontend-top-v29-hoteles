@@ -1,6 +1,6 @@
 import { useHotel } from "../../context";
 import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import "./index.scss";
 
 export default function BookingSummary() {
@@ -9,6 +9,13 @@ export default function BookingSummary() {
   const title = searchParams.get("title");
   const { state } = useHotel();
   const { selectedRooms: rooms, selectedHotel } = state;
+
+  const formatDate = (date) => {
+    if (!(date instanceof Date)) {
+      date = new Date(date); // Si la fecha no es instancia de Date, intenta crearla como tal
+    }
+    return date.toISOString().split("T")[0];
+  };
 
   return (
     <div className="summary">
@@ -23,13 +30,13 @@ export default function BookingSummary() {
       <div className="summary__check">
         <div>
           <h4>Check In</h4>
-          <date>{selectedHotel.checkIn.toISOString().split("T")[0]}</date>
+          <date>{formatDate(selectedHotel.checkIn)}</date>
           <h4>Check In time</h4>
           <time>2:00 pm</time>
         </div>
         <div>
           <h4>Check Out</h4>
-          <date>{selectedHotel.checkOut.toISOString().split("T")[0]}</date>
+          <date>{formatDate(selectedHotel.checkOut)}</date>
           <h4>Check Out time</h4>
           <time>12:00 pm</time>
         </div>
@@ -39,8 +46,9 @@ export default function BookingSummary() {
         <p>Number of rooms: {selectedHotel.numRooms}</p>
         <p>Additional guests: {selectedHotel.additionalPerson}</p>
         <p>Type Room: {selectedHotel.types}</p>
-        <p>{`${Number(selectedHotel.guests)} Guest, 1 ${title}, ${selectedHotel.days
-          } Night`}</p>
+        <p>{`${Number(selectedHotel.guests)} Guest, 1 ${title}, ${
+          selectedHotel.days
+        } Night`}</p>
       </div>
       <div className="summary__payment-detail">
         <h3>Payment Details</h3>
@@ -49,13 +57,12 @@ export default function BookingSummary() {
             <p>Base price per night</p>
             <p>Additional cost per guest</p>
             <p>
-              Total additional cost for{" "}
-              {` ${selectedHotel.additionalPerson} `}
+              Total additional cost for {` ${selectedHotel.additionalPerson} `}
               {selectedHotel.additionalPerson === 1 ? "guest" : "guests"}
             </p>
             <p>Long stay discount</p>
             <p>Basic cost per night</p>
-            <p>{" "}</p>
+            <p> </p>
             <p>Total</p>
             <p>Tax & Service Fees</p>
             <p>Past price</p>
@@ -67,11 +74,13 @@ export default function BookingSummary() {
             <p>{`$${selectedHotel.costAdditionalPerson}`}</p>
             <p>{`$${selectedHotel.costAdditional}`}</p>
             <p>{`$${selectedHotel.discountStay}`}</p>
-            <p>{" "}</p>
+            <p> </p>
             <p>{`$${selectedHotel.costBaseNight}`}</p>
             <p>{`+ $${selectedHotel.total}`}</p>
             <p>{`+ $${selectedHotel.taxes}`}</p>
-            <p><s>{`$${selectedHotel.pastPrice}`}</s></p>
+            <p>
+              <s>{`$${selectedHotel.pastPrice}`}</s>
+            </p>
             <p>{`- $${selectedHotel.discount}`}</p>
             <p>{`$${selectedHotel.actualPrice}`}</p>
           </div>
@@ -81,7 +90,9 @@ export default function BookingSummary() {
           <p>{`$${selectedHotel.actualPrice}`}</p>
         </div>
       </div>
-      <Link to="/checkout"><input className="info__pay-btn" type="submit" value="PAY NOW" /></Link>
+      <Link to="/checkout">
+        <input className="info__pay-btn" type="submit" value="PAY NOW" />
+      </Link>
     </div>
   );
 }

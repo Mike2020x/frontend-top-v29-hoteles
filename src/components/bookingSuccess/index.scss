@@ -1,10 +1,12 @@
 .success {
   display: flex;
-  margin: 10px;
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
 
   &__img {
     width: 80vw;
@@ -15,10 +17,45 @@
     background: #ef3f3f;
     border: none;
     color: #fff;
-    padding: 10px;
+    padding: 12px 24px; // Aumentamos el padding para más espacio en los botones
+    font-size: 16px; // Tamaño de letra más grande
     font-weight: bold;
+    border-radius: 8px; // Bordes redondeados para los botones
 
+    // Agregamos efecto al pasar el cursor sobre los botones
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #d32f2f; // Cambiamos el color al pasar el cursor
+    }
+
+    &:focus {
+      outline: none; // Quitamos el borde de enfoque al hacer clic
+    }
   }
+}
+
+$color-azul: #0647b8; // Azul intenso
+$color-dorado: #ffbf00; // Dorado vibrante
+$color-plateado: #c0c0c0; // Plateado elegante
+
+$color-fascinante: mix($color-azul, mix($color-dorado, $color-plateado, 50%), 25%);
+
+.content__summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50vh;
+  width: 90%; // Ajustamos el ancho para que no ocupe toda la pantalla
+  max-width: 800px; // Limitamos el ancho máximo del recuadro
+  background-color: white; // Cambiamos el color de fondo del recuadro
+  margin: 0 auto;
+  padding: 20px; // Añadimos espacio interno al recuadro
+  border: 2px solid $color-fascinante; // Añadimos borde al recuadro
+  border-radius: 10px; // Redondeamos los bordes del recuadro
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); // Agregamos una sombra al recuadro
 }
 
 @media screen and (min-width: 1095px) {
