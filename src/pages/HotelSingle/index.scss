@@ -13,7 +13,7 @@
   &--room {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
   }
 }
 
@@ -147,14 +147,13 @@
   }
 
   &--extras {
-    margin-left: 20px;
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     gap: 30px;
 
     @media (max-width: 1120px) {
-      margin-left: 20px;
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
@@ -173,16 +172,33 @@
   }
 }
 
-.hotelSingle__rooms {
-  width: 70vw;
-}
-
 @media (min-width: 375px) {
   .hotelSingle__show,
   .free__buttons,
   .text__show,
   .title__big {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .hotelSingle {
+    &__rooms {
+      width: 90%;
+    }
+
+    &__body {
+      &--info {
+        width: 92%;
+      }
+    }
+  }
+
+  .content__hotelSingle {
+    &--menu {
+      width: 90%;
+    }
   }
 }
 
@@ -293,7 +309,7 @@
   }
 }
 
-@media (max-width: 1027px) {
+@media (max-width: 1026px) {
   .hotelSingle__payment {
     button {
       background-color: white;
@@ -364,10 +380,5 @@
         display: none;
       }
     }
-  }
-
-  .hotelSingle__rooms {
-    width: 80vw;
-    padding: 0;
   }
 }

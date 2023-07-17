@@ -1,6 +1,6 @@
 .content__room {
-  padding: 15px 0;
-  margin: 15px 0;
+  padding: 15px;
+  margin: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -19,6 +19,7 @@
   &--characteristics {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 
     img {
       margin-right: 20px;
@@ -118,6 +119,13 @@
   }
 }
 
+@media Screen and (max-width: 600px) {
+  .content__room {
+    margin: 0;
+    width: 100%;
+  }
+}
+
 @media Screen and (min-width: 810px) {
   .content__room {
     display: flex;
@@ -129,9 +137,21 @@
   }
 }
 
-@media Screen and (max-width: 1115px) {
+@media Screen and (max-width: 1077px) and (min-width: 601px) {
   .content__room {
-    width: 70vw;
+    width: 60vw;
+  }
+}
+
+@media Screen and (max-width: 1115px) and (min-width: 1078px) {
+  .content__room {
+    width: 67vw;
+  }
+}
+
+@media Screen and (min-width: 1116px) {
+  .content__room {
+    width: 55vw;
   }
 }
 

@@ -1,0 +1,9 @@
+$color-azul: #0647B8; // Azul intenso
+$color-dorado: #FFBF00; // Dorado vibrante
+$color-plateado: #C0C0C0; // Plateado elegante
+
+$color-fascinante: mix($color-azul, mix($color-dorado, $color-plateado, 50%), 25%);
+
+.content__data--hotels {
+  background-color: $color-fascinante;
+}
