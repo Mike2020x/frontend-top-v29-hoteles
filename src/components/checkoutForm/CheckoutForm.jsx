@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import "./index.scss"
 import { useHotel } from "../../context"
+import { Link } from "react-router-dom";
 
 
 export default function CheckoutForm() {
@@ -44,7 +45,9 @@ export default function CheckoutForm() {
 
     <form onSubmit={handleSubmit} className="form">
       <CardElement />
-      <button type="submit" className="pay-btn">Pay</button>
+      <Link to="/booking-success">
+      <button type="submit" className="pay-btn">Pay Now</button>
+      </Link>
     </form >
   )
 }

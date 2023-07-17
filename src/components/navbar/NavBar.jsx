@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUser, faGear, faCircleCheck, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faUser, faGear, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'
 
 import "./index.scss";
@@ -15,8 +15,8 @@ export default function NavBar() {
   return (
     <nav className={`navigation__bar ${showSidebar ? 'show-sidebar' : ''}`}>
       <div className="navigation__bar--logo">
-        <FontAwesomeIcon icon={faCircleCheck} size="2xl" />
-        <h1>MIR</h1>
+        <img src="/vite.svg" alt="logo-MIR" width="30px"/>
+        <h1>M I R</h1>
       </div>
       <ul className="navigation__bar--items">
         <li><a href="/" >HOME</a></li>
