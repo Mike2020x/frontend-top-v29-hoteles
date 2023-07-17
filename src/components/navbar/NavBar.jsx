@@ -20,7 +20,7 @@ export default function NavBar() {
       </div>
       <ul className="navigation__bar--items">
         <li><a href="/" >HOME</a></li>
-        <li><a href="/pages" >PAGES</a></li>
+        <li><a href="/hotels" >HOTELS</a></li>
       </ul>
       <div className="navigation__bar--content">
         <button onClick={toggleSidebar} className="nav-bar__buttons--item">

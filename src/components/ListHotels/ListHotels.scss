@@ -5,11 +5,12 @@ $color-plateado: #C0C0C0; // Plateado elegante
 $color-fascinante: mix($color-azul, mix($color-dorado, $color-plateado, 50%), 25%);
 
 .content__listHotels {
-  margin: 20px 0;
+  padding: 20px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+  background-color: $color-fascinante;
   gap: 18px;
 
   &--buttons {
